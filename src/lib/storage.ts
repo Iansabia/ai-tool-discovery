@@ -101,6 +101,31 @@ export function safeSet<T>(key: string, value: T, version: number): void {
 }
 
 /**
+ * Remove a key from localStorage and dispatch a synthetic `storage` event so
+ * same-tab subscribers update immediately. Used by `authStore.signOut()` and
+ * the touch-session-expired path so we don't need to persist a null envelope.
+ *
+ * Living here (rather than in feature code) keeps the
+ * `lint:no-direct-localstorage` script clean — the lint excludes `src/lib`.
+ */
+export function safeRemove(key: string): void {
+  try {
+    const oldValue = localStorage.getItem(key)
+    if (oldValue === null) return
+    localStorage.removeItem(key)
+    window.dispatchEvent(
+      new StorageEvent("storage", {
+        key,
+        oldValue,
+        newValue: null,
+      }),
+    )
+  } catch (err) {
+    console.warn(`[storage] remove failed for ${key}`, err)
+  }
+}
+
+/**
  * Subscribe to changes on a single localStorage key (same-tab and cross-tab).
  * Returns an unsubscribe function.
  *
