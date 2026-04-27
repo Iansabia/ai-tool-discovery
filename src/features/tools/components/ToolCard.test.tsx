@@ -155,26 +155,23 @@ describe("ToolCard", () => {
     expect(toast.success).toHaveBeenCalledWith("Removed from favorites")
   })
 
-  it("TC9: clicking heart does NOT navigate (preventDefault + stopPropagation)", async () => {
+  it("TC9: clicking heart does NOT bubble to a parent click handler (stopPropagation)", async () => {
     setGuestSession()
     const user = userEvent.setup()
-    renderCard()
-    const heart = screen.getByRole("button", { name: /favorite/i })
-    // Spy on the click event's defaultPrevented after click.
-    let defaultPreventedSeen = false
-    heart.addEventListener(
-      "click",
-      (e) => {
-        // The component's onClick runs first (React synthetic), but we check after
-        // the React handler — in DOM listeners, this fires after React's synthetic
-        // handler when both are on the same element. The component sets
-        // preventDefault/stopPropagation in its handler.
-        defaultPreventedSeen = e.defaultPrevented
-      },
-      { capture: false },
+    const parentClick = vi.fn()
+    render(
+      <MemoryRouter>
+        <div onClick={parentClick} data-testid="parent">
+          <ToolCard tool={SAMPLE_TOOL} />
+        </div>
+      </MemoryRouter>,
     )
-    await user.click(heart)
-    expect(defaultPreventedSeen).toBe(true)
+    await user.click(screen.getByRole("button", { name: /favorite/i }))
+    // The heart's onClick calls stopPropagation, so the wrapping div MUST NOT
+    // see the click event. If propagation bubbled, parentClick would fire.
+    expect(parentClick).not.toHaveBeenCalled()
+    // And the favorite still toggled — the heart action ran.
+    expect(toast.success).toHaveBeenCalledWith("Added to favorites")
   })
 
   it("TC10: when userId is null (signed out), heart click is a no-op", async () => {

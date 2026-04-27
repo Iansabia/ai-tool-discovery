@@ -24,11 +24,12 @@ describe("useSavedComparisonsStore", () => {
     useSavedComparisonsStore.getState().add("u1", "claude", "chatgpt")
     const list = useSavedComparisonsStore.getState().list("u1")
     expect(list).toHaveLength(1)
-    expect(list[0].a).toBe("chatgpt") // sorted ascending: chatgpt < claude
-    expect(list[0].b).toBe("claude")
-    expect(typeof list[0].savedAt).toBe("string")
+    const entry = list[0]!
+    expect(entry.a).toBe("chatgpt") // sorted ascending: chatgpt < claude
+    expect(entry.b).toBe("claude")
+    expect(typeof entry.savedAt).toBe("string")
     // ISO 8601 string parses cleanly
-    expect(Number.isFinite(Date.parse(list[0].savedAt))).toBe(true)
+    expect(Number.isFinite(Date.parse(entry.savedAt))).toBe(true)
   })
 
   it("SC3: add(userId, b, a) AFTER SC2 is a no-op (de-duplicated by sorted slug pair)", async () => {
@@ -44,9 +45,10 @@ describe("useSavedComparisonsStore", () => {
     // Pass in reverse order — store should canonicalize
     useSavedComparisonsStore.getState().add("u1", "claude", "chatgpt")
     const list = useSavedComparisonsStore.getState().list("u1")
-    expect(list[0].a < list[0].b).toBe(true)
-    expect(list[0].a).toBe("chatgpt")
-    expect(list[0].b).toBe("claude")
+    const entry = list[0]!
+    expect(entry.a < entry.b).toBe(true)
+    expect(entry.a).toBe("chatgpt")
+    expect(entry.b).toBe("claude")
   })
 
   it("SC5: remove(userId, a, b) deletes the entry; list returns []", async () => {
@@ -90,8 +92,9 @@ describe("useSavedComparisonsStore", () => {
     const { useSavedComparisonsStore } = await import("./store")
     const list = useSavedComparisonsStore.getState().list("u1")
     expect(list).toHaveLength(1)
-    expect(list[0].a).toBe("chatgpt")
-    expect(list[0].b).toBe("claude")
-    expect(list[0].savedAt).toBe("2026-04-26T12:00:00.000Z")
+    const entry = list[0]!
+    expect(entry.a).toBe("chatgpt")
+    expect(entry.b).toBe("claude")
+    expect(entry.savedAt).toBe("2026-04-26T12:00:00.000Z")
   })
 })
