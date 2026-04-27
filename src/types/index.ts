@@ -1,0 +1,106 @@
+// src/types/index.ts
+// Phase 1 / Plan 01-03 — domain interfaces for the AI Tools Discovery platform.
+// Every consumer of these types lives in a feature folder created in Phase 2 or later.
+
+/**
+ * The 10 canonical categories defined in CONTEXT. The slug is the primary key
+ * for category lookups — name is the human-readable label and lives on Category.
+ */
+export type CategorySlug =
+  | "writing"
+  | "coding"
+  | "research"
+  | "image"
+  | "audio"
+  | "video"
+  | "productivity"
+  | "design"
+  | "data"
+  | "marketing"
+
+export type PricingTier = "Free" | "Freemium" | "Paid"
+
+/** A vote per (user, tool). State-machine shape: clicking the same vote toggles to "none". */
+export type Vote = "none" | "up" | "down"
+
+export interface Category {
+  slug: CategorySlug
+  name: string
+  description: string
+  icon: string // lucide-react icon component name, e.g. "Pencil"
+}
+
+export interface Tool {
+  /** kebab-case URL-safe primary key. Unique across the seed dataset (build-time enforced). */
+  slug: string
+  name: string
+  tagline: string
+  description: string
+  category: CategorySlug
+  pricing: PricingTier
+  features: readonly string[]
+  url: string
+  /** seed value 1.0–5.0; live aggregation merges with reviewStore in Phase 3 */
+  rating: number
+  /** Vite-imported asset URL string (built via `import logo from "@/assets/tool-logos/<slug>.svg"`) */
+  logo: string
+}
+
+export interface User {
+  /** uuid v4 — `crypto.randomUUID()` */
+  id: string
+  email: string
+  username: string
+  displayName: string
+  /** mock — base64(email + ":" + password). NOT secure; demo only. */
+  passwordHash: string
+  interests: CategorySlug[]
+  /** tool slugs selected during onboarding step 2 */
+  selectedTools: string[]
+  /** ISO 8601 datetime */
+  createdAt: string
+}
+
+export interface Session {
+  userId: string
+  /** mock random token (e.g. crypto.randomUUID() concatenation) */
+  token: string
+  /** ISO 8601 datetime */
+  issuedAt: string
+  /** ISO 8601 datetime — typically issuedAt + 7 days */
+  expiresAt: string
+}
+
+export interface Review {
+  id: string
+  toolSlug: string
+  userId: string
+  /** denormalized so deleting/renaming users doesn't break already-rendered reviews */
+  username: string
+  /** integer 1–5 */
+  rating: number
+  title: string
+  body: string
+  createdAt: string
+}
+
+export interface UpvoteRecord {
+  toolSlug: string
+  userId: string
+  vote: Vote
+  /** ISO 8601 datetime; updated on every vote change */
+  votedAt: string
+}
+
+export interface Submission {
+  id: string
+  submitterId: string
+  name: string
+  url: string
+  category: CategorySlug
+  description: string
+  tags: string[]
+  /** Always "pending" in v1 (no server moderation). */
+  status: "pending" | "approved" | "rejected"
+  submittedAt: string
+}
