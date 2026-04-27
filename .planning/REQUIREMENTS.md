@@ -45,19 +45,19 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DISC-04**: Each personalized recommendation displays a "Recommended because you picked [Category]" reasoning line
 - [x] **DISC-05**: All Categories page (`/categories`) shows every category with tool counts
 - [x] **DISC-06**: Category detail page (`/categories/:slug`) lists all tools in that category
-- [ ] **DISC-07**: Search bar in header navigates to `/search?q=...` and renders matching tools (fuzzy match via fuse.js)
-- [ ] **DISC-08**: Search empty state renders when no tools match the query, with suggestions to browse categories
+- [x] **DISC-07**: Search bar in header navigates to `/search?q=...` and renders matching tools (fuzzy match via fuse.js)
+- [x] **DISC-08**: Search empty state renders when no tools match the query, with suggestions to browse categories
 
 ### Tool Detail
 
-- [ ] **TOOL-01**: Tool detail page (`/tools/:slug`) renders unique content for every tool in the dataset, sourced from `tools.find(t => t.slug === slug)`
-- [ ] **TOOL-02**: Tool detail page shows tool name, description, category, pricing tier, key features, and external link
-- [ ] **TOOL-03**: Tool detail page includes a Compare button that routes to `/compare/:slug` (the picker step for choosing the second tool)
-- [ ] **TOOL-04**: Tool detail page includes a Favorite button that toggles favorite state and persists per user
-- [ ] **TOOL-05**: Tool detail page includes a Write Review button that opens the review modal
-- [ ] **TOOL-06**: Tool detail page lists existing reviews for that tool with rating, author display name, and review text
-- [ ] **TOOL-07**: Tool detail page renders a NotFound state when slug does not match any tool
-- [ ] **TOOL-08**: Direct URL navigation to `/tools/:slug` works without prior navigation (no broken refresh, no auth gate)
+- [x] **TOOL-01**: Tool detail page (`/tools/:slug`) renders unique content for every tool in the dataset, sourced from `tools.find(t => t.slug === slug)`
+- [x] **TOOL-02**: Tool detail page shows tool name, description, category, pricing tier, key features, and external link
+- [x] **TOOL-03**: Tool detail page includes a Compare button that routes to `/compare/:slug` (the picker step for choosing the second tool)
+- [x] **TOOL-04**: Tool detail page includes a Favorite button that toggles favorite state and persists per user
+- [x] **TOOL-05**: Tool detail page includes a Write Review button that opens the review modal
+- [x] **TOOL-06**: Tool detail page lists existing reviews for that tool with rating, author display name, and review text
+- [x] **TOOL-07**: Tool detail page renders a NotFound state when slug does not match any tool
+- [x] **TOOL-08**: Direct URL navigation to `/tools/:slug` works without prior navigation (no broken refresh, no auth gate)
 
 ### Compare
 
@@ -189,16 +189,16 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 | DISC-04 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
 | DISC-05 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
 | DISC-06 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
-| DISC-07 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| DISC-08 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| TOOL-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| TOOL-02 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| TOOL-03 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| TOOL-04 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| TOOL-05 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| TOOL-06 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| TOOL-07 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| TOOL-08 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| DISC-07 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| DISC-08 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| TOOL-01 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| TOOL-02 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| TOOL-03 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| TOOL-04 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| TOOL-05 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| TOOL-06 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| TOOL-07 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| TOOL-08 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
 | COMP-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | COMP-02 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | COMP-03 | Phase 3: Feature Breadth (Ugly But Working) | Pending |

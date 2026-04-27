@@ -3,24 +3,24 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-02-PLAN.md (Phase 3 Wave 2 done — 4 discovery pages live)
-last_updated: "2026-04-27T22:05:58.009Z"
+stopped_at: Completed 03-03-PLAN.md (Phase 3 Wave 2/3 — Search + ToolDetailPage live; 11 requirements satisfied)
+last_updated: "2026-04-27T22:08:00Z"
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 16
-  completed_plans: 11
+  completed_plans: 12
 ---
 
 # Project State: AI Tools Discovery Platform
 
-**Last updated:** 2026-04-27 (Plan 03-02 complete — Landing + Home + Categories + CategoryDetail discovery pages live; Phase 3 Wave 2 done; DISC-01..06 satisfied)
+**Last updated:** 2026-04-27 (Plan 03-03 complete — Fuse.js search end-to-end + URL-driven ToolDetailPage with action row + reviews list; DISC-07, DISC-08, TOOL-01..08, UX-01 satisfied)
 
 ## Project Reference
 
 **Core value:** Help students find and choose AI tools faster — every tool has its own real detail page, every comparison reflects the user's actual choice, and every action gives clear, immediate feedback.
 
-**Current focus:** Phase 3 Wave 2 COMPLETE. Plan 03-02 shipped four discovery pages: LandingPage (hero + 3 CTAs + 3 value pillars + trusted-by row), HomePage (interest-based personalized recommendations with "Recommended because you picked X"), CategoriesPage (10-category grid with derived counts), CategoryDetailPage (URL-driven filtered grid + NotFound + empty state). DISC-01..06 satisfied. Plan 03-03 (Wave 3: Search + Tool Detail) ran in parallel — already created `src/features/search/` (SearchBar, SearchPage). Next is completing 03-03, then Plans 03-04 through 03-07.
+**Current focus:** Phase 3 Wave 2 + parallel Wave 3 portions COMPLETE. Plan 03-03 shipped fuse.js search index + Header SearchBar (300ms debounced autocomplete) + SearchPage (results + empty state with 3-category fallback chips) + URL-driven ToolDetailPage (header + description + features + Compare/Favorite/Write-Review action row + reviews list with empty state + NotFound on bad slug). The "everything is Claude" prototype bug class is structurally prevented (TD1, TD2, TD3 prove three different slugs render three different tools). Write Review Dialog body is a placeholder Plan 03-04 will swap with one line. Next is Plan 03-04 (Wave 3: Reviews modal — fills the placeholder).
 
 **Stack:** Vite + React 18 + TypeScript + Tailwind v4 + shadcn/ui + react-router v7 + Zustand + Zod v3 + react-hook-form + sonner + next-themes + fuse.js + motion v12
 
@@ -29,25 +29,25 @@ progress:
 ## Current Position
 
 **Phase:** 3 — Feature Breadth (Ugly But Working)
-**Plan:** 03-02 complete. Next is 03-03 (Wave 3: Search + Tool Detail) — partially in flight via parallel agent.
+**Plan:** 03-03 complete. Next is 03-04 (Wave 3: Reviews modal — swaps the ToolDetailPage Dialog placeholder for the real form).
 **Status:** Ready to execute next plan
 
-**Overall progress:** [▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱] 11/16 plans across all phases (~69%); 2/5 phases complete
+**Overall progress:** [▰▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱] 12/16 plans across all phases (~75%); 2/5 phases complete
 
 | Phase | Status | Progress |
 |-------|--------|----------|
 | 1. Foundation | Complete | 5/5 plans (100%) |
 | 2. Auth + Persistence Stores | Complete | 4/4 plans (100%) |
-| 3. Feature Breadth (Ugly But Working) | In Progress | 2/7 plans (29%) |
+| 3. Feature Breadth (Ugly But Working) | In Progress | 3/7 plans (43%) |
 | 4. Polish, Dark Mode, Accessibility | Not started | 0% |
 | 5. Pre-Demo Hardening | Not started | 0% |
 
 ## Performance Metrics
 
-**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 39/70 marked complete (FOUND-01..07, DATA-01..03, UX-01, UX-03, UX-06, UX-07, UX-08, AUTH-01..09, ONBO-01..06, COMP-10, USER-04, DISC-01..06)
+**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 50/70 marked complete (FOUND-01..07, DATA-01..03, UX-01, UX-03, UX-06, UX-07, UX-08, AUTH-01..09, ONBO-01..06, COMP-10, USER-04, DISC-01..08, TOOL-01..08)
 **Phases:** 5 (coarse granularity, within 4-6 target)
-**Plans completed:** 11 (5 Phase 1 + 4 Phase 2 + 03-01 + 03-02). Phase 2 COMPLETE; Phase 3 IN PROGRESS (2/7 done).
-**Commits:** Phase 1 + 02-01 (177eedd, e09a80a, 4d78fde) + 02-02 (7206a54, 2267763) + 02-03 (37d36b6, 280415a) + 02-04 (7b77d9a, 560f094) + 03-01 (fe23716 shadcn, b91bb0c test, 718b955 feat) + 03-02 (62be505 Landing/Categories/CategoryDetail, 358a9d5 HomePage)
+**Plans completed:** 12 (5 Phase 1 + 4 Phase 2 + 03-01 + 03-02 + 03-03). Phase 2 COMPLETE; Phase 3 IN PROGRESS (3/7 done).
+**Commits:** Phase 1 + 02-01 (177eedd, e09a80a, 4d78fde) + 02-02 (7206a54, 2267763) + 02-03 (37d36b6, 280415a) + 02-04 (7b77d9a, 560f094) + 03-01 (fe23716 shadcn, b91bb0c test, 718b955 feat) + 03-02 (62be505 Landing/Categories/CategoryDetail, 358a9d5 HomePage) + 03-03 (ec93e3b RED, b68f653 search GREEN, 2fb2c68 ToolDetail, bd5c784 fix)
 
 | Plan | Duration | Tasks | Files | Commits |
 |------|----------|-------|-------|---------|
@@ -62,6 +62,7 @@ progress:
 | 02-04 (non-auth stores + withToast) | ~4 min | 2 | 11 | 2 task + 1 metadata |
 | Phase 03 P01 | 6 min | 2 tasks | 9 files |
 | Phase 03 P02 | 7 min | 2 tasks | 6 files |
+| Phase 03 P03 | 6 min | 2 tasks | 9 files | 4 task + 1 metadata |
 
 ## Accumulated Context
 
@@ -116,6 +117,12 @@ progress:
 - **(Plan 03-02) Invalid URL params render NotFoundPage directly, no redirect.** CategoryDetailPage's `<NotFoundPage />` on missing slug preserves URL/history semantics — broken links STAY broken with a 404 view rather than silently redirecting. Apply this pattern to ToolDetailPage, ComparePage, and any future param-bearing page.
 - **(Plan 03-02) "Skip to Demo" routes to /signin per CONTEXT.md.** Phase 5 hardening will rewire to a pre-seeded demo-user auto-fill. Self-documenting via the routing destination; no comment-marker needed.
 - **(Plan 03-02) recommendedBecause data flow: tool.category (slug) → CATEGORIES.find(c => c.slug).name (display name) → ToolCard prop.** HomePage builds a `Map(CATEGORIES.map(c => [c.slug, c.name]))` once per render for O(1) lookup. Tests assert the literal display name "Coding" (not slug "coding") to lock the mapping.
+- **(Plan 03-03) Fuse.js index built ONCE at module load.** `src/features/search/lib/fuse.ts` constructs the `new Fuse([...TOOLS], {keys, threshold: 0.4, includeMatches: false})` at file-evaluation time, not on every search call. Cheap (50-element catalog) and avoids re-indexing per keystroke. `searchTools(query, limit?)` is the consumer-facing helper — empty/whitespace queries return `[]` instead of running the search.
+- **(Plan 03-03) SearchBar uses fireEvent in tests, not userEvent.** With `vi.useFakeTimers()`, `userEvent.setup({advanceTimers})`'s `user.type` schedules its own timers between keystrokes that interlock with `vi.advanceTimersByTime` and deadlock. `fireEvent.change` drops a single React change event; `act + vi.advanceTimersByTime(350)` deterministically flushes the 300ms debounce. Apply this pattern to any future test that combines fake timers with debounced input.
+- **(Plan 03-03) ToolDetailPage subscribes to `useReviewStore.data[slug]` directly — NOT `s.data[slug] ?? []`.** The `?? []` fallback returns a fresh empty array on every store update → Zustand sees a new ref → re-render loop ("Maximum update depth exceeded"). The fix: drop the fallback in the selector (returns `undefined` for missing slug — a stable primitive) and apply the empty-array branch INSIDE `useMemo`. Apply this pattern any time a Zustand selector might return a derived array.
+- **(Plan 03-03) Hooks before early-return in ToolDetailPage.** `if (!tool) return <NotFoundPage />` MUST come AFTER all hook calls (rules-of-hooks). The `safeSlug = tool?.slug ?? ""` shim keeps the favorite/review subscriptions safe for bad-slug routes; the early-return ships NotFoundPage without breaking hook order.
+- **(Plan 03-03) Header SearchBar in `hidden md:block` slot.** v1 mobile users have no in-header search affordance — they navigate to `/search` via the nav link. Phase 4 polish can add a mobile pattern (icon button → expanded input). The three exclusive auth affordance blocks from Plan 02-02 are preserved untouched.
+- **(Plan 03-03) Write Review Dialog placeholder — exact swap point for Plan 03-04.** ToolDetailPage.tsx line 183 contains `<p className="text-sm text-muted-foreground">Review form lands in the next plan.</p>`. Plan 03-04 swaps that single `<p>` with `<WriteReviewDialog tool={tool} onSuccess={...} />`. The `Dialog`/`DialogTrigger`/`DialogHeader`/`DialogTitle`/`DialogDescription` chrome stays. The file header comment was carefully written to NOT contain the literal placeholder string, so Plan 03-04's negative-grep matches exactly one occurrence.
 
 ### Open Questions / Todos
 
@@ -132,7 +139,8 @@ progress:
 - [x] Plan 02-04 executed (favoritesStore + upvoteStore + reviewStore + submissionStore + withToast; vote state machine locked; clearByUser shipped on all 4 stores; A11/A12 un-skipped and passing — BLOCKER 2 wire complete)
 - [x] Plan 03-01 executed (Wave 1: shadcn dialog/badge/select/textarea + ToolCard + useSavedComparisonsStore; UX-01, UX-06, COMP-10, USER-04 satisfied; eslint config repaired; 201/201 tests)
 - [x] Plan 03-02 executed (Wave 2: Discovery — LandingPage, HomePage, CategoriesPage, CategoryDetailPage; DISC-01..06 satisfied; +11 tests, all passing)
-- [ ] Plan 03-03 (Wave 3: Search + Tool Detail) — partially in flight via parallel agent.
+- [x] Plan 03-03 executed (Wave 2/3: Search + Tool Detail — fuse.js index, header autocomplete, /search results page, URL-driven /tools/:slug detail page with Compare/Favorite/Write-Review action row, reviews list with empty state, Write Review Dialog placeholder for Plan 03-04 to fill; DISC-07, DISC-08, TOOL-01..08, UX-01 satisfied; +19 tests, 228 passing total)
+- [ ] Plan 03-04 (Wave 3: Reviews modal — swap the ToolDetailPage Dialog placeholder with the real WriteReviewDialog form).
 - [ ] Plans 03-04 through 03-07 across Waves 3 and 4.
 - [ ] Decide mobile responsive scope at Phase 4: PROJECT.md says "tablet required, mobile nice-to-have"; Compare table at 768px is the hardest layout
 - [x] **(Plan 01-02 carryover, completed in Plan 01-04)** src/App.tsx now wraps RouterProvider in ThemeProvider; Toaster mounts at App.tsx root; src/index.css updated with brand override variables (--primary emerald, --accent orange) for both :root and .dark.
@@ -154,9 +162,9 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-27T22:05:57.999Z
-**Next action:** Execute Plan 03-03 (Wave 3: Search + Tool Detail). Search page: fuse.js fuzzy search with debounced autocomplete dropdown (300ms), Enter routes to /search?q=...; Tool Detail page: per-tool unique content with header (logo + name + tagline + pricing badge + category chip + URL), description, key features, action row (Compare/Favorite/Write Review), reviews list. Plan 03-03 is partially in flight — parallel agent already created `src/features/search/` (SearchBar + SearchPage tests committed at ec93e3b).
-**Stopped at:** Completed 03-02-PLAN.md (Phase 3 Wave 2 done — 4 discovery pages live)
+**Last session:** 2026-04-27T22:08:00Z
+**Next action:** Execute Plan 03-04 (Wave 3: Reviews modal). Replace the placeholder `<p>` inside the Write Review Dialog at `src/pages/ToolDetailPage.tsx:183` with `<WriteReviewDialog tool={tool} onSuccess={() => setReviewOpen(false)} />`. Build WriteReviewDialog with star rating (required, 1-5 integer), title (optional ≤80 chars), body (required ≤500 chars). Persists via `useReviewStore.getState().add(...)`. Emits "Review posted" toast.
+**Stopped at:** Completed 03-03-PLAN.md (Phase 3 Wave 2/3 — Search + ToolDetailPage live; 11 requirements satisfied)
 
 **Files of record:**
 - `.planning/PROJECT.md` — vision, scope, constraints, key decisions
