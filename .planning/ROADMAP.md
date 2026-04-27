@@ -68,7 +68,13 @@ Plans:
 4. All non-auth Zustand stores exist and persist to namespaced localStorage keys before any feature UI is built — `favoritesStore`, `upvoteStore` (with `'none' | 'up' | 'down'` per-(user,tool) state machine), `reviewStore`, `submissionStore` — each with version field, Zod-validated reads, and a single write path through the persist middleware.
 5. Form validation displays inline errors for invalid email, weak password, and mismatched confirm-password; the mock forgot-password flow shows the same reassuring success state regardless of whether the email exists.
 
-**Plans**: TBD (1-3 plans, parallelizable after stores are scaffolded)
+**Plans**: 4 plans
+
+Plans:
+- [ ] 02-auth-persistence-stores/02-01-PLAN.md — Wave 1: Web Crypto password helpers + authStore (sliding 30d, guest mode, generic sign-in errors) + usersStore (mock DB) — TDD
+- [ ] 02-auth-persistence-stores/02-02-PLAN.md — Wave 2: install rhf+resolvers+shadcn forms; real ProtectedRoute (return_to round-trip); SignIn + SignUp + ForgotPassword forms + Header SignOut
+- [ ] 02-auth-persistence-stores/02-03-PLAN.md — Wave 3: split /onboarding into /interests + /tools; toggleable-chip wizard with back-nav state preservation, Continue/Finish/Skip flow
+- [ ] 02-auth-persistence-stores/02-04-PLAN.md — Wave 4: favoritesStore + upvoteStore (vote state machine, all 6 transitions) + reviewStore + submissionStore + withToast utility — TDD
 
 ---
 
@@ -134,7 +140,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 5/5 | Complete    | 2026-04-27 |
-| 2. Auth + Persistence Stores | 0/? | Not started | - |
+| 2. Auth + Persistence Stores | 0/4 | Not started | - |
 | 3. Feature Breadth (Ugly But Working) | 0/? | Not started | - |
 | 4. Polish, Dark Mode, Accessibility | 0/? | Not started | - |
 | 5. Pre-Demo Hardening | 0/? | Not started | - |
