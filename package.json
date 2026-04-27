@@ -1,0 +1,22 @@
+{
+  "name": "ai-tools-discovery",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "typecheck": "tsc --noEmit || echo 'tsconfig not yet present (created in Plan 02)'",
+    "lint:no-direct-localstorage": "! grep -RInE 'localStorage\\.(set|get|remove|clear)Item' src/ --exclude-dir=src/lib --exclude=src/lib/storage.ts 2>/dev/null"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/jest-dom": "^6.4.0",
+    "@testing-library/dom": "^10.0.0",
+    "@testing-library/user-event": "^14.5.0",
+    "jsdom": "^25.0.0",
+    "@types/node": "^22.0.0"
+  }
+}
