@@ -58,7 +58,12 @@ describe("router", () => {
     const router = createMemoryRouter(routes, { initialEntries: ["/tools/chatgpt"] })
     render(<RouterProvider router={router} />)
     expect(screen.getByTestId("page-tool-detail")).toBeInTheDocument()
-    expect(screen.getByTestId("param-slug")).toHaveTextContent("chatgpt")
+    // Plan 03-03 replaced the placeholder param-slug testid with the real
+    // detail page. URL-as-source-of-truth still proven by rendering the
+    // tool's name (sourced from TOOLS.find(t => t.slug === "chatgpt")).
+    expect(
+      screen.getByRole("heading", { level: 1, name: "ChatGPT" }),
+    ).toBeInTheDocument()
   })
 
   it("renders ComparePage with both params from URL at /compare/:a/vs/:b", () => {
