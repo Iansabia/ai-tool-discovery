@@ -9,7 +9,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUND-01**: Vite + React 18 + TypeScript + Tailwind v4 + shadcn/ui project scaffolded with `@/` path alias and dev server running
+- [x] **FOUND-01**: Vite + React 18 + TypeScript + Tailwind v4 + shadcn/ui project scaffolded with `@/` path alias and dev server running
 - [ ] **FOUND-02**: Router skeleton registers every route (`/`, `/signin`, `/signup`, `/forgot-password`, `/onboarding`, `/home`, `/categories`, `/categories/:slug`, `/tools/:slug`, `/compare/:a`, `/compare/:a/vs/:b`, `/search`, `/favorites`, `/profile`, `/rankings`, `/submit`, `/submit/success`, `*`)
 - [ ] **FOUND-03**: AppShell component renders Header, Footer, and a single `<Toaster />` mounted at root
 - [ ] **FOUND-04**: TypeScript interfaces defined for Tool, Category, User, Session, Review, Vote, Submission with required `slug` field on Tool
@@ -162,7 +162,7 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1: Foundation | Pending |
+| FOUND-01 | Phase 1: Foundation | Complete |
 | FOUND-02 | Phase 1: Foundation | Pending |
 | FOUND-03 | Phase 1: Foundation | Pending |
 | FOUND-04 | Phase 1: Foundation | Pending |

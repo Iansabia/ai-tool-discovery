@@ -46,7 +46,7 @@ This roadmap encodes three load-bearing decisions from research:
 
 Plans:
 - [x] 01-foundation/01-01-PLAN.md — Wave 0: Vitest test infrastructure (config, setup, sanity test, npm scripts) ✓ 2026-04-27
-- [ ] 01-foundation/01-02-PLAN.md — Wave 1: Vite + React + TS + Tailwind v4 + shadcn/ui scaffold via shadcn CLI; install runtime deps; enable TS strict + noUncheckedIndexedAccess; add button/card/sonner primitives
+- [x] 01-foundation/01-02-PLAN.md — Wave 1: Vite + React + TS + Tailwind v4 + shadcn/ui scaffold via shadcn CLI; install runtime deps; enable TS strict + noUncheckedIndexedAccess; add button/card/sonner primitives ✓ 2026-04-27
 - [ ] 01-foundation/01-03-PLAN.md — Wave 2: Domain types (Tool/Category/User/Session/Review/UpvoteRecord/Submission), storage helper (namespaced + Zod-validated + same/cross-tab events), build-time slug + logo validators, all with Vitest coverage
 - [ ] 01-foundation/01-04-PLAN.md — Wave 3: Router (18 routes), AppShell + Toaster mount, brand tokens (CSS vars for :root and .dark), inline FOUC script, next-themes ThemeProvider + ThemeToggle, ProtectedRoute stub, placeholder pages with useParams, multi-tab theme consistency
 - [ ] 01-foundation/01-05-PLAN.md — Wave 4: Categories seed (10), Tools seed (50+), real brand SVG logos (no fallbacks), wire build-time validators in tools.ts, SPA fallback configs (vercel.json + Netlify _redirects), check-logos CLI script
@@ -133,7 +133,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/5 | In Progress | - |
+| 1. Foundation | 2/5 | In Progress | - |
 | 2. Auth + Persistence Stores | 0/? | Not started | - |
 | 3. Feature Breadth (Ugly But Working) | 0/? | Not started | - |
 | 4. Polish, Dark Mode, Accessibility | 0/? | Not started | - |
