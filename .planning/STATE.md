@@ -1,12 +1,12 @@
 # Project State: AI Tools Discovery Platform
 
-**Last updated:** 2026-04-26 (initialization)
+**Last updated:** 2026-04-27 (Plan 01-01 complete)
 
 ## Project Reference
 
 **Core value:** Help students find and choose AI tools faster — every tool has its own real detail page, every comparison reflects the user's actual choice, and every action gives clear, immediate feedback.
 
-**Current focus:** Roadmap defined; ready to plan Phase 1 (Foundation).
+**Current focus:** Phase 1 (Foundation) — Plan 01-01 complete (test infrastructure). Ready for Plan 01-02 (Vite + shadcn/ui scaffold).
 
 **Stack:** Vite + React 18 + TypeScript + Tailwind v4 + shadcn/ui + react-router v7 + Zustand + Zod v3 + react-hook-form + sonner + next-themes + fuse.js + motion v12
 
@@ -14,15 +14,15 @@
 
 ## Current Position
 
-**Phase:** 1 — Foundation (not started)
-**Plan:** None yet (run `/gsd:plan-phase 1`)
-**Status:** Roadmap approved, awaiting first plan
+**Phase:** 1 — Foundation (in progress)
+**Plan:** 01-01 complete; next is 01-02 (Vite + shadcn/ui scaffold)
+**Status:** Test infrastructure landed; 1/5 plans done in Phase 1
 
-**Overall progress:** [▱▱▱▱▱▱▱▱▱▱] 0/5 phases (0%)
+**Overall progress:** [▰▱▱▱▱▱▱▱▱▱] 1/25 plans across all phases (~4%); 0/5 phases complete
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| 1. Foundation | Not started | 0% |
+| 1. Foundation | In progress | 1/5 plans (20%) |
 | 2. Auth + Persistence Stores | Not started | 0% |
 | 3. Feature Breadth (Ugly But Working) | Not started | 0% |
 | 4. Polish, Dark Mode, Accessibility | Not started | 0% |
@@ -32,8 +32,12 @@
 
 **Requirements coverage:** 70/70 v1 requirements mapped to phases (100%)
 **Phases:** 5 (coarse granularity, within 4-6 target)
-**Plans completed:** 0
-**Commits:** 0 in current phase
+**Plans completed:** 1
+**Commits:** 2 task commits in current phase (a5c01bf, d77def5)
+
+| Plan | Duration | Tasks | Files | Commits |
+|------|----------|-------|-------|---------|
+| 01-01 (test infrastructure) | 2 min | 2 | 5 | 2 task + 1 metadata |
 
 ## Accumulated Context
 
@@ -45,12 +49,17 @@
 - **Breadth before polish.** Phase 3 ships every feature ugly-but-working. Phase 4 is polish. No interleaving.
 - **Pre-demo hardening is its own phase.** Fresh-browser walkthrough, production build, deploy smoke test, demo account auto-fill — all gated to Phase 5 to prevent demo-day fresh-browser bugs.
 - **Zod v3, not v4.** `@hookform/resolvers@5.2` has TypeScript overload issues with Zod v4.3 as of March 2026.
+- **(Plan 01-01) JSX in test files via automatic runtime + .test.tsx extension.** vitest.config.ts has `esbuild: { jsx: "automatic" }`; test files containing JSX use `.test.tsx`. No `import React` needed in tests.
+- **(Plan 01-01) npm scripts invoke local binaries via `node ./node_modules/<pkg>/<bin>`.** The working directory contains a colon (`UI:UX Final`) which corrupts npm's PATH augmentation. All npm scripts that reference local binaries must use direct node invocation, not bare names like `vitest` or `vite`. This rule applies to ALL future plans.
 
 ### Open Questions / Todos
 
-- [ ] Plan Phase 1 (run `/gsd:plan-phase 1`)
-- [ ] Decide logo asset strategy in Phase 1: source from each tool's brand kit vs. generic placeholder mark + name fallback (research flagged this as a gap)
+- [x] Plan Phase 1 (5 plans defined)
+- [x] Plan 01-01 executed (test infrastructure)
+- [ ] Plan 01-02: Vite + shadcn/ui scaffold — must MERGE into existing package.json, must preserve direct-node script invocations, will create tsconfig.json (typecheck script becomes useful)
+- [ ] Decide logo asset strategy in Phase 1: source from each tool's brand kit vs. generic placeholder mark + name fallback (research flagged this as a gap) — relevant to Plan 01-04 or 01-05 (seed data)
 - [ ] Decide mobile responsive scope at Phase 4: PROJECT.md says "tablet required, mobile nice-to-have"; Compare table at 768px is the hardest layout
+- [ ] **(Plan 01-01 carryover)** When Plan 02 runs `npx shadcn@latest init`, ensure it does not overwrite the four existing scripts (test, test:run, typecheck, lint:no-direct-localstorage). Manually merge if needed.
 
 ### Blockers
 
@@ -69,8 +78,9 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-26 — initialization, requirements definition, research, roadmap creation
-**Next action:** `/gsd:plan-phase 1` to break Phase 1 into executable plans
+**Last session:** 2026-04-27 — completed Plan 01-01 (Wave 0 test infrastructure)
+**Next action:** Execute Plan 01-02 (Vite + shadcn/ui scaffold)
+**Stopped at:** Completed 01-01-PLAN.md
 
 **Files of record:**
 - `.planning/PROJECT.md` — vision, scope, constraints, key decisions
