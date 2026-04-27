@@ -39,12 +39,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Discovery
 
-- [ ] **DISC-01**: Landing page (`/`) renders hero ("Discover the best AI tools for any task"), three value pillars (Discover/Compare/Community), and trusted-by row
-- [ ] **DISC-02**: Landing page provides "Get Started — Free" and "Browse Tools" CTAs plus "Skip to Demo" entry point
-- [ ] **DISC-03**: Logged-in home (`/home`) shows personalized recommendations based on user's selected interests
-- [ ] **DISC-04**: Each personalized recommendation displays a "Recommended because you picked [Category]" reasoning line
-- [ ] **DISC-05**: All Categories page (`/categories`) shows every category with tool counts
-- [ ] **DISC-06**: Category detail page (`/categories/:slug`) lists all tools in that category
+- [x] **DISC-01**: Landing page (`/`) renders hero ("Discover the best AI tools for any task"), three value pillars (Discover/Compare/Community), and trusted-by row
+- [x] **DISC-02**: Landing page provides "Get Started — Free" and "Browse Tools" CTAs plus "Skip to Demo" entry point
+- [x] **DISC-03**: Logged-in home (`/home`) shows personalized recommendations based on user's selected interests
+- [x] **DISC-04**: Each personalized recommendation displays a "Recommended because you picked [Category]" reasoning line
+- [x] **DISC-05**: All Categories page (`/categories`) shows every category with tool counts
+- [x] **DISC-06**: Category detail page (`/categories/:slug`) lists all tools in that category
 - [ ] **DISC-07**: Search bar in header navigates to `/search?q=...` and renders matching tools (fuzzy match via fuse.js)
 - [ ] **DISC-08**: Search empty state renders when no tools match the query, with suggestions to browse categories
 
@@ -183,12 +183,12 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 | ONBO-04 | Phase 2: Auth + Persistence Stores | Pending |
 | ONBO-05 | Phase 2: Auth + Persistence Stores | Pending |
 | ONBO-06 | Phase 2: Auth + Persistence Stores | Pending |
-| DISC-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| DISC-02 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| DISC-03 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| DISC-04 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| DISC-05 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| DISC-06 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| DISC-01 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| DISC-02 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| DISC-03 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| DISC-04 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| DISC-05 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| DISC-06 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
 | DISC-07 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | DISC-08 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | TOOL-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
