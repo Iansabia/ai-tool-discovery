@@ -21,7 +21,7 @@ This roadmap encodes three load-bearing decisions from research:
 ## Phases
 
 - [x] **Phase 1: Foundation** — URL-as-truth scaffolding, types, storage layer, seed data, theme tokens, FOUC script (COMPLETE 2026-04-27)
-- [ ] **Phase 2: Auth + Persistence Stores** — All Zustand stores, mock auth, protected routes, two-step onboarding
+- [x] **Phase 2: Auth + Persistence Stores** — All Zustand stores, mock auth, protected routes, two-step onboarding (completed 2026-04-27)
 - [ ] **Phase 3: Feature Breadth (Ugly But Working)** — Every feature shipped with empty states + toasts; visuals deliberately unpolished
 - [ ] **Phase 4: Polish, Dark Mode, Accessibility** — Visual sweep, focus traps, keyboard pass, motion, "recommended because" reasoning, toned-down compare rows
 - [ ] **Phase 5: Pre-Demo Hardening** — Incognito walkthrough, production build verification, deploy smoke test, demo account auto-fill
@@ -140,7 +140,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 5/5 | Complete    | 2026-04-27 |
-| 2. Auth + Persistence Stores | 0/4 | Not started | - |
+| 2. Auth + Persistence Stores | 0/4 | Complete    | 2026-04-27 |
 | 3. Feature Breadth (Ugly But Working) | 0/? | Not started | - |
 | 4. Polish, Dark Mode, Accessibility | 0/? | Not started | - |
 | 5. Pre-Demo Hardening | 0/? | Not started | - |
