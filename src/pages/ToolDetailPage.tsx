@@ -50,6 +50,7 @@ import { CATEGORIES } from "@/data/categories"
 import { useAuth } from "@/features/auth/hooks/useAuth"
 import { useFavoritesStore } from "@/features/tools/store"
 import { useReviewStore } from "@/features/reviews/store"
+import { WriteReviewDialog } from "@/features/reviews/components/WriteReviewDialog"
 import { withToast } from "@/lib/withToast"
 import NotFoundPage from "@/pages/NotFoundPage"
 import { cn } from "@/lib/utils"
@@ -178,10 +179,10 @@ export default function ToolDetailPage() {
                 Share your experience to help other students.
               </DialogDescription>
             </DialogHeader>
-            {/* Plan 03-04 replaces this single line with <WriteReviewDialog /> body. */}
-            <p className="text-sm text-muted-foreground">
-              Review form lands in the next plan.
-            </p>
+            <WriteReviewDialog
+              tool={tool}
+              onSuccess={() => setReviewOpen(false)}
+            />
           </DialogContent>
         </Dialog>
       </div>
