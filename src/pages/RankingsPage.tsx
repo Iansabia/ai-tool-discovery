@@ -1,0 +1,8 @@
+// src/pages/RankingsPage.tsx
+export default function RankingsPage() {
+  return (
+    <section className="container mx-auto px-4 py-12" data-testid="page-rankings">
+      <h1 className="text-3xl font-semibold">Rankings (placeholder)</h1>
+    </section>
+  )
+}
