@@ -117,7 +117,7 @@ describe("domain types", () => {
         email: "a@b.com",
         username: "a",
         displayName: "A",
-        passwordHash: "h",
+        passwordHash: { saltHex: "00".repeat(32), hashHex: "11".repeat(32) },
         interests: ["coding"],
         selectedTools: ["chatgpt"],
         createdAt: new Date().toISOString(),

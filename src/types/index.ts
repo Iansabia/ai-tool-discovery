@@ -23,6 +23,25 @@ export type PricingTier = "Free" | "Freemium" | "Paid"
 /** A vote per (user, tool). State-machine shape: clicking the same vote toggles to "none". */
 export type Vote = "none" | "up" | "down"
 
+/**
+ * A salted SHA-256 password record. Computed by `hashPassword(plaintext)` in
+ * `src/lib/crypto.ts`; verified by `verifyPassword(plaintext, record)`.
+ *
+ * Both fields are 64-char lowercase hex strings (32 bytes each).
+ *  - `saltHex` is 32 random bytes from `crypto.getRandomValues`, fresh per call.
+ *  - `hashHex` is SHA-256(saltBytes || plaintextBytes).
+ *
+ * NOT production-grade (no key-derivation function / no work-factor) — chosen for
+ * the v1 demo per CONTEXT.md: "materially better than plaintext for a demo; salt
+ * stored alongside the user record".
+ */
+export interface PasswordHash {
+  /** 64-char lowercase hex (32 random bytes from crypto.getRandomValues) */
+  saltHex: string
+  /** 64-char lowercase hex SHA-256 of (saltBytes || plaintextBytes) */
+  hashHex: string
+}
+
 export interface Category {
   slug: CategorySlug
   name: string
@@ -52,8 +71,8 @@ export interface User {
   email: string
   username: string
   displayName: string
-  /** mock — base64(email + ":" + password). NOT secure; demo only. */
-  passwordHash: string
+  /** Salted SHA-256 record produced by `hashPassword(plaintext)`. NOT production-grade; demo only. */
+  passwordHash: PasswordHash
   interests: CategorySlug[]
   /** tool slugs selected during onboarding step 2 */
   selectedTools: string[]
