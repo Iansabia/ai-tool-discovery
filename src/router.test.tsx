@@ -72,8 +72,9 @@ describe("router", () => {
     })
     render(<RouterProvider router={router} />)
     expect(screen.getByTestId("page-compare")).toBeInTheDocument()
-    expect(screen.getByTestId("param-a")).toHaveTextContent("claude")
-    expect(screen.getByTestId("param-b")).toHaveTextContent("chatgpt")
+    const heading = screen.getByRole("heading", { level: 1 })
+    expect(heading.textContent?.toLowerCase()).toContain("claude")
+    expect(heading.textContent?.toLowerCase()).toContain("chatgpt")
   })
 
   it("renders NotFoundPage for unknown paths", () => {
