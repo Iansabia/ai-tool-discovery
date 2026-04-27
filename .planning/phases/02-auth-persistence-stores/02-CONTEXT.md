@@ -25,8 +25,8 @@ This phase delivers every persisted concern needed before feature UI: auth (sign
 - Password storage: hash via Web Crypto API (SHA-256 with per-user random salt). Not production-grade but materially better than plaintext for a demo; salt stored alongside the user record
 - Session shape: `{ userId: string, expiresAt: number }` written to `aitools:auth:session`; expires 30 days from issue; sliding refresh on each authenticated load
 - On rehydrate, if `expiresAt < Date.now()`, treat as logged out
-- Guest mode: special user record with `userId: 'guest'`. Favorites/votes/reviews are namespaced under that ID. On real sign-in, guest data is cleared (not merged) — keeps the model simple and the demo predictable
-- Protected route redirect: send to `/signin?return_to=<encoded-original-url>`, restore on successful sign-in or guest-continue
+- Guest mode: special user record with `userId: 'guest'`. Favorites/votes/reviews are namespaced under that ID. On real sign-in, guest data is cleared (not merged) — keeps the model simple and the demo predictable. Mechanism: `authStore.signIn()` and `authStore.signUp()` call `clearByUser('guest')` on each of the four non-auth stores (favoritesStore, upvoteStore, reviewStore, submissionStore) BEFORE issuing the new session.
+- Protected route redirect: send to `/signin?return_to=<encoded-original-url>`, restore on successful sign-in or guest-continue (BOTH paths — credentialed sign-in AND guest-continue must round-trip the user back to the original URL)
 - All auth operations go through `authStore` actions; no component touches `localStorage` directly
 
 ### Onboarding Interactions
@@ -34,16 +34,17 @@ This phase delivers every persisted concern needed before feature UI: auth (sign
 - Interest selection: minimum 1 required to proceed via Continue button; no maximum; no preselected items; each selection is toggleable on click
 - Tool selection: fully optional (0 to 50); no preselected items; toggleable
 - Skip button on each step routes to `/home` with whatever has been selected so far persisted to user profile (empty if nothing chosen)
-- State persists in `authStore` selections during navigation between steps so going back from step 2 keeps step 1's choices
-- Final Continue on step 2 calls `authStore.completeOnboarding()` which writes selections to the user record and routes to `/home`
+- **Architecture note (transient nav state vs. final write path):** Two stores are involved. Transient navigation state — which chips are pressed while the user moves between step 1 and step 2 — lives in a dedicated `useOnboardingStore` (in-memory `Set<slug>`, not persisted). The FINAL WRITE to the user record (interests + selectedTools) goes through a single `authStore.completeOnboarding(interests, selectedTools)` method — this is the contract for the final write path, the one the Profile page in Phase 3 relies on. The earlier phrasing "state persists in authStore" referred specifically to this final-write contract; the transient navigation Set lives in `useOnboardingStore` for back-navigation UX.
+- Final Continue (Finish) on step 2 calls `authStore.completeOnboarding(interests, selectedTools)` which internally calls `useUsersStore.updateUser(currentUserId, {interests, selectedTools})` and routes to `/home`. Skip on either step also routes through `authStore.completeOnboarding(...)` with whatever is selected so far. This single write path keeps the contract narrow: onboarding components must NOT call `useUsersStore.updateUser` directly.
 
 ### Persistence Stores (Phase 2 Deliverable, Not Yet Consumed by UI)
-- All non-auth stores use Zustand v5 + `persist` middleware, namespaced via `storageKey()` helper
-- `favoritesStore`: `{ [userId: string]: Set<slug> }` (serialized as array on persist)
+- All non-auth stores use **Zustand v5 with manual hydration via the Phase 1 storage helper (`safeGet` / `safeSet` with `{version, data}` envelope)** — chosen over Zustand `persist` middleware to keep the validated envelope shape consistent with auth/user stores. Same envelope conventions, no behavioral change from a "what gets saved" perspective; the manual approach simply uses one Zod-validated read/write path everywhere instead of mixing middleware-managed persistence with hand-rolled persistence. This is a deliberate divergence from the original "Zustand v5 + persist middleware" framing.
+- `favoritesStore`: `{ [userId: string]: string[] }` (insertion-ordered slug list per userId)
 - `upvoteStore`: `{ [userId: string]: { [slug: string]: 'none' | 'up' | 'down' } }` — per-user, per-tool vote state machine
 - `reviewStore`: `{ [slug: string]: Review[] }` — reviews keyed by tool, not by user, so all reviews show on a tool detail page
 - `submissionStore`: `{ [userId: string]: Submission[] }` — pending submissions per user
 - Every persisted store wraps state in `{ version: 1, data: T }` envelope; reads validate via Zod and fall back to defaults on schema mismatch
+- Each non-auth store ALSO ships a `clearByUser(userId)` action — `authStore.signIn()` and `authStore.signUp()` call this on `'guest'` to clear guest data on real-user sign-in (the AUTH-07 contract).
 - Action wrapper utility (`withToast` or similar) emits sonner toasts on success/error for any persisting action — Phase 3 features will use this so toast wiring is centralized
 - Stores expose actions only; components never call `set` directly
 
@@ -74,10 +75,11 @@ This phase delivers every persisted concern needed before feature UI: auth (sign
 - Per-task `<read_first>`, `<acceptance_criteria>` block discipline from Phase 1 plans.
 
 ### Integration Points
-- Phase 2 wires `authStore` into `<ProtectedRoute>` (currently stub) — replaces the placeholder always-true check.
+- Phase 2 wires `authStore` into `<ProtectedRoute>` (currently stub) — replaces the placeholder always-true check. ProtectedRoute also calls `authStore.touchSession()` on every render to wire sliding refresh.
 - Phase 2 splits `/onboarding` placeholder into `/onboarding/interests` + `/onboarding/tools`. This is a router change to `src/router.tsx`.
 - Phase 3 will consume every store from Phase 2 (favorite buttons, vote buttons, review modal, submit form, profile reads). Phase 2 must export clean action signatures.
 - The action-wrapper / `withToast` utility added in this phase becomes the canonical pattern Phase 3 features must use.
+- The `clearByUser(userId)` action on each non-auth store is the wire that closes guest-data clear-on-real-signin (AUTH-07). authStore.signIn/signUp call it via dynamic import (avoids module-init circular imports).
 
 </code_context>
 
@@ -87,7 +89,7 @@ This phase delivers every persisted concern needed before feature UI: auth (sign
 - The "no preselected items" requirement on onboarding directly fixes a usability finding from the Figma prototype test. Selections must start empty; clicking adds; clicking again removes. Confirm via test: `expect(toggleableItem).not.toHaveClass('selected')` on initial render.
 - Guest mode is a key UX call from PROJECT.md — graders should be able to test the app without signing up. The "Continue as Guest" button must be on the Sign In page, visible above the fold.
 - Vote state machine `'none' | 'up' | 'down'` is the structural fix for the prototype's buggy vote toggling. Even though Phase 2 doesn't ship the vote button (that's Phase 3), the store action `setVote(userId, slug, nextVote)` must encode the full state machine: clicking same vote → 'none', clicking opposite → opposite. Lock this in tests now.
-- The `return_to` query param on `/signin` is a UX detail that matters: if a guest tries to favorite a tool from `/tools/claude`, they get redirected to sign in, then land back at `/tools/claude` after — not at `/home`. Test the round trip.
+- The `return_to` query param on `/signin` is a UX detail that matters: if a guest tries to favorite a tool from `/tools/claude`, they get redirected to sign in, then land back at `/tools/claude` after — not at `/home`. Test the round trip for BOTH credentialed sign-in AND guest-continue paths (the original prototype only tested the guest path).
 
 </specifics>
 
