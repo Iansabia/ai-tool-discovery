@@ -15,7 +15,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **FOUND-04**: TypeScript interfaces defined for Tool, Category, User, Session, Review, Vote, Submission with required `slug` field on Tool
 - [x] **FOUND-05**: Storage helper (`src/lib/storage.ts`) wraps localStorage with namespaced keys (`aitools:<domain>:<scope>`), Zod-validated reads, and version fields
 - [x] **FOUND-06**: Brand color tokens (green primary, orange accent) defined as CSS variables in `globals.css` for both `:root` and `.dark`
-- [ ] **FOUND-07**: Build-time validation enforces unique slugs across the seed tool dataset
+- [x] **FOUND-07**: Build-time validation enforces unique slugs across the seed tool dataset
 
 ### Authentication
 
@@ -104,9 +104,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Data
 
-- [ ] **DATA-01**: Seed dataset contains ~50 AI tools across ~10 categories, each with unique slug, name, description, category, pricing tier, key features, and external URL
-- [ ] **DATA-02**: Categories include Writing, Coding, Research, Image, Audio, Video, Productivity, Design, Data/Analytics, Marketing
-- [ ] **DATA-03**: Each tool has a logo asset (sourced or placeholder mark with name fallback)
+- [x] **DATA-01**: Seed dataset contains ~50 AI tools across ~10 categories, each with unique slug, name, description, category, pricing tier, key features, and external URL
+- [x] **DATA-02**: Categories include Writing, Coding, Research, Image, Audio, Video, Productivity, Design, Data/Analytics, Marketing
+- [x] **DATA-03**: Each tool has a logo asset (sourced or placeholder mark with name fallback)
 
 ## v2 Requirements
 
@@ -168,7 +168,7 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 | FOUND-04 | Phase 1: Foundation | Complete |
 | FOUND-05 | Phase 1: Foundation | Complete |
 | FOUND-06 | Phase 1: Foundation | Complete (Plan 01-04) |
-| FOUND-07 | Phase 1: Foundation | Pending |
+| FOUND-07 | Phase 1: Foundation | Complete |
 | AUTH-01 | Phase 2: Auth + Persistence Stores | Pending |
 | AUTH-02 | Phase 2: Auth + Persistence Stores | Pending |
 | AUTH-03 | Phase 2: Auth + Persistence Stores | Pending |
@@ -230,9 +230,9 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 | UX-06 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | UX-07 | Phase 1: Foundation | Complete |
 | UX-08 | Phase 1: Foundation | Complete (Plan 01-04) |
-| DATA-01 | Phase 1: Foundation | Pending |
-| DATA-02 | Phase 1: Foundation | Pending |
-| DATA-03 | Phase 1: Foundation | Pending |
+| DATA-01 | Phase 1: Foundation | Complete |
+| DATA-02 | Phase 1: Foundation | Complete |
+| DATA-03 | Phase 1: Foundation | Complete |
 
 **Coverage:**
 - v1 requirements: 70

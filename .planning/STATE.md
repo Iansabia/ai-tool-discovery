@@ -3,24 +3,24 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: Completed 01-04-PLAN.md
-last_updated: "2026-04-27T01:58:00.000Z"
+stopped_at: Completed 01-05-PLAN.md (Phase 1 COMPLETE)
+last_updated: "2026-04-27T02:11:00.000Z"
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
-  completed_plans: 4
+  completed_plans: 5
 ---
 
 # Project State: AI Tools Discovery Platform
 
-**Last updated:** 2026-04-27 (Plan 01-04 complete)
+**Last updated:** 2026-04-27 (Plan 01-05 complete — Phase 1 DONE)
 
 ## Project Reference
 
 **Core value:** Help students find and choose AI tools faster — every tool has its own real detail page, every comparison reflects the user's actual choice, and every action gives clear, immediate feedback.
 
-**Current focus:** Phase 1 (Foundation) — Plans 01-01 + 01-02 + 01-03 + 01-04 complete (test infrastructure + Vite/shadcn scaffold + lib/types/data layers + router/AppShell/theme). Ready for Plan 01-05 (seed data + brand logos).
+**Current focus:** Phase 1 (Foundation) COMPLETE — all 5 plans done. Ready for Phase 2 (Auth + Persistence Stores).
 
 **Stack:** Vite + React 18 + TypeScript + Tailwind v4 + shadcn/ui + react-router v7 + Zustand + Zod v3 + react-hook-form + sonner + next-themes + fuse.js + motion v12
 
@@ -28,15 +28,15 @@ progress:
 
 ## Current Position
 
-**Phase:** 1 — Foundation (in progress)
-**Plan:** 01-04 complete; next is 01-05 (seed data + brand logos)
-**Status:** Router + AppShell + theme wired with brand tokens, FOUC script, multi-tab consistency, and all 18 routes registered; URL-as-source-of-truth structurally locked. 4/5 plans done in Phase 1
+**Phase:** 1 — Foundation (COMPLETE)
+**Plan:** All 5 plans done. Next is Phase 2 (Auth + Persistence Stores)
+**Status:** Foundation complete — 50 tools seeded across 10 categories, build-time slug-uniqueness enforced (mutation-test verified), SPA fallback configs ship Day 1, 70/70 tests passing. Ready to begin Phase 2.
 
-**Overall progress:** [▰▰▰▰▱▱▱▱▱▱] 4/25 plans across all phases (~16%); 0/5 phases complete
+**Overall progress:** [▰▰▰▰▰▱▱▱▱▱] 5/25 plans across all phases (~20%); 1/5 phases complete
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| 1. Foundation | In progress | 4/5 plans (80%) |
+| 1. Foundation | Complete | 5/5 plans (100%) |
 | 2. Auth + Persistence Stores | Not started | 0% |
 | 3. Feature Breadth (Ugly But Working) | Not started | 0% |
 | 4. Polish, Dark Mode, Accessibility | Not started | 0% |
@@ -44,10 +44,10 @@ progress:
 
 ## Performance Metrics
 
-**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 9/70 marked complete (FOUND-01, FOUND-02, FOUND-03, FOUND-04, FOUND-05, FOUND-06, UX-03, UX-07, UX-08)
+**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 13/70 marked complete (FOUND-01, FOUND-02, FOUND-03, FOUND-04, FOUND-05, FOUND-06, FOUND-07, DATA-01, DATA-02, DATA-03, UX-03, UX-07, UX-08)
 **Phases:** 5 (coarse granularity, within 4-6 target)
-**Plans completed:** 4
-**Commits:** 10 task commits in current phase (a5c01bf, d77def5, 24d3df2, 17f39ab, e60d064, f865b01, c0c6360, 69038e5, e996901, cd11407)
+**Plans completed:** 5
+**Commits:** 12 task commits in Phase 1 (a5c01bf, d77def5, 24d3df2, 17f39ab, e60d064, f865b01, c0c6360, 69038e5, e996901, cd11407, b0bfbb1, ec991f4)
 
 | Plan | Duration | Tasks | Files | Commits |
 |------|----------|-------|-------|---------|
@@ -55,6 +55,7 @@ progress:
 | 01-02 (vite + shadcn scaffold) | 6 min | 2 | 17 | 2 task + 1 metadata |
 | 01-03 (lib + types + data) | 3 min | 3 | 6 | 4 task + 1 metadata |
 | 01-04 (router + AppShell + theme) | 4 min | 2 | 32 | 2 task + 1 metadata |
+| 01-05 (seed data + brand logos + SPA fallback) | 7 min | 2 | 56 | 2 task + 1 metadata |
 
 ## Accumulated Context
 
@@ -80,6 +81,10 @@ progress:
 - **(Plan 01-04) next-themes uses raw key `"aitools:theme"` (no scope suffix).** This is divergent from the Phase 2 Zustand stores, which will use `storageKey("foo")` returning `"aitools:foo:global"`. ThemeToggle subscribes to the literal `"aitools:theme"` key, NOT to `storageKey("theme")`. Phase 2 must NOT try to "normalize" the theme key — next-themes is a third-party consumer with its own shape.
 - **(Plan 01-04) Inline FOUC script in `index.html` is the single permitted localStorage-touching exception in `src/`-adjacent code.** It runs before React mounts and cannot import ESM modules. The lint script (`lint:no-direct-localstorage`) only scans `src/`, so this is structurally exempt. Don't add other exceptions.
 - **(Plan 01-04) URL-as-source-of-truth pattern is structurally locked at the placeholder layer.** All param-bearing pages (Tool, Compare, Compare-Picker, Category) read via `useParams`; Search reads via `useSearchParams`. Tests assert that 3 different `/compare/a/vs/b` URLs render 3 different pairs — the prototype's hardcoded-Claude-vs-ChatGPT bug class cannot recur.
+- **(Plan 01-05) FOUND-07 build-time enforcement is two-armed.** The plan's wording assumed module-load `__validateSlugsUnique` would fail `npm run build`, but vite build does NOT execute bundled JS. The structural fix is `scripts/check-logos.js` doing a static regex parse for duplicate slugs, chained into the build script BEFORE tsc/vite. The runtime arm (`__validateSlugsUnique(TOOLS)` at module load) is preserved because it fires during dev-server start AND test runs. Both arms together make duplicate slugs unreachable in any execution path. Mutation test confirmed: build exits 1 with `[check-logos] FAIL: duplicate slugs in tools.ts: - "chatgpt" (appears 2 times)`.
+- **(Plan 01-05) Brand-logo strategy = 13 simple-icons CC0 + 37 project-authored brand-monograms.** simple-icons covers only 13 of the 50 chosen tools. Rather than ship a shared placeholder mark for the long tail (which would visually re-create the "everything is Claude" bug class), each tool gets a unique brand-monogram (24x24 SVG, rounded square in tool's official primary brand color, initials in high-contrast foreground). Each is unique to its tool — no two share color+initial. Provenance documented in `src/assets/tool-logos/README.md`. Phase 4 polish can progressively swap monograms for official brand-kit SVGs without breaking consumer code (logo URL string is stable).
+- **(Plan 01-05) Side-effect import of @/data/tools in src/router.tsx.** No Phase 1 page consumes tools.ts (Phase 3 features will). Without the side-effect import, vite tree-shakes the module out of the production bundle and the runtime validators never fire on a real page load. The 1-line `import "@/data/tools"` in router.tsx keeps the validators reachable. Once Phase 3 starts importing TOOLS by name, the side-effect import becomes redundant but stays harmless.
+- **(Plan 01-05) TOOLS shape for Phase 3.** TOOLS is `ReadonlyArray<Tool>` cast `as const`. Operations: `find`, `filter`, `map`, `forEach`, `reduce` work normally. In-place mutators are TypeScript errors. For Rankings sorting (by net upvotes), use `[...TOOLS].sort(...)` or `TOOLS.toSorted(...)` — the spread copy works on ES2022; `.toSorted` requires ES2023 (current tsconfig target is ES2022, so prefer the spread form).
 
 ### Open Questions / Todos
 
@@ -88,8 +93,8 @@ progress:
 - [x] Plan 01-02 executed (Vite + shadcn/ui scaffold; FOUND-01 satisfied)
 - [x] Plan 01-03 executed (lib + types + data layers; FOUND-04, FOUND-05, UX-07 satisfied)
 - [x] Plan 01-04 executed (router + AppShell + theme; FOUND-02, FOUND-03, FOUND-06, UX-03, UX-08 satisfied)
-- [ ] Plan 01-05: seed data + brand logos — must call `__validateSlugsUnique` and `__validateLogosPresent` from `@/data/_validate` at module load in `tools.ts`. Brand tokens are already wired (Plan 01-04); Plan 05 only authors `tools.ts`, `categories.ts`, and the SVG logos under `src/assets/tool-logos/`
-- [ ] Decide logo asset strategy in Phase 1: source from each tool's brand kit vs. generic placeholder mark + name fallback (research flagged this as a gap) — relevant to Plan 01-04 or 01-05 (seed data)
+- [x] Plan 01-05 executed (seed data + brand logos + SPA fallback; FOUND-07, DATA-01, DATA-02, DATA-03 satisfied)
+- [x] Logo asset strategy decided in Plan 01-05: 13 from simple-icons (CC0) + 37 project-authored brand-monograms (each unique, brand-color anchored). Phase 4 polish can progressively replace monograms with official brand-kit SVGs without breaking consumer code.
 - [ ] Decide mobile responsive scope at Phase 4: PROJECT.md says "tablet required, mobile nice-to-have"; Compare table at 768px is the hardest layout
 - [x] **(Plan 01-02 carryover, completed in Plan 01-04)** src/App.tsx now wraps RouterProvider in ThemeProvider; Toaster mounts at App.tsx root; src/index.css updated with brand override variables (--primary emerald, --accent orange) for both :root and .dark.
 
@@ -110,9 +115,9 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-27T01:58:00.000Z
-**Next action:** Execute Plan 01-05 (seed data + brand logos)
-**Stopped at:** Completed 01-04-PLAN.md
+**Last session:** 2026-04-27T02:11:00.000Z
+**Next action:** Begin Phase 2 — Auth + Persistence Stores (planning)
+**Stopped at:** Completed 01-05-PLAN.md (Phase 1 COMPLETE)
 
 **Files of record:**
 - `.planning/PROJECT.md` — vision, scope, constraints, key decisions
