@@ -17,8 +17,8 @@
 //   - Reviews list: subscribes reactively to useReviewStore.data[slug]; sorts
 //     newest-first inside useMemo to keep the selector return ref stable
 //
-// Plan 03-04 will REPLACE the placeholder DialogContent body
-// ("Review form lands in the next plan.") with a <WriteReviewDialog /> import.
+// Plan 03-04 will REPLACE the placeholder DialogContent body (the <p> child
+// rendered just below DialogHeader) with a <WriteReviewDialog /> import.
 // That single-line swap is the only change Plan 03-04 makes here.
 //
 // Reviews subscription pattern note (from interfaces in PLAN.md):
