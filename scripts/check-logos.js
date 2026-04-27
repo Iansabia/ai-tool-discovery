@@ -24,16 +24,32 @@ const source = readFileSync(toolsTsPath, "utf-8")
 // This is intentionally simple — for richer parsing we'd need a TS AST. The seed file is
 // small and grep-shaped, so a regex is sufficient.
 const slugRegex = /slug:\s*"([a-z0-9-]+)"/g
-const slugs = new Set()
+const slugList = []
 let match
 while ((match = slugRegex.exec(source)) !== null) {
-  slugs.add(match[1])
+  slugList.push(match[1])
 }
 
-if (slugs.size === 0) {
+if (slugList.length === 0) {
   console.error("[check-logos] FAIL: no slugs found in tools.ts")
   process.exit(1)
 }
+
+// FOUND-07 build-time enforcement: the runtime __validateSlugsUnique only fires when the
+// module is loaded; vite build does not execute bundled code. Static-parse duplicate detection
+// here ensures `npm run build` fails on duplicate slugs even before the test suite runs.
+const slugCounts = new Map()
+for (const s of slugList) {
+  slugCounts.set(s, (slugCounts.get(s) ?? 0) + 1)
+}
+const duplicates = [...slugCounts.entries()].filter(([, n]) => n > 1)
+if (duplicates.length > 0) {
+  console.error("[check-logos] FAIL: duplicate slugs in tools.ts:")
+  for (const [s, n] of duplicates) console.error(`  - "${s}" (appears ${n} times)`)
+  process.exit(1)
+}
+
+const slugs = new Set(slugList)
 
 const logoFiles = new Set(
   existsSync(logoDirPath)

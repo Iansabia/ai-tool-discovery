@@ -1,6 +1,13 @@
 // src/router.tsx
 // Phase 1 / Plan 01-04 — all 18 v1 routes registered under <AppShell>.
 // Protected children are wrapped in <ProtectedRoute /> (Phase 1 stub; Phase 2 enforces real auth).
+//
+// Plan 01-05 (FOUND-07 structural prevention): the side-effect import below ensures the seed
+// TOOLS array is evaluated during the production bundle so __validateSlugsUnique +
+// __validateLogosPresent fire at `vite build` time. Without this, no production code path
+// references tools.ts (Phase 3 features will, but not in Phase 1) and tree-shaking would
+// elide the module — making duplicate-slug bugs only catchable in tests.
+import "@/data/tools"
 import { createBrowserRouter } from "react-router"
 import { AppShell } from "@/components/layout/AppShell"
 import { ProtectedRoute } from "@/features/auth/components/ProtectedRoute"
