@@ -5,6 +5,27 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Tools Discovery</title>
+    <script>
+      (function () {
+        try {
+          var key = "aitools:theme";
+          var stored = localStorage.getItem(key);
+          var theme = stored;
+          // next-themes stores the raw string ("dark" | "light" | "system").
+          // Defensively also handle a JSON-quoted form.
+          try {
+            var parsed = stored ? JSON.parse(stored) : null;
+            if (typeof parsed === "string") theme = parsed;
+          } catch (_) {}
+          var prefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var isDark =
+            theme === "dark" || ((!theme || theme === "system") && prefersDark);
+          if (isDark) document.documentElement.classList.add("dark");
+        } catch (_) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

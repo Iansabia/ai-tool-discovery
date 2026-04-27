@@ -1,12 +1,16 @@
-import { Button } from "@/components/ui/button"
+// src/App.tsx
+// Phase 1 / Plan 01-04 — application root.
+// Toaster mounts here (sibling of RouterProvider), NOT inside AppShell — see RESEARCH Pattern 4.
+import { RouterProvider } from "react-router"
+import { ThemeProvider } from "@/components/theme/ThemeProvider"
+import { Toaster } from "@/components/ui/sonner"
+import { router } from "@/router"
 
-function App() {
+export default function App() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-4">
-      <h1 className="text-2xl font-bold">AI Tools Discovery</h1>
-      <Button>Click me</Button>
-    </div>
+    <ThemeProvider>
+      <RouterProvider router={router} />
+      <Toaster richColors position="top-right" visibleToasts={3} />
+    </ThemeProvider>
   )
 }
-
-export default App
