@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "test": "vitest",
-    "test:run": "vitest run",
-    "typecheck": "tsc --noEmit || echo 'tsconfig not yet present (created in Plan 02)'",
+    "test": "node ./node_modules/vitest/vitest.mjs",
+    "test:run": "node ./node_modules/vitest/vitest.mjs run",
+    "typecheck": "node ./node_modules/typescript/bin/tsc --noEmit 2>/dev/null || echo 'tsconfig not yet present (created in Plan 02)'",
     "lint:no-direct-localstorage": "! grep -RInE 'localStorage\\.(set|get|remove|clear)Item' src/ --exclude-dir=src/lib --exclude=src/lib/storage.ts 2>/dev/null"
   },
   "devDependencies": {
