@@ -281,12 +281,12 @@ describe("useAuthStore", () => {
     expect(writtenKeys.has("aitools:auth:session")).toBe(true)
   })
 
-  // A11/A12 — guest-clear-on-signin/signup. Skipped until Plan 02-04 ships clearByUser.
-  // The dynamic import path is built at runtime to keep Vite's static resolver from
-  // failing the suite while @/features/tools/store does not yet exist (lands in 02-04).
-  // Plan 02-04 Task 2 Step 5 un-skips these and replaces the runtime path with a
-  // direct `import("@/features/tools/store")` literal once the module exists.
-  it.skip("A11: clears guest data on real sign-in (un-skip after 02-04)", async () => {
+  // A11/A12 — guest-clear-on-signin/signup. Un-skipped in Plan 02-04 once the
+  // four non-auth stores shipped clearByUser actions. The dynamic-import path
+  // through storePath() in src/features/auth/store.ts now resolves a real
+  // module, and clearGuestData() in authStore drains the guest entries from
+  // every non-auth store before issuing the new real-user session.
+  it("A11: clears guest data on real sign-in", async () => {
     const toolsPath = ["@", "features", "tools", "store"].join("/")
     const { useUsersStore, useAuthStore } = await import("./store")
     const { useFavoritesStore } = await import(/* @vite-ignore */ toolsPath)
@@ -302,7 +302,7 @@ describe("useAuthStore", () => {
     expect(useFavoritesStore.getState().list("guest")).toEqual([])
   })
 
-  it.skip("A12: clears guest data on signUp auto-login (un-skip after 02-04)", async () => {
+  it("A12: clears guest data on signUp auto-login", async () => {
     const toolsPath = ["@", "features", "tools", "store"].join("/")
     const { useAuthStore } = await import("./store")
     const { useFavoritesStore } = await import(/* @vite-ignore */ toolsPath)
