@@ -10,7 +10,16 @@ import LandingPage from "@/pages/LandingPage"
 import ToolDetailPage from "@/pages/ToolDetailPage"
 import ComparePage from "@/pages/ComparePage"
 import OnboardingPage from "@/pages/OnboardingPage"
+import SignInPage from "@/pages/SignInPage"
 import NotFoundPage from "@/pages/NotFoundPage"
+import { beforeEach } from "vitest"
+import { useAuthStore } from "@/features/auth/store"
+
+beforeEach(() => {
+  // Phase 2: ProtectedRoute is no longer a stub — reset session between tests.
+  localStorage.clear()
+  useAuthStore.setState({ session: null })
+})
 
 // Re-define routes inline so we can use createMemoryRouter (the production router uses
 // createBrowserRouter, which requires a real document.location). Same shape, different factory.
@@ -21,6 +30,7 @@ const routes = [
       { path: "/", element: <LandingPage /> },
       { path: "/tools/:slug", element: <ToolDetailPage /> },
       { path: "/compare/:a/vs/:b", element: <ComparePage /> },
+      { path: "/signin", element: <SignInPage /> },
       {
         element: <ProtectedRoute />,
         children: [{ path: "/onboarding", element: <OnboardingPage /> }],
@@ -60,7 +70,27 @@ describe("router", () => {
     expect(screen.getByTestId("page-notfound")).toBeInTheDocument()
   })
 
-  it("Phase 1 ProtectedRoute is a stub — /onboarding renders without auth", () => {
+  it("Phase 2 ProtectedRoute redirects unauthenticated /onboarding visit to /signin", () => {
+    const router = createMemoryRouter(routes, { initialEntries: ["/onboarding"] })
+    render(<RouterProvider router={router} />)
+    // Phase 2 changed ProtectedRoute from a stub to a real auth gate. With no session
+    // seeded, visiting /onboarding now redirects to /signin?return_to=%2Fonboarding.
+    // Assert the redirect occurred (sign-in page mounts; testid lives on the SignInPage
+    // root section element from Phase 1, not on the new SignInForm — that's fine, the
+    // page still mounts and the testid is preserved by the page wrapper in Plan 02-02).
+    expect(screen.getByTestId("page-signin")).toBeInTheDocument()
+  })
+
+  it("Phase 2 ProtectedRoute renders Outlet when an authenticated session is present", () => {
+    // Seed a valid 30-day session so /onboarding renders rather than redirects.
+    useAuthStore.setState({
+      session: {
+        userId: "u1",
+        issuedAt: Date.now(),
+        expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000,
+        token: "tok",
+      },
+    })
     const router = createMemoryRouter(routes, { initialEntries: ["/onboarding"] })
     render(<RouterProvider router={router} />)
     expect(screen.getByTestId("page-onboarding")).toBeInTheDocument()
