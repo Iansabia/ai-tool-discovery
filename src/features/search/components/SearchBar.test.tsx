@@ -3,15 +3,17 @@
 //
 // Strategy:
 // - Mount inside <MemoryRouter>; capture the active location via a small
-//   <LocationProbe /> child that writes location.pathname + search into a
+//   <LocationProbe /> child that surfaces location.pathname + search into a
 //   data-testid div, then assert against it.
-// - Use fake timers to fast-forward the 300ms debounce deterministically.
-// - Use userEvent v14 with `advanceTimers: vi.advanceTimersByTime` so async
-//   user input plays well with fake timers.
+// - Drive the input with fireEvent.change so we can deterministically advance
+//   the 300ms debounce timer with vi.useFakeTimers without coupling to
+//   userEvent's keystroke timing model.
+// - Keyboard interactions (Enter, Escape) use fireEvent.keyDown.
+// - Click-outside is exercised by dispatching a `mousedown` on document.body,
+//   matching the listener the component registers.
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest"
-import { render, screen, act } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { render, screen, fireEvent, act } from "@testing-library/react"
 import { MemoryRouter, useLocation } from "react-router"
 import { SearchBar } from "./SearchBar"
 
@@ -42,83 +44,75 @@ afterEach(() => {
   vi.useRealTimers()
 })
 
+function typeQuery(input: HTMLElement, value: string) {
+  fireEvent.focus(input)
+  fireEvent.change(input, { target: { value } })
+}
+
+function flushDebounce() {
+  act(() => {
+    vi.advanceTimersByTime(350)
+  })
+}
+
 describe("SearchBar", () => {
-  it("SB1: typing 'claude' shows up to 6 fuzzy matches after debounce", async () => {
-    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+  it("SB1: typing 'claude' shows up to 6 fuzzy matches after debounce", () => {
     renderBar()
     const input = screen.getByRole("searchbox", { name: /search tools/i })
-    await user.type(input, "claude")
-    // Advance past the 300ms debounce
-    await act(async () => {
-      vi.advanceTimersByTime(350)
-    })
-    // Dropdown is rendered; "Claude" appears in the matches
-    const listbox = await screen.findByRole("listbox")
+    typeQuery(input, "claude")
+    flushDebounce()
+    const listbox = screen.getByRole("listbox")
     expect(listbox).toBeInTheDocument()
     expect(screen.getAllByText("Claude").length).toBeGreaterThan(0)
-    // Cap at 6 results
     const options = screen.getAllByRole("option")
     expect(options.length).toBeLessThanOrEqual(6)
   })
 
-  it("SB2: typing whitespace-only renders no dropdown", async () => {
-    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+  it("SB2: typing whitespace-only renders no dropdown", () => {
     renderBar()
     const input = screen.getByRole("searchbox", { name: /search tools/i })
-    await user.type(input, "   ")
-    await act(async () => {
-      vi.advanceTimersByTime(350)
-    })
+    typeQuery(input, "   ")
+    flushDebounce()
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
   })
 
-  it("SB3: pressing Enter while query is 'claude' navigates to /search?q=claude", async () => {
-    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+  it("SB3: pressing Enter while query is 'claude' navigates to /search?q=claude", () => {
     renderBar()
     const input = screen.getByRole("searchbox", { name: /search tools/i })
-    await user.type(input, "claude")
-    await user.keyboard("{Enter}")
+    typeQuery(input, "claude")
+    fireEvent.keyDown(input, { key: "Enter" })
     const probe = screen.getByTestId("location-probe")
     expect(probe.textContent).toBe("/search?q=claude")
   })
 
-  it("SB4: clicking a dropdown match navigates to /tools/{slug}", async () => {
-    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+  it("SB4: clicking a dropdown match navigates to /tools/{slug}", () => {
     renderBar()
     const input = screen.getByRole("searchbox", { name: /search tools/i })
-    await user.type(input, "claude")
-    await act(async () => {
-      vi.advanceTimersByTime(350)
-    })
-    const options = await screen.findAllByRole("option")
-    // Find the Claude option specifically
-    const claudeOption = options.find((o) =>
-      o.getAttribute("href") === "/tools/claude",
+    typeQuery(input, "claude")
+    flushDebounce()
+    const options = screen.getAllByRole("option")
+    const claudeOption = options.find(
+      (o) => o.getAttribute("href") === "/tools/claude",
     )
     expect(claudeOption).toBeDefined()
-    await user.click(claudeOption!)
+    fireEvent.click(claudeOption!)
     const probe = screen.getByTestId("location-probe")
     expect(probe.textContent).toBe("/tools/claude")
   })
 
-  it("SB5: pressing Escape closes the dropdown without navigating", async () => {
-    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+  it("SB5: pressing Escape closes the dropdown without navigating", () => {
     renderBar()
     const input = screen.getByRole("searchbox", { name: /search tools/i })
-    await user.type(input, "claude")
-    await act(async () => {
-      vi.advanceTimersByTime(350)
-    })
+    typeQuery(input, "claude")
+    flushDebounce()
     expect(screen.queryByRole("listbox")).toBeInTheDocument()
-    await user.keyboard("{Escape}")
+    fireEvent.keyDown(input, { key: "Escape" })
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
-    // No nav happened — still at "/"
     const probe = screen.getByTestId("location-probe")
     expect(probe.textContent).toBe("/")
   })
 
-  it("SB6: clicking outside the dropdown closes it", async () => {
-    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+  it("SB6: clicking outside the dropdown closes it", () => {
     render(
       <MemoryRouter initialEntries={["/"]}>
         <div data-testid="outside">outside-target</div>
@@ -127,13 +121,11 @@ describe("SearchBar", () => {
       </MemoryRouter>,
     )
     const input = screen.getByRole("searchbox", { name: /search tools/i })
-    await user.type(input, "claude")
-    await act(async () => {
-      vi.advanceTimersByTime(350)
-    })
+    typeQuery(input, "claude")
+    flushDebounce()
     expect(screen.queryByRole("listbox")).toBeInTheDocument()
-    // Click outside via the document mousedown that the component listens for.
-    await user.click(screen.getByTestId("outside"))
+    // Component subscribes to document-level mousedown.
+    fireEvent.mouseDown(screen.getByTestId("outside"))
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument()
   })
 })

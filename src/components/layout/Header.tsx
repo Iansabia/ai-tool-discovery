@@ -12,6 +12,7 @@ import { toast } from "sonner"
 import { ThemeToggle } from "@/components/theme/ThemeToggle"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/features/auth/hooks/useAuth"
+import { SearchBar } from "@/features/search/components/SearchBar"
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   isActive
@@ -45,6 +46,9 @@ export function Header() {
             Search
           </NavLink>
         </nav>
+        <div className="hidden md:block flex-1 max-w-sm mx-4">
+          <SearchBar />
+        </div>
         <div className="flex items-center gap-2">
           {isAuthenticated && !isGuest && (
             <>
