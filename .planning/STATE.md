@@ -3,24 +3,24 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-05-PLAN.md (Phase 1 COMPLETE)
-last_updated: "2026-04-27T14:48:07.050Z"
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-04-27T18:37:03.420Z"
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 5
-  completed_plans: 5
+  total_plans: 9
+  completed_plans: 7
 ---
 
 # Project State: AI Tools Discovery Platform
 
-**Last updated:** 2026-04-27 (Plan 01-05 complete — Phase 1 DONE)
+**Last updated:** 2026-04-27 (Plan 02-02 complete — auth pages + ProtectedRoute shipped)
 
 ## Project Reference
 
 **Core value:** Help students find and choose AI tools faster — every tool has its own real detail page, every comparison reflects the user's actual choice, and every action gives clear, immediate feedback.
 
-**Current focus:** Phase 1 (Foundation) COMPLETE — all 5 plans done. Ready for Phase 2 (Auth + Persistence Stores).
+**Current focus:** Phase 2 in progress (2/4 plans done). Plan 02-02 shipped auth pages + ProtectedRoute. Next is Plan 02-03 (Onboarding wizard).
 
 **Stack:** Vite + React 18 + TypeScript + Tailwind v4 + shadcn/ui + react-router v7 + Zustand + Zod v3 + react-hook-form + sonner + next-themes + fuse.js + motion v12
 
@@ -28,26 +28,26 @@ progress:
 
 ## Current Position
 
-**Phase:** 1 — Foundation (COMPLETE)
-**Plan:** All 5 plans done. Next is Phase 2 (Auth + Persistence Stores)
-**Status:** Ready to plan
+**Phase:** 2 — Auth + Persistence Stores (IN PROGRESS)
+**Plan:** 02-02 done. Next is 02-03 (Onboarding wizard).
+**Status:** Ready to plan/execute next
 
-**Overall progress:** [▰▰▰▰▰▱▱▱▱▱] 5/25 plans across all phases (~20%); 1/5 phases complete
+**Overall progress:** [▰▰▰▰▰▰▰▱▱▱] 7/25 plans across all phases (~28%); 1/5 phases complete
 
 | Phase | Status | Progress |
 |-------|--------|----------|
 | 1. Foundation | Complete | 5/5 plans (100%) |
-| 2. Auth + Persistence Stores | Not started | 0% |
+| 2. Auth + Persistence Stores | In progress | 2/4 plans (50%) |
 | 3. Feature Breadth (Ugly But Working) | Not started | 0% |
 | 4. Polish, Dark Mode, Accessibility | Not started | 0% |
 | 5. Pre-Demo Hardening | Not started | 0% |
 
 ## Performance Metrics
 
-**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 13/70 marked complete (FOUND-01, FOUND-02, FOUND-03, FOUND-04, FOUND-05, FOUND-06, FOUND-07, DATA-01, DATA-02, DATA-03, UX-03, UX-07, UX-08)
+**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 23/70 marked complete (FOUND-01..07, DATA-01..03, UX-03, UX-07, UX-08, AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, AUTH-06, AUTH-07, AUTH-08, AUTH-09 partial via 02-01+02-02)
 **Phases:** 5 (coarse granularity, within 4-6 target)
-**Plans completed:** 5
-**Commits:** 12 task commits in Phase 1 (a5c01bf, d77def5, 24d3df2, 17f39ab, e60d064, f865b01, c0c6360, 69038e5, e996901, cd11407, b0bfbb1, ec991f4)
+**Plans completed:** 7 (5 Phase 1 + 02-01 + 02-02)
+**Commits:** 12 task commits in Phase 1 + 02-01 (177eedd, e09a80a, 4d78fde) + 02-02 (7206a54, 2267763)
 
 | Plan | Duration | Tasks | Files | Commits |
 |------|----------|-------|-------|---------|
@@ -56,6 +56,8 @@ progress:
 | 01-03 (lib + types + data) | 3 min | 3 | 6 | 4 task + 1 metadata |
 | 01-04 (router + AppShell + theme) | 4 min | 2 | 32 | 2 task + 1 metadata |
 | 01-05 (seed data + brand logos + SPA fallback) | 7 min | 2 | 56 | 2 task + 1 metadata |
+| 02-01 (authStore + usersStore + crypto) | ~15 min | 2 | 8 | 2 task + 1 metadata |
+| 02-02 (auth pages + ProtectedRoute) | ~12 min | 2 | 21 | 2 task + 1 metadata |
 
 ## Accumulated Context
 
@@ -85,6 +87,13 @@ progress:
 - **(Plan 01-05) Brand-logo strategy = 13 simple-icons CC0 + 37 project-authored brand-monograms.** simple-icons covers only 13 of the 50 chosen tools. Rather than ship a shared placeholder mark for the long tail (which would visually re-create the "everything is Claude" bug class), each tool gets a unique brand-monogram (24x24 SVG, rounded square in tool's official primary brand color, initials in high-contrast foreground). Each is unique to its tool — no two share color+initial. Provenance documented in `src/assets/tool-logos/README.md`. Phase 4 polish can progressively swap monograms for official brand-kit SVGs without breaking consumer code (logo URL string is stable).
 - **(Plan 01-05) Side-effect import of @/data/tools in src/router.tsx.** No Phase 1 page consumes tools.ts (Phase 3 features will). Without the side-effect import, vite tree-shakes the module out of the production bundle and the runtime validators never fire on a real page load. The 1-line `import "@/data/tools"` in router.tsx keeps the validators reachable. Once Phase 3 starts importing TOOLS by name, the side-effect import becomes redundant but stays harmless.
 - **(Plan 01-05) TOOLS shape for Phase 3.** TOOLS is `ReadonlyArray<Tool>` cast `as const`. Operations: `find`, `filter`, `map`, `forEach`, `reduce` work normally. In-place mutators are TypeScript errors. For Rankings sorting (by net upvotes), use `[...TOOLS].sort(...)` or `TOOLS.toSorted(...)` — the spread copy works on ES2022; `.toSorted` requires ES2023 (current tsconfig target is ES2022, so prefer the spread form).
+- **(Plan 02-02) ProtectedRoute uses `useEffect` for `touchSession()`.** Calling `set` during render of a component that subscribes to that state would cause "state update during render" warnings (and could spin in dev). The effect runs synchronously after render in RTL, so the sliding-refresh test still verifies the wiring. The 25-day refresh threshold + 60s test tolerance keeps the assertion stable.
+- **(Plan 02-02) shadcn `Form` primitive is hand-written.** The radix-nova preset's `form` registry returns an empty item, so we wrote the standard shadcn Form component directly into `src/components/ui/form.tsx`. Uses `radix-ui` meta-package's `Slot.Root` (matches Phase 1 Button conventions). Phase 4 polish can converge with shadcn's stock Form if/when nova ships it.
+- **(Plan 02-02) Auth-aware Header renders three exclusive affordance sets.** Real-user / guest / unauthenticated each get their own block. Keeps the auth-state surface explicit at the layout level — easy to test (each state has a unique testid) and easy to extend (Phase 4 can add a profile dropdown without disturbing the others).
+- **(Plan 02-02) `safeReturnTo` in SignInForm rejects absolute URLs.** Open-redirect protection: `params.get("return_to")` is only honored if it starts with `/`. Otherwise falls back to `/home`. Production posture, not just demo.
+- **(Plan 02-02) `tests/setup.ts` has a `window.matchMedia` polyfill.** Sonner's Toaster reads it at mount time and jsdom doesn't ship it. Without the polyfill, every form test that mounts `<Toaster />` crashes. The polyfill returns `{ matches: false, ... }` for any query — narrow shape, no behavioral effect on tests.
+- **(Plan 02-02) `useAuth()` is the standard component-facing API.** Components consume `useAuth()`, not `useAuthStore` directly. The hook returns reactive `session` (subscribed) plus action references and a non-reactive `currentUser`. Components that need to react to user-record updates (interests, displayName) should subscribe to `useUsersStore` directly.
+- **(Plan 02-02) Sign In error wording is set via `form.setError("password", { message: r.error })`.** The literal string lives only in `@/features/auth/types` (`GENERIC_SIGNIN_ERROR`). SignInForm never duplicates it — preserves single source of truth and structurally prevents the wording from drifting between unknown-email and wrong-password paths.
 
 ### Open Questions / Todos
 
@@ -95,6 +104,10 @@ progress:
 - [x] Plan 01-04 executed (router + AppShell + theme; FOUND-02, FOUND-03, FOUND-06, UX-03, UX-08 satisfied)
 - [x] Plan 01-05 executed (seed data + brand logos + SPA fallback; FOUND-07, DATA-01, DATA-02, DATA-03 satisfied)
 - [x] Logo asset strategy decided in Plan 01-05: 13 from simple-icons (CC0) + 37 project-authored brand-monograms (each unique, brand-color anchored). Phase 4 polish can progressively replace monograms with official brand-kit SVGs without breaking consumer code.
+- [x] Plan 02-01 executed (authStore + usersStore + Web Crypto password helpers; AUTH-03 + AUTH-09 partial via clearGuestData scaffolding)
+- [x] Plan 02-02 executed (auth pages + ProtectedRoute; AUTH-01, AUTH-02, AUTH-04..08 satisfied)
+- [ ] Plan 02-03 (Onboarding wizard) — Sign Up auto-routes to `/onboarding/interests`; that route MUST exist by end of 02-03 or Sign Up will 404
+- [ ] Plan 02-04 (Non-auth stores) — un-skip A11/A12 in `src/features/auth/store.test.ts` after `clearByUser` ships on the four non-auth stores
 - [ ] Decide mobile responsive scope at Phase 4: PROJECT.md says "tablet required, mobile nice-to-have"; Compare table at 768px is the hardest layout
 - [x] **(Plan 01-02 carryover, completed in Plan 01-04)** src/App.tsx now wraps RouterProvider in ThemeProvider; Toaster mounts at App.tsx root; src/index.css updated with brand override variables (--primary emerald, --accent orange) for both :root and .dark.
 
@@ -115,9 +128,9 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-27T02:11:00.000Z
-**Next action:** Begin Phase 2 — Auth + Persistence Stores (planning)
-**Stopped at:** Completed 01-05-PLAN.md (Phase 1 COMPLETE)
+**Last session:** 2026-04-27T18:37:03.417Z
+**Next action:** Execute Plan 02-03 (Onboarding wizard — interests/tools steps + completeOnboarding write path)
+**Stopped at:** Completed 02-02-PLAN.md
 
 **Files of record:**
 - `.planning/PROJECT.md` — vision, scope, constraints, key decisions

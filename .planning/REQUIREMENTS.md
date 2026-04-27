@@ -19,14 +19,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can create account with email and password via Sign Up form
-- [ ] **AUTH-02**: User can log in with email and password via Sign In form
+- [x] **AUTH-01**: User can create account with email and password via Sign Up form
+- [x] **AUTH-02**: User can log in with email and password via Sign In form
 - [ ] **AUTH-03**: User session persists across browser refresh (localStorage)
-- [ ] **AUTH-04**: User can log out from any page via header menu
-- [ ] **AUTH-05**: User can request password reset via Forgot Password form (mock — shows success state, no email sent)
-- [ ] **AUTH-06**: Form validation displays inline errors for invalid email, weak password, mismatched confirm-password
-- [ ] **AUTH-07**: User can continue as guest via "Continue as Guest" button on Sign In page — guest gets a temporary session with limited persistence (favorites/votes/reviews scoped to guest, cleared on next sign-in)
-- [ ] **AUTH-08**: Protected routes (`/onboarding`, `/home`, `/favorites`, `/profile`, `/submit`) redirect unauthenticated users to `/signin` with return-URL preservation
+- [x] **AUTH-04**: User can log out from any page via header menu
+- [x] **AUTH-05**: User can request password reset via Forgot Password form (mock — shows success state, no email sent)
+- [x] **AUTH-06**: Form validation displays inline errors for invalid email, weak password, mismatched confirm-password
+- [x] **AUTH-07**: User can continue as guest via "Continue as Guest" button on Sign In page — guest gets a temporary session with limited persistence (favorites/votes/reviews scoped to guest, cleared on next sign-in)
+- [x] **AUTH-08**: Protected routes (`/onboarding`, `/home`, `/favorites`, `/profile`, `/submit`) redirect unauthenticated users to `/signin` with return-URL preservation
 
 ### Onboarding
 
@@ -169,14 +169,14 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 | FOUND-05 | Phase 1: Foundation | Complete |
 | FOUND-06 | Phase 1: Foundation | Complete (Plan 01-04) |
 | FOUND-07 | Phase 1: Foundation | Complete |
-| AUTH-01 | Phase 2: Auth + Persistence Stores | Pending |
-| AUTH-02 | Phase 2: Auth + Persistence Stores | Pending |
+| AUTH-01 | Phase 2: Auth + Persistence Stores | Complete |
+| AUTH-02 | Phase 2: Auth + Persistence Stores | Complete |
 | AUTH-03 | Phase 2: Auth + Persistence Stores | Pending |
-| AUTH-04 | Phase 2: Auth + Persistence Stores | Pending |
-| AUTH-05 | Phase 2: Auth + Persistence Stores | Pending |
-| AUTH-06 | Phase 2: Auth + Persistence Stores | Pending |
-| AUTH-07 | Phase 2: Auth + Persistence Stores | Pending |
-| AUTH-08 | Phase 2: Auth + Persistence Stores | Pending |
+| AUTH-04 | Phase 2: Auth + Persistence Stores | Complete |
+| AUTH-05 | Phase 2: Auth + Persistence Stores | Complete |
+| AUTH-06 | Phase 2: Auth + Persistence Stores | Complete |
+| AUTH-07 | Phase 2: Auth + Persistence Stores | Complete |
+| AUTH-08 | Phase 2: Auth + Persistence Stores | Complete |
 | ONBO-01 | Phase 2: Auth + Persistence Stores | Pending |
 | ONBO-02 | Phase 2: Auth + Persistence Stores | Pending |
 | ONBO-03 | Phase 2: Auth + Persistence Stores | Pending |
