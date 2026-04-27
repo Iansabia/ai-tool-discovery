@@ -3,24 +3,24 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: Completed 01-03-PLAN.md
-last_updated: "2026-04-27T01:52:07.703Z"
+stopped_at: Completed 01-04-PLAN.md
+last_updated: "2026-04-27T01:58:00.000Z"
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 5
-  completed_plans: 3
+  completed_plans: 4
 ---
 
 # Project State: AI Tools Discovery Platform
 
-**Last updated:** 2026-04-27 (Plan 01-03 complete)
+**Last updated:** 2026-04-27 (Plan 01-04 complete)
 
 ## Project Reference
 
 **Core value:** Help students find and choose AI tools faster — every tool has its own real detail page, every comparison reflects the user's actual choice, and every action gives clear, immediate feedback.
 
-**Current focus:** Phase 1 (Foundation) — Plans 01-01 + 01-02 + 01-03 complete (test infrastructure + Vite/shadcn scaffold + lib/types/data layers). Ready for Plan 01-04 (router + AppShell + theme).
+**Current focus:** Phase 1 (Foundation) — Plans 01-01 + 01-02 + 01-03 + 01-04 complete (test infrastructure + Vite/shadcn scaffold + lib/types/data layers + router/AppShell/theme). Ready for Plan 01-05 (seed data + brand logos).
 
 **Stack:** Vite + React 18 + TypeScript + Tailwind v4 + shadcn/ui + react-router v7 + Zustand + Zod v3 + react-hook-form + sonner + next-themes + fuse.js + motion v12
 
@@ -29,14 +29,14 @@ progress:
 ## Current Position
 
 **Phase:** 1 — Foundation (in progress)
-**Plan:** 01-03 complete; next is 01-04 (router + AppShell + theme)
-**Status:** Foundation modules in place — types/storage/validators all tested; 3/5 plans done in Phase 1
+**Plan:** 01-04 complete; next is 01-05 (seed data + brand logos)
+**Status:** Router + AppShell + theme wired with brand tokens, FOUC script, multi-tab consistency, and all 18 routes registered; URL-as-source-of-truth structurally locked. 4/5 plans done in Phase 1
 
-**Overall progress:** [▰▰▰▱▱▱▱▱▱▱] 3/25 plans across all phases (~12%); 0/5 phases complete
+**Overall progress:** [▰▰▰▰▱▱▱▱▱▱] 4/25 plans across all phases (~16%); 0/5 phases complete
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| 1. Foundation | In progress | 3/5 plans (60%) |
+| 1. Foundation | In progress | 4/5 plans (80%) |
 | 2. Auth + Persistence Stores | Not started | 0% |
 | 3. Feature Breadth (Ugly But Working) | Not started | 0% |
 | 4. Polish, Dark Mode, Accessibility | Not started | 0% |
@@ -44,16 +44,17 @@ progress:
 
 ## Performance Metrics
 
-**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 4/70 marked complete (FOUND-01, FOUND-04, FOUND-05, UX-07)
+**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 9/70 marked complete (FOUND-01, FOUND-02, FOUND-03, FOUND-04, FOUND-05, FOUND-06, UX-03, UX-07, UX-08)
 **Phases:** 5 (coarse granularity, within 4-6 target)
-**Plans completed:** 3
-**Commits:** 8 task commits in current phase (a5c01bf, d77def5, 24d3df2, 17f39ab, e60d064, f865b01, c0c6360, 69038e5)
+**Plans completed:** 4
+**Commits:** 10 task commits in current phase (a5c01bf, d77def5, 24d3df2, 17f39ab, e60d064, f865b01, c0c6360, 69038e5, e996901, cd11407)
 
 | Plan | Duration | Tasks | Files | Commits |
 |------|----------|-------|-------|---------|
 | 01-01 (test infrastructure) | 2 min | 2 | 5 | 2 task + 1 metadata |
 | 01-02 (vite + shadcn scaffold) | 6 min | 2 | 17 | 2 task + 1 metadata |
 | 01-03 (lib + types + data) | 3 min | 3 | 6 | 4 task + 1 metadata |
+| 01-04 (router + AppShell + theme) | 4 min | 2 | 32 | 2 task + 1 metadata |
 
 ## Accumulated Context
 
@@ -75,6 +76,10 @@ progress:
 - **(Plan 01-03) Zod safeGet uses explicit `as T` cast.** `tsc --noEmit` accepted the unwrapped Zod result, but `tsc -b` (project-mode used by `npm run build`) flagged the assignability gap. Cast is safe because `result.success === true` already validated `data` against `ZodType<T>`. Standard pattern with Zod generics.
 - **(Plan 01-03) Build-time validators live in `src/data/_validate.ts` (double-underscored, internal-only).** Plan 01-05's `tools.ts` MUST import them and call them at module load (top-level, not inside a function) so they fire on dev-server startup AND during `vite build`.
 - **(Plan 01-03) Storage envelope versioning convention: start at `version: 1`.** Stores bump to 2/3/etc when persisted shape changes. The helper falls back to default on version mismatch — no migration logic exists yet. Phase 2 stores should start at version 1.
+- **(Plan 01-04) Toaster mounts at App.tsx root, NOT inside AppShell.** AppShell is itself the parent route element and re-renders on nested route transitions; mounting Toaster inside it would unmount/remount it on every navigation. Mounting at App.tsx root keeps it alive across the entire app lifetime.
+- **(Plan 01-04) next-themes uses raw key `"aitools:theme"` (no scope suffix).** This is divergent from the Phase 2 Zustand stores, which will use `storageKey("foo")` returning `"aitools:foo:global"`. ThemeToggle subscribes to the literal `"aitools:theme"` key, NOT to `storageKey("theme")`. Phase 2 must NOT try to "normalize" the theme key — next-themes is a third-party consumer with its own shape.
+- **(Plan 01-04) Inline FOUC script in `index.html` is the single permitted localStorage-touching exception in `src/`-adjacent code.** It runs before React mounts and cannot import ESM modules. The lint script (`lint:no-direct-localstorage`) only scans `src/`, so this is structurally exempt. Don't add other exceptions.
+- **(Plan 01-04) URL-as-source-of-truth pattern is structurally locked at the placeholder layer.** All param-bearing pages (Tool, Compare, Compare-Picker, Category) read via `useParams`; Search reads via `useSearchParams`. Tests assert that 3 different `/compare/a/vs/b` URLs render 3 different pairs — the prototype's hardcoded-Claude-vs-ChatGPT bug class cannot recur.
 
 ### Open Questions / Todos
 
@@ -82,11 +87,11 @@ progress:
 - [x] Plan 01-01 executed (test infrastructure)
 - [x] Plan 01-02 executed (Vite + shadcn/ui scaffold; FOUND-01 satisfied)
 - [x] Plan 01-03 executed (lib + types + data layers; FOUND-04, FOUND-05, UX-07 satisfied)
-- [ ] Plan 01-04: router + AppShell — react-router 7 installed, App.tsx is placeholder ready to be replaced
-- [ ] Plan 01-05: seed data + brand tokens — must call `__validateSlugsUnique` and `__validateLogosPresent` from `@/data/_validate` at module load in `tools.ts`
+- [x] Plan 01-04 executed (router + AppShell + theme; FOUND-02, FOUND-03, FOUND-06, UX-03, UX-08 satisfied)
+- [ ] Plan 01-05: seed data + brand logos — must call `__validateSlugsUnique` and `__validateLogosPresent` from `@/data/_validate` at module load in `tools.ts`. Brand tokens are already wired (Plan 01-04); Plan 05 only authors `tools.ts`, `categories.ts`, and the SVG logos under `src/assets/tool-logos/`
 - [ ] Decide logo asset strategy in Phase 1: source from each tool's brand kit vs. generic placeholder mark + name fallback (research flagged this as a gap) — relevant to Plan 01-04 or 01-05 (seed data)
 - [ ] Decide mobile responsive scope at Phase 4: PROJECT.md says "tablet required, mobile nice-to-have"; Compare table at 768px is the hardest layout
-- [ ] **(Plan 01-02 carryover)** Plan 04 will replace src/App.tsx with `<ThemeProvider><RouterProvider /></ThemeProvider>` + a single `<Toaster />`. src/index.css already has the full neutral-base shadcn theme variables; Plan 04 only needs to add brand override variables (--primary: emerald, --accent: orange).
+- [x] **(Plan 01-02 carryover, completed in Plan 01-04)** src/App.tsx now wraps RouterProvider in ThemeProvider; Toaster mounts at App.tsx root; src/index.css updated with brand override variables (--primary emerald, --accent orange) for both :root and .dark.
 
 ### Blockers
 
@@ -105,9 +110,9 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-27T01:52:07.701Z
-**Next action:** Execute Plan 01-04 (router + AppShell + theme)
-**Stopped at:** Completed 01-03-PLAN.md
+**Last session:** 2026-04-27T01:58:00.000Z
+**Next action:** Execute Plan 01-05 (seed data + brand logos)
+**Stopped at:** Completed 01-04-PLAN.md
 
 **Files of record:**
 - `.planning/PROJECT.md` — vision, scope, constraints, key decisions

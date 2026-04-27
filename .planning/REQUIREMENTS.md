@@ -10,11 +10,11 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Foundation
 
 - [x] **FOUND-01**: Vite + React 18 + TypeScript + Tailwind v4 + shadcn/ui project scaffolded with `@/` path alias and dev server running
-- [ ] **FOUND-02**: Router skeleton registers every route (`/`, `/signin`, `/signup`, `/forgot-password`, `/onboarding`, `/home`, `/categories`, `/categories/:slug`, `/tools/:slug`, `/compare/:a`, `/compare/:a/vs/:b`, `/search`, `/favorites`, `/profile`, `/rankings`, `/submit`, `/submit/success`, `*`)
-- [ ] **FOUND-03**: AppShell component renders Header, Footer, and a single `<Toaster />` mounted at root
+- [x] **FOUND-02**: Router skeleton registers every route (`/`, `/signin`, `/signup`, `/forgot-password`, `/onboarding`, `/home`, `/categories`, `/categories/:slug`, `/tools/:slug`, `/compare/:a`, `/compare/:a/vs/:b`, `/search`, `/favorites`, `/profile`, `/rankings`, `/submit`, `/submit/success`, `*`)
+- [x] **FOUND-03**: AppShell component renders Header, Footer, and a single `<Toaster />` mounted at root
 - [x] **FOUND-04**: TypeScript interfaces defined for Tool, Category, User, Session, Review, Vote, Submission with required `slug` field on Tool
 - [x] **FOUND-05**: Storage helper (`src/lib/storage.ts`) wraps localStorage with namespaced keys (`aitools:<domain>:<scope>`), Zod-validated reads, and version fields
-- [ ] **FOUND-06**: Brand color tokens (green primary, orange accent) defined as CSS variables in `globals.css` for both `:root` and `.dark`
+- [x] **FOUND-06**: Brand color tokens (green primary, orange accent) defined as CSS variables in `globals.css` for both `:root` and `.dark`
 - [ ] **FOUND-07**: Build-time validation enforces unique slugs across the seed tool dataset
 
 ### Authentication
@@ -95,12 +95,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **UX-01**: Toast notifications confirm every persisting action (favorite, unfavorite, upvote, downvote, review submitted, tool submitted, profile saved, comparison saved)
 - [ ] **UX-02**: Light and dark mode toggle in the header; theme persists across sessions
-- [ ] **UX-03**: Inline `<script>` in `index.html` applies the persisted theme class before React mounts (prevents FOUC)
+- [x] **UX-03**: Inline `<script>` in `index.html` applies the persisted theme class before React mounts (prevents FOUC)
 - [ ] **UX-04**: All interactive elements have visible keyboard focus states
 - [ ] **UX-05**: All modals trap focus, close on Escape, and restore focus to the trigger element on close (uses shadcn `<Dialog>`)
 - [ ] **UX-06**: All lists ship with empty states (favorites empty, no reviews, no pending submissions, no search results, no rankings)
 - [x] **UX-07**: All persisting actions write through the shared storage helper — no raw `localStorage.setItem` calls in feature code
-- [ ] **UX-08**: Multi-tab consistency — when state changes in another tab (favorites, votes, theme), the current tab reflects the update via `storage` event listener
+- [x] **UX-08**: Multi-tab consistency — when state changes in another tab (favorites, votes, theme), the current tab reflects the update via `storage` event listener
 
 ### Data
 
@@ -163,11 +163,11 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | FOUND-01 | Phase 1: Foundation | Complete |
-| FOUND-02 | Phase 1: Foundation | Pending |
-| FOUND-03 | Phase 1: Foundation | Pending |
+| FOUND-02 | Phase 1: Foundation | Complete (Plan 01-04) |
+| FOUND-03 | Phase 1: Foundation | Complete (Plan 01-04) |
 | FOUND-04 | Phase 1: Foundation | Complete |
 | FOUND-05 | Phase 1: Foundation | Complete |
-| FOUND-06 | Phase 1: Foundation | Pending |
+| FOUND-06 | Phase 1: Foundation | Complete (Plan 01-04) |
 | FOUND-07 | Phase 1: Foundation | Pending |
 | AUTH-01 | Phase 2: Auth + Persistence Stores | Pending |
 | AUTH-02 | Phase 2: Auth + Persistence Stores | Pending |
@@ -224,12 +224,12 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 | USER-04 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | UX-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | UX-02 | Phase 4: Polish, Dark Mode, Accessibility | Pending |
-| UX-03 | Phase 1: Foundation | Pending |
+| UX-03 | Phase 1: Foundation | Complete (Plan 01-04) |
 | UX-04 | Phase 4: Polish, Dark Mode, Accessibility | Pending |
 | UX-05 | Phase 4: Polish, Dark Mode, Accessibility | Pending |
 | UX-06 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | UX-07 | Phase 1: Foundation | Complete |
-| UX-08 | Phase 1: Foundation | Pending |
+| UX-08 | Phase 1: Foundation | Complete (Plan 01-04) |
 | DATA-01 | Phase 1: Foundation | Pending |
 | DATA-02 | Phase 1: Foundation | Pending |
 | DATA-03 | Phase 1: Foundation | Pending |
