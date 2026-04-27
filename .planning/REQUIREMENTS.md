@@ -158,17 +158,94 @@ Explicitly excluded. Documented to prevent scope creep.
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
+Which phases cover which requirements. All 70 v1 requirements mapped (100% coverage).
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (Empty — populated by roadmapper) | | |
+| FOUND-01 | Phase 1: Foundation | Pending |
+| FOUND-02 | Phase 1: Foundation | Pending |
+| FOUND-03 | Phase 1: Foundation | Pending |
+| FOUND-04 | Phase 1: Foundation | Pending |
+| FOUND-05 | Phase 1: Foundation | Pending |
+| FOUND-06 | Phase 1: Foundation | Pending |
+| FOUND-07 | Phase 1: Foundation | Pending |
+| AUTH-01 | Phase 2: Auth + Persistence Stores | Pending |
+| AUTH-02 | Phase 2: Auth + Persistence Stores | Pending |
+| AUTH-03 | Phase 2: Auth + Persistence Stores | Pending |
+| AUTH-04 | Phase 2: Auth + Persistence Stores | Pending |
+| AUTH-05 | Phase 2: Auth + Persistence Stores | Pending |
+| AUTH-06 | Phase 2: Auth + Persistence Stores | Pending |
+| AUTH-07 | Phase 2: Auth + Persistence Stores | Pending |
+| AUTH-08 | Phase 2: Auth + Persistence Stores | Pending |
+| ONBO-01 | Phase 2: Auth + Persistence Stores | Pending |
+| ONBO-02 | Phase 2: Auth + Persistence Stores | Pending |
+| ONBO-03 | Phase 2: Auth + Persistence Stores | Pending |
+| ONBO-04 | Phase 2: Auth + Persistence Stores | Pending |
+| ONBO-05 | Phase 2: Auth + Persistence Stores | Pending |
+| ONBO-06 | Phase 2: Auth + Persistence Stores | Pending |
+| DISC-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| DISC-02 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| DISC-03 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| DISC-04 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| DISC-05 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| DISC-06 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| DISC-07 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| DISC-08 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| TOOL-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| TOOL-02 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| TOOL-03 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| TOOL-04 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| TOOL-05 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| TOOL-06 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| TOOL-07 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| TOOL-08 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMP-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMP-02 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMP-03 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMP-04 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMP-05 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMP-06 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMP-07 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMP-08 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMP-09 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMP-10 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMM-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMM-02 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMM-03 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMM-04 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMM-05 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMM-06 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMM-07 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMM-08 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMM-09 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| USER-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| USER-02 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| USER-03 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| USER-04 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| UX-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| UX-02 | Phase 4: Polish, Dark Mode, Accessibility | Pending |
+| UX-03 | Phase 1: Foundation | Pending |
+| UX-04 | Phase 4: Polish, Dark Mode, Accessibility | Pending |
+| UX-05 | Phase 4: Polish, Dark Mode, Accessibility | Pending |
+| UX-06 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| UX-07 | Phase 1: Foundation | Pending |
+| UX-08 | Phase 1: Foundation | Pending |
+| DATA-01 | Phase 1: Foundation | Pending |
+| DATA-02 | Phase 1: Foundation | Pending |
+| DATA-03 | Phase 1: Foundation | Pending |
 
 **Coverage:**
-- v1 requirements: TBD (counted by roadmapper)
-- Mapped to phases: TBD
-- Unmapped: TBD
+- v1 requirements: 70
+- Mapped to phases: 70
+- Unmapped: 0
+
+**Phase distribution:**
+- Phase 1 (Foundation): 13 requirements (FOUND-01..07, DATA-01..03, UX-03, UX-07, UX-08)
+- Phase 2 (Auth + Persistence Stores): 14 requirements (AUTH-01..08, ONBO-01..06)
+- Phase 3 (Feature Breadth): 40 requirements (DISC-01..08, TOOL-01..08, COMP-01..10, COMM-01..09, USER-01..04, UX-01, UX-06)
+- Phase 4 (Polish, Dark Mode, Accessibility): 3 requirements (UX-02, UX-04, UX-05)
+- Phase 5 (Pre-Demo Hardening): 0 new requirements (verifies all 70 in fresh-browser walkthrough)
 
 ---
 *Requirements defined: 2026-04-26*
-*Last updated: 2026-04-26 after initial definition*
+*Last updated: 2026-04-26 — traceability populated by roadmapper*
