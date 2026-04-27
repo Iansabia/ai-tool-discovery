@@ -62,7 +62,7 @@ export function safeGet<T>(
       )
       return fallback
     }
-    return result.data.data
+    return result.data.data as T
   } catch (err) {
     console.warn(`[storage] read failed for ${key}`, err)
     return fallback
