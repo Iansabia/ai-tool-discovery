@@ -3,24 +3,24 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-04-27T18:37:03.420Z"
+stopped_at: Completed 02-04-PLAN.md
+last_updated: "2026-04-27T20:57:44.959Z"
 progress:
   total_phases: 5
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 9
-  completed_plans: 7
+  completed_plans: 9
 ---
 
 # Project State: AI Tools Discovery Platform
 
-**Last updated:** 2026-04-27 (Plan 02-02 complete — auth pages + ProtectedRoute shipped)
+**Last updated:** 2026-04-27 (Plan 02-04 complete — non-auth stores + withToast shipped; Phase 2 DONE)
 
 ## Project Reference
 
 **Core value:** Help students find and choose AI tools faster — every tool has its own real detail page, every comparison reflects the user's actual choice, and every action gives clear, immediate feedback.
 
-**Current focus:** Phase 2 in progress (2/4 plans done). Plan 02-02 shipped auth pages + ProtectedRoute. Next is Plan 02-03 (Onboarding wizard).
+**Current focus:** Phase 2 COMPLETE (4/4 plans done). Plan 02-04 shipped favoritesStore + upvoteStore (with locked vote state machine) + reviewStore + submissionStore + withToast utility, and un-skipped A11/A12 (BLOCKER 2 wire complete). Next is Phase 3 (Feature Breadth — ugly but working).
 
 **Stack:** Vite + React 18 + TypeScript + Tailwind v4 + shadcn/ui + react-router v7 + Zustand + Zod v3 + react-hook-form + sonner + next-themes + fuse.js + motion v12
 
@@ -28,26 +28,26 @@ progress:
 
 ## Current Position
 
-**Phase:** 2 — Auth + Persistence Stores (IN PROGRESS)
-**Plan:** 02-02 done. Next is 02-03 (Onboarding wizard).
-**Status:** Ready to plan/execute next
+**Phase:** 2 — Auth + Persistence Stores (COMPLETE)
+**Plan:** All 4 plans done. Next phase is 3 (Feature Breadth — Ugly But Working).
+**Status:** Phase 2 fully shipped; ready to plan Phase 3.
 
-**Overall progress:** [▰▰▰▰▰▰▰▱▱▱] 7/25 plans across all phases (~28%); 1/5 phases complete
+**Overall progress:** [▰▰▰▰▰▰▰▰▰▱] 9/25 plans across all phases (~36%); 2/5 phases complete
 
 | Phase | Status | Progress |
 |-------|--------|----------|
 | 1. Foundation | Complete | 5/5 plans (100%) |
-| 2. Auth + Persistence Stores | In progress | 2/4 plans (50%) |
+| 2. Auth + Persistence Stores | Complete | 4/4 plans (100%) |
 | 3. Feature Breadth (Ugly But Working) | Not started | 0% |
 | 4. Polish, Dark Mode, Accessibility | Not started | 0% |
 | 5. Pre-Demo Hardening | Not started | 0% |
 
 ## Performance Metrics
 
-**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 23/70 marked complete (FOUND-01..07, DATA-01..03, UX-03, UX-07, UX-08, AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, AUTH-06, AUTH-07, AUTH-08, AUTH-09 partial via 02-01+02-02)
+**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 29/70 marked complete (FOUND-01..07, DATA-01..03, UX-03, UX-07, UX-08, AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, AUTH-06, AUTH-07, AUTH-08, AUTH-09, ONBO-01..06)
 **Phases:** 5 (coarse granularity, within 4-6 target)
-**Plans completed:** 7 (5 Phase 1 + 02-01 + 02-02)
-**Commits:** 12 task commits in Phase 1 + 02-01 (177eedd, e09a80a, 4d78fde) + 02-02 (7206a54, 2267763)
+**Plans completed:** 9 (5 Phase 1 + 02-01 + 02-02 + 02-03 + 02-04). Phase 2 COMPLETE.
+**Commits:** Phase 1 + 02-01 (177eedd, e09a80a, 4d78fde) + 02-02 (7206a54, 2267763) + 02-03 (37d36b6, 280415a) + 02-04 (7b77d9a, 560f094)
 
 | Plan | Duration | Tasks | Files | Commits |
 |------|----------|-------|-------|---------|
@@ -58,6 +58,8 @@ progress:
 | 01-05 (seed data + brand logos + SPA fallback) | 7 min | 2 | 56 | 2 task + 1 metadata |
 | 02-01 (authStore + usersStore + crypto) | ~15 min | 2 | 8 | 2 task + 1 metadata |
 | 02-02 (auth pages + ProtectedRoute) | ~12 min | 2 | 21 | 2 task + 1 metadata |
+| 02-03 (onboarding wizard) | ~? min | 2 | ? | 2 task + 1 metadata |
+| 02-04 (non-auth stores + withToast) | ~4 min | 2 | 11 | 2 task + 1 metadata |
 
 ## Accumulated Context
 
@@ -94,6 +96,10 @@ progress:
 - **(Plan 02-02) `tests/setup.ts` has a `window.matchMedia` polyfill.** Sonner's Toaster reads it at mount time and jsdom doesn't ship it. Without the polyfill, every form test that mounts `<Toaster />` crashes. The polyfill returns `{ matches: false, ... }` for any query — narrow shape, no behavioral effect on tests.
 - **(Plan 02-02) `useAuth()` is the standard component-facing API.** Components consume `useAuth()`, not `useAuthStore` directly. The hook returns reactive `session` (subscribed) plus action references and a non-reactive `currentUser`. Components that need to react to user-record updates (interests, displayName) should subscribe to `useUsersStore` directly.
 - **(Plan 02-02) Sign In error wording is set via `form.setError("password", { message: r.error })`.** The literal string lives only in `@/features/auth/types` (`GENERIC_SIGNIN_ERROR`). SignInForm never duplicates it — preserves single source of truth and structurally prevents the wording from drifting between unknown-email and wrong-password paths.
+- **(Plan 02-04) Vote state machine canonical phrasing.** `setVote(userId, slug, next: 'up'|'down')` resolves to `current === next ? "none" : next`. This single expression covers all 6 transitions (none↔up, none↔down, up↔down, plus the same-vote toggle-off paths). Phase 3's vote button must NOT re-implement this logic — it dispatches `setVote(_, _, "up" | "down")` and reads `getVote(_, _)` for the visual state.
+- **(Plan 02-04) All 4 non-auth stores use `:global` scope with per-user data nested.** Keys: `aitools:favorites:global`, `aitools:upvotes:global`, `aitools:reviews:global`, `aitools:submissions:global`. The `{[userId]: ...}` map shape lives inside `data`. `clearByUser(userId)` removes that user's entry from the map (idempotent). reviewStore's clearByUser is special — reviews are keyed by tool slug, so it scans every slug bucket and filters by userId.
+- **(Plan 02-04) `withToast` is unconstrained-generic with one ESLint disable.** The `(...args: any[]) => any` constraint on the wrapped function is necessary for pass-through typing — constraining tighter would force callers to retype every action. The disable is scoped to the file. All other code in the project remains strictly typed.
+- **(Plan 02-04) BLOCKER 2 wire-completion.** `clearGuestData()` in authStore (Plan 02-01) dynamic-imports the four non-auth stores via `[...].join("/")` and calls `clearByUser?.('guest')` with optional-chain. As of this plan, all 4 stores ship clearByUser, so the wire is fully closed. A11/A12 in `src/features/auth/store.test.ts` un-skipped and passing.
 
 ### Open Questions / Todos
 
@@ -106,8 +112,9 @@ progress:
 - [x] Logo asset strategy decided in Plan 01-05: 13 from simple-icons (CC0) + 37 project-authored brand-monograms (each unique, brand-color anchored). Phase 4 polish can progressively replace monograms with official brand-kit SVGs without breaking consumer code.
 - [x] Plan 02-01 executed (authStore + usersStore + Web Crypto password helpers; AUTH-03 + AUTH-09 partial via clearGuestData scaffolding)
 - [x] Plan 02-02 executed (auth pages + ProtectedRoute; AUTH-01, AUTH-02, AUTH-04..08 satisfied)
-- [ ] Plan 02-03 (Onboarding wizard) — Sign Up auto-routes to `/onboarding/interests`; that route MUST exist by end of 02-03 or Sign Up will 404
-- [ ] Plan 02-04 (Non-auth stores) — un-skip A11/A12 in `src/features/auth/store.test.ts` after `clearByUser` ships on the four non-auth stores
+- [x] Plan 02-03 executed (onboarding wizard; ONBO-01..06 satisfied; `/onboarding/interests` and `/onboarding/tools` routes exist; final write path locked through `authStore.completeOnboarding`)
+- [x] Plan 02-04 executed (favoritesStore + upvoteStore + reviewStore + submissionStore + withToast; vote state machine locked; clearByUser shipped on all 4 stores; A11/A12 un-skipped and passing — BLOCKER 2 wire complete)
+- [ ] Phase 3 — feature breadth (favorite buttons, vote buttons, review modals, submit form, profile reads). Consume the Phase 2 stores via `withToast(...)`.
 - [ ] Decide mobile responsive scope at Phase 4: PROJECT.md says "tablet required, mobile nice-to-have"; Compare table at 768px is the hardest layout
 - [x] **(Plan 01-02 carryover, completed in Plan 01-04)** src/App.tsx now wraps RouterProvider in ThemeProvider; Toaster mounts at App.tsx root; src/index.css updated with brand override variables (--primary emerald, --accent orange) for both :root and .dark.
 
@@ -128,9 +135,9 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-27T18:37:03.417Z
-**Next action:** Execute Plan 02-03 (Onboarding wizard — interests/tools steps + completeOnboarding write path)
-**Stopped at:** Completed 02-02-PLAN.md
+**Last session:** 2026-04-27T20:57:44.955Z
+**Next action:** Plan Phase 3 (Feature Breadth — Ugly But Working). Phase 2 stores are ready for consumption: favorite buttons → `useFavoritesStore.toggle`, vote buttons → `useUpvoteStore.setVote`, review modal → `useReviewStore.add`, submit form → `useSubmissionStore.add`, all wrapped in `withToast(...)`.
+**Stopped at:** Completed 02-04-PLAN.md (Phase 2 complete)
 
 **Files of record:**
 - `.planning/PROJECT.md` — vision, scope, constraints, key decisions
