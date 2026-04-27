@@ -94,7 +94,16 @@ Plans:
 5. **Community + user-state surfaces are real.** Rankings shows all tools ordered by net upvotes; Write Review modal accepts 1-5 star rating + text and persists per tool; Submit-a-Tool form accepts name/URL/category/description/tags, adds to a local pending queue (visible on profile), and routes to a success screen; Favorites page lists saved tools; Profile shows display name, email, interests, and pending submissions; user can edit display name and interests.
 6. **Every list ships an empty state in the same commit as the feature.** Favorites-empty, no-reviews-yet, no-pending-submissions, no-search-results, and no-onboarding-selections all render friendly states — never a blank screen, never `undefined` in the UI.
 
-**Plans**: TBD (2-3 plans, heavily parallelizable across feature areas)
+**Plans**: 7 plans across 4 waves
+
+Plans:
+- [ ] 03-feature-breadth/03-01-PLAN.md — Wave 1: Install shadcn primitives (dialog/badge/select/textarea), ToolCard component, useSavedComparisonsStore
+- [ ] 03-feature-breadth/03-02-PLAN.md — Wave 2: Landing page + Logged-in Home (with Recommended because) + Categories + Category Detail
+- [ ] 03-feature-breadth/03-03-PLAN.md — Wave 2: Search (header autocomplete + /search?q= page + empty state) + Tool Detail page (real content, action row, reviews list)
+- [ ] 03-feature-breadth/03-04-PLAN.md — Wave 3: Rankings page (sort by net upvotes) + VoteButton affordance + WriteReviewDialog modal
+- [ ] 03-feature-breadth/03-05-PLAN.md — Wave 3: Compare picker + Compare table + Swap + Change-side + Save Comparison + 9-combination URL test
+- [ ] 03-feature-breadth/03-06-PLAN.md — Wave 4: Submit-a-Tool form (validated) + Submit success page
+- [ ] 03-feature-breadth/03-07-PLAN.md — Wave 4: Favorites page + Profile page (Identity + Preferences + Saved Comparisons + Submissions)
 
 ---
 
@@ -141,7 +150,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation | 5/5 | Complete    | 2026-04-27 |
 | 2. Auth + Persistence Stores | 0/4 | Complete    | 2026-04-27 |
-| 3. Feature Breadth (Ugly But Working) | 0/? | Not started | - |
+| 3. Feature Breadth (Ugly But Working) | 0/7 | Not started | - |
 | 4. Polish, Dark Mode, Accessibility | 0/? | Not started | - |
 | 5. Pre-Demo Hardening | 0/? | Not started | - |
 
