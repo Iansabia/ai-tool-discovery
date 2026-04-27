@@ -12,8 +12,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **FOUND-01**: Vite + React 18 + TypeScript + Tailwind v4 + shadcn/ui project scaffolded with `@/` path alias and dev server running
 - [ ] **FOUND-02**: Router skeleton registers every route (`/`, `/signin`, `/signup`, `/forgot-password`, `/onboarding`, `/home`, `/categories`, `/categories/:slug`, `/tools/:slug`, `/compare/:a`, `/compare/:a/vs/:b`, `/search`, `/favorites`, `/profile`, `/rankings`, `/submit`, `/submit/success`, `*`)
 - [ ] **FOUND-03**: AppShell component renders Header, Footer, and a single `<Toaster />` mounted at root
-- [ ] **FOUND-04**: TypeScript interfaces defined for Tool, Category, User, Session, Review, Vote, Submission with required `slug` field on Tool
-- [ ] **FOUND-05**: Storage helper (`src/lib/storage.ts`) wraps localStorage with namespaced keys (`aitools:<domain>:<scope>`), Zod-validated reads, and version fields
+- [x] **FOUND-04**: TypeScript interfaces defined for Tool, Category, User, Session, Review, Vote, Submission with required `slug` field on Tool
+- [x] **FOUND-05**: Storage helper (`src/lib/storage.ts`) wraps localStorage with namespaced keys (`aitools:<domain>:<scope>`), Zod-validated reads, and version fields
 - [ ] **FOUND-06**: Brand color tokens (green primary, orange accent) defined as CSS variables in `globals.css` for both `:root` and `.dark`
 - [ ] **FOUND-07**: Build-time validation enforces unique slugs across the seed tool dataset
 
@@ -99,7 +99,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **UX-04**: All interactive elements have visible keyboard focus states
 - [ ] **UX-05**: All modals trap focus, close on Escape, and restore focus to the trigger element on close (uses shadcn `<Dialog>`)
 - [ ] **UX-06**: All lists ship with empty states (favorites empty, no reviews, no pending submissions, no search results, no rankings)
-- [ ] **UX-07**: All persisting actions write through the shared storage helper — no raw `localStorage.setItem` calls in feature code
+- [x] **UX-07**: All persisting actions write through the shared storage helper — no raw `localStorage.setItem` calls in feature code
 - [ ] **UX-08**: Multi-tab consistency — when state changes in another tab (favorites, votes, theme), the current tab reflects the update via `storage` event listener
 
 ### Data
@@ -165,8 +165,8 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 | FOUND-01 | Phase 1: Foundation | Complete |
 | FOUND-02 | Phase 1: Foundation | Pending |
 | FOUND-03 | Phase 1: Foundation | Pending |
-| FOUND-04 | Phase 1: Foundation | Pending |
-| FOUND-05 | Phase 1: Foundation | Pending |
+| FOUND-04 | Phase 1: Foundation | Complete |
+| FOUND-05 | Phase 1: Foundation | Complete |
 | FOUND-06 | Phase 1: Foundation | Pending |
 | FOUND-07 | Phase 1: Foundation | Pending |
 | AUTH-01 | Phase 2: Auth + Persistence Stores | Pending |
@@ -228,7 +228,7 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 | UX-04 | Phase 4: Polish, Dark Mode, Accessibility | Pending |
 | UX-05 | Phase 4: Polish, Dark Mode, Accessibility | Pending |
 | UX-06 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| UX-07 | Phase 1: Foundation | Pending |
+| UX-07 | Phase 1: Foundation | Complete |
 | UX-08 | Phase 1: Foundation | Pending |
 | DATA-01 | Phase 1: Foundation | Pending |
 | DATA-02 | Phase 1: Foundation | Pending |
