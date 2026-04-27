@@ -3,24 +3,24 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-04-PLAN.md (Phase 2 complete)
-last_updated: "2026-04-27T21:03:36.053Z"
+stopped_at: Completed 03-01-PLAN.md (Phase 3 Wave 1 done)
+last_updated: "2026-04-27T21:57:31.635Z"
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 9
-  completed_plans: 9
+  total_plans: 16
+  completed_plans: 10
 ---
 
 # Project State: AI Tools Discovery Platform
 
-**Last updated:** 2026-04-27 (Plan 02-04 complete — non-auth stores + withToast shipped; Phase 2 DONE)
+**Last updated:** 2026-04-27 (Plan 03-01 complete — shadcn primitives + ToolCard + useSavedComparisonsStore shipped; Phase 3 Wave 1 done, Wave 2 unblocked)
 
 ## Project Reference
 
 **Core value:** Help students find and choose AI tools faster — every tool has its own real detail page, every comparison reflects the user's actual choice, and every action gives clear, immediate feedback.
 
-**Current focus:** Phase 2 COMPLETE (4/4 plans done). Plan 02-04 shipped favoritesStore + upvoteStore (with locked vote state machine) + reviewStore + submissionStore + withToast utility, and un-skipped A11/A12 (BLOCKER 2 wire complete). Next is Phase 3 (Feature Breadth — ugly but working).
+**Current focus:** Phase 3 Wave 1 COMPLETE. Plan 03-01 shipped four shadcn primitives (dialog/badge/select/textarea), the canonical ToolCard component (used by every Phase 3 list), and useSavedComparisonsStore (Plan 03-05 writes / Plan 03-07 reads). Next is Plan 03-02 (Wave 2: Discovery — landing, home, categories, search).
 
 **Stack:** Vite + React 18 + TypeScript + Tailwind v4 + shadcn/ui + react-router v7 + Zustand + Zod v3 + react-hook-form + sonner + next-themes + fuse.js + motion v12
 
@@ -28,26 +28,26 @@ progress:
 
 ## Current Position
 
-**Phase:** 2 — Auth + Persistence Stores (COMPLETE)
-**Plan:** All 4 plans done. Next phase is 3 (Feature Breadth — Ugly But Working).
-**Status:** Ready to plan
+**Phase:** 3 — Feature Breadth (Ugly But Working)
+**Plan:** 03-01 complete. Next is 03-02 (Wave 2: Discovery).
+**Status:** Ready to execute next plan
 
-**Overall progress:** [▰▰▰▰▰▰▰▰▰▱] 9/25 plans across all phases (~36%); 2/5 phases complete
+**Overall progress:** [▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱] 10/16 plans across all phases (~63%); 2/5 phases complete
 
 | Phase | Status | Progress |
 |-------|--------|----------|
 | 1. Foundation | Complete | 5/5 plans (100%) |
 | 2. Auth + Persistence Stores | Complete | 4/4 plans (100%) |
-| 3. Feature Breadth (Ugly But Working) | Not started | 0% |
+| 3. Feature Breadth (Ugly But Working) | In Progress | 1/7 plans (14%) |
 | 4. Polish, Dark Mode, Accessibility | Not started | 0% |
 | 5. Pre-Demo Hardening | Not started | 0% |
 
 ## Performance Metrics
 
-**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 29/70 marked complete (FOUND-01..07, DATA-01..03, UX-03, UX-07, UX-08, AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, AUTH-06, AUTH-07, AUTH-08, AUTH-09, ONBO-01..06)
+**Requirements coverage:** 70/70 v1 requirements mapped to phases (100%); 33/70 marked complete (FOUND-01..07, DATA-01..03, UX-01, UX-03, UX-06, UX-07, UX-08, AUTH-01..09, ONBO-01..06, COMP-10, USER-04)
 **Phases:** 5 (coarse granularity, within 4-6 target)
-**Plans completed:** 9 (5 Phase 1 + 02-01 + 02-02 + 02-03 + 02-04). Phase 2 COMPLETE.
-**Commits:** Phase 1 + 02-01 (177eedd, e09a80a, 4d78fde) + 02-02 (7206a54, 2267763) + 02-03 (37d36b6, 280415a) + 02-04 (7b77d9a, 560f094)
+**Plans completed:** 10 (5 Phase 1 + 4 Phase 2 + 03-01). Phase 2 COMPLETE; Phase 3 IN PROGRESS (1/7 done).
+**Commits:** Phase 1 + 02-01 (177eedd, e09a80a, 4d78fde) + 02-02 (7206a54, 2267763) + 02-03 (37d36b6, 280415a) + 02-04 (7b77d9a, 560f094) + 03-01 (fe23716 shadcn, b91bb0c test, 718b955 feat)
 
 | Plan | Duration | Tasks | Files | Commits |
 |------|----------|-------|-------|---------|
@@ -60,6 +60,7 @@ progress:
 | 02-02 (auth pages + ProtectedRoute) | ~12 min | 2 | 21 | 2 task + 1 metadata |
 | 02-03 (onboarding wizard) | ~? min | 2 | ? | 2 task + 1 metadata |
 | 02-04 (non-auth stores + withToast) | ~4 min | 2 | 11 | 2 task + 1 metadata |
+| Phase 03 P01 | 6 min | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -100,6 +101,11 @@ progress:
 - **(Plan 02-04) All 4 non-auth stores use `:global` scope with per-user data nested.** Keys: `aitools:favorites:global`, `aitools:upvotes:global`, `aitools:reviews:global`, `aitools:submissions:global`. The `{[userId]: ...}` map shape lives inside `data`. `clearByUser(userId)` removes that user's entry from the map (idempotent). reviewStore's clearByUser is special — reviews are keyed by tool slug, so it scans every slug bucket and filters by userId.
 - **(Plan 02-04) `withToast` is unconstrained-generic with one ESLint disable.** The `(...args: any[]) => any` constraint on the wrapped function is necessary for pass-through typing — constraining tighter would force callers to retype every action. The disable is scoped to the file. All other code in the project remains strictly typed.
 - **(Plan 02-04) BLOCKER 2 wire-completion.** `clearGuestData()` in authStore (Plan 02-01) dynamic-imports the four non-auth stores via `[...].join("/")` and calls `clearByUser?.('guest')` with optional-chain. As of this plan, all 4 stores ship clearByUser, so the wire is fully closed. A11/A12 in `src/features/auth/store.test.ts` un-skipped and passing.
+- **(Plan 03-01) ToolCard is the SINGLE rendering primitive for Phase 3 lists.** Every plan in Waves 2-4 must `import { ToolCard } from "@/features/tools/components/ToolCard"` rather than authoring its own card variant. Prop shape: `{ tool: Tool; recommendedBecause?: string }`. Optional `recommendedBecause` shown only on /home recommendations.
+- **(Plan 03-01) shadcn primitives auto-generated cleanly this time.** Unlike Plan 02-02's `form` (empty registry → hand-write), the radix-nova preset returned full implementations for `dialog`, `badge`, `select`, `textarea`. No hand-write fallback was needed.
+- **(Plan 03-01) eslint config repaired.** `eslint-plugin-react-hooks` no longer exposes `configs.flat.recommended`; switched to `configs['recommended-latest']` (flat-config compatible). Added a per-directory rule override that disables `react-refresh/only-export-components` for `src/components/ui/**` — that rule false-positives on shadcn's canonical pattern of co-locating a Component with its variants/hooks (Badge+badgeVariants, Button+buttonVariants, Form+useFormField). Pre-existing button.tsx and form.tsx errors silently resolved as a side effect — they were the same false positives.
+- **(Plan 03-01) useSavedComparisonsStore canonicalizes pair order.** `add(userId, a, b)` and `remove(userId, a, b)` sort the slug pair `a < b` ascending before applying. Storage layout is stable; dedup works regardless of caller order. KNOWN LIMITATION: NOT wired into `authStore.clearGuestData()` (which enumerates four stores by hardcoded path). Phase 5 hardening can extend the enumeration; documented as a code comment in `src/features/compare/store.ts`.
+- **(Plan 03-01) ToolCard heart belt-and-suspenders preventDefault + stopPropagation.** The heart sits absolute-positioned outside the Link in the current layout. Both calls defend against future layouts that nest the button inside the Link (e.g. if Phase 4 polish refactors the card structure).
 
 ### Open Questions / Todos
 
@@ -114,7 +120,9 @@ progress:
 - [x] Plan 02-02 executed (auth pages + ProtectedRoute; AUTH-01, AUTH-02, AUTH-04..08 satisfied)
 - [x] Plan 02-03 executed (onboarding wizard; ONBO-01..06 satisfied; `/onboarding/interests` and `/onboarding/tools` routes exist; final write path locked through `authStore.completeOnboarding`)
 - [x] Plan 02-04 executed (favoritesStore + upvoteStore + reviewStore + submissionStore + withToast; vote state machine locked; clearByUser shipped on all 4 stores; A11/A12 un-skipped and passing — BLOCKER 2 wire complete)
-- [ ] Phase 3 — feature breadth (favorite buttons, vote buttons, review modals, submit form, profile reads). Consume the Phase 2 stores via `withToast(...)`.
+- [x] Plan 03-01 executed (Wave 1: shadcn dialog/badge/select/textarea + ToolCard + useSavedComparisonsStore; UX-01, UX-06, COMP-10, USER-04 satisfied; eslint config repaired; 201/201 tests)
+- [ ] Plan 03-02 (Wave 2: Discovery — landing, /home with recommendations, /categories, /search). Consumes ToolCard.
+- [ ] Plans 03-03 through 03-07 across Waves 3 and 4.
 - [ ] Decide mobile responsive scope at Phase 4: PROJECT.md says "tablet required, mobile nice-to-have"; Compare table at 768px is the hardest layout
 - [x] **(Plan 01-02 carryover, completed in Plan 01-04)** src/App.tsx now wraps RouterProvider in ThemeProvider; Toaster mounts at App.tsx root; src/index.css updated with brand override variables (--primary emerald, --accent orange) for both :root and .dark.
 
@@ -135,9 +143,9 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-27T20:57:44.955Z
-**Next action:** Plan Phase 3 (Feature Breadth — Ugly But Working). Phase 2 stores are ready for consumption: favorite buttons → `useFavoritesStore.toggle`, vote buttons → `useUpvoteStore.setVote`, review modal → `useReviewStore.add`, submit form → `useSubmissionStore.add`, all wrapped in `withToast(...)`.
-**Stopped at:** Completed 02-04-PLAN.md (Phase 2 complete)
+**Last session:** 2026-04-27T21:55:52Z
+**Next action:** Execute Plan 03-02 (Wave 2: Discovery — landing, /home, /categories, /search). Will consume `ToolCard` from `@/features/tools/components/ToolCard`. Uses `recommendedBecause` prop on the /home recommendations grouping.
+**Stopped at:** Completed 03-01-PLAN.md (Phase 3 Wave 1 done — shadcn primitives + ToolCard + useSavedComparisonsStore shipped)
 
 **Files of record:**
 - `.planning/PROJECT.md` — vision, scope, constraints, key decisions

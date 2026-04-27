@@ -70,7 +70,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **COMP-07**: User can swap which tool is on the left/right via a swap button
 - [ ] **COMP-08**: User can change either tool from the compare page without going back to a tool detail
 - [ ] **COMP-09**: Compare page renders NotFound state if either slug is invalid; dev assertion warns if `a === b`
-- [ ] **COMP-10**: User can save a comparison; saved comparisons persist in localStorage and are listed on the user's profile or a dedicated saved-comparisons surface
+- [x] **COMP-10**: User can save a comparison; saved comparisons persist in localStorage and are listed on the user's profile or a dedicated saved-comparisons surface
 
 ### Community
 
@@ -89,16 +89,16 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **USER-01**: Favorites page (`/favorites`) lists all tools the user has favorited; empty state renders when no favorites exist
 - [ ] **USER-02**: Profile page (`/profile`) shows the user's display name, email, selected interests, and submitted tools (pending queue)
 - [ ] **USER-03**: User can edit display name and selected interests from the profile page; changes persist
-- [ ] **USER-04**: Favorite button on tool cards and tool detail pages toggles state and persists per user
+- [x] **USER-04**: Favorite button on tool cards and tool detail pages toggles state and persists per user
 
 ### Cross-Cutting UX
 
-- [ ] **UX-01**: Toast notifications confirm every persisting action (favorite, unfavorite, upvote, downvote, review submitted, tool submitted, profile saved, comparison saved)
+- [x] **UX-01**: Toast notifications confirm every persisting action (favorite, unfavorite, upvote, downvote, review submitted, tool submitted, profile saved, comparison saved)
 - [ ] **UX-02**: Light and dark mode toggle in the header; theme persists across sessions
 - [x] **UX-03**: Inline `<script>` in `index.html` applies the persisted theme class before React mounts (prevents FOUC)
 - [ ] **UX-04**: All interactive elements have visible keyboard focus states
 - [ ] **UX-05**: All modals trap focus, close on Escape, and restore focus to the trigger element on close (uses shadcn `<Dialog>`)
-- [ ] **UX-06**: All lists ship with empty states (favorites empty, no reviews, no pending submissions, no search results, no rankings)
+- [x] **UX-06**: All lists ship with empty states (favorites empty, no reviews, no pending submissions, no search results, no rankings)
 - [x] **UX-07**: All persisting actions write through the shared storage helper — no raw `localStorage.setItem` calls in feature code
 - [x] **UX-08**: Multi-tab consistency — when state changes in another tab (favorites, votes, theme), the current tab reflects the update via `storage` event listener
 
@@ -208,7 +208,7 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 | COMP-07 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | COMP-08 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | COMP-09 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| COMP-10 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| COMP-10 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
 | COMM-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | COMM-02 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | COMM-03 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
@@ -221,13 +221,13 @@ Which phases cover which requirements. All 70 v1 requirements mapped (100% cover
 | USER-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | USER-02 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
 | USER-03 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| USER-04 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
-| UX-01 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| USER-04 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
+| UX-01 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
 | UX-02 | Phase 4: Polish, Dark Mode, Accessibility | Pending |
 | UX-03 | Phase 1: Foundation | Complete (Plan 01-04) |
 | UX-04 | Phase 4: Polish, Dark Mode, Accessibility | Pending |
 | UX-05 | Phase 4: Polish, Dark Mode, Accessibility | Pending |
-| UX-06 | Phase 3: Feature Breadth (Ugly But Working) | Pending |
+| UX-06 | Phase 3: Feature Breadth (Ugly But Working) | Complete |
 | UX-07 | Phase 1: Foundation | Complete |
 | UX-08 | Phase 1: Foundation | Complete (Plan 01-04) |
 | DATA-01 | Phase 1: Foundation | Complete |

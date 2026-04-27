@@ -97,7 +97,7 @@ Plans:
 **Plans**: 7 plans across 4 waves
 
 Plans:
-- [ ] 03-feature-breadth/03-01-PLAN.md — Wave 1: Install shadcn primitives (dialog/badge/select/textarea), ToolCard component, useSavedComparisonsStore
+- [x] 03-feature-breadth/03-01-PLAN.md — Wave 1: Install shadcn primitives (dialog/badge/select/textarea), ToolCard component, useSavedComparisonsStore
 - [ ] 03-feature-breadth/03-02-PLAN.md — Wave 2: Landing page + Logged-in Home (with Recommended because) + Categories + Category Detail
 - [ ] 03-feature-breadth/03-03-PLAN.md — Wave 2: Search (header autocomplete + /search?q= page + empty state) + Tool Detail page (real content, action row, reviews list)
 - [ ] 03-feature-breadth/03-04-PLAN.md — Wave 3: Rankings page (sort by net upvotes) + VoteButton affordance + WriteReviewDialog modal
@@ -150,7 +150,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation | 5/5 | Complete    | 2026-04-27 |
 | 2. Auth + Persistence Stores | 0/4 | Complete    | 2026-04-27 |
-| 3. Feature Breadth (Ugly But Working) | 0/7 | Not started | - |
+| 3. Feature Breadth (Ugly But Working) | 1/7 | In Progress | - |
 | 4. Polish, Dark Mode, Accessibility | 0/? | Not started | - |
 | 5. Pre-Demo Hardening | 0/? | Not started | - |
 
