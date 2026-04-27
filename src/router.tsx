@@ -8,14 +8,15 @@
 // references tools.ts (Phase 3 features will, but not in Phase 1) and tree-shaking would
 // elide the module — making duplicate-slug bugs only catchable in tests.
 import "@/data/tools"
-import { createBrowserRouter } from "react-router"
+import { createBrowserRouter, Navigate } from "react-router"
 import { AppShell } from "@/components/layout/AppShell"
 import { ProtectedRoute } from "@/features/auth/components/ProtectedRoute"
 import LandingPage from "@/pages/LandingPage"
 import SignInPage from "@/pages/SignInPage"
 import SignUpPage from "@/pages/SignUpPage"
 import ForgotPasswordPage from "@/pages/ForgotPasswordPage"
-import OnboardingPage from "@/pages/OnboardingPage"
+import OnboardingInterestsPage from "@/pages/OnboardingInterestsPage"
+import OnboardingToolsPage from "@/pages/OnboardingToolsPage"
 import HomePage from "@/pages/HomePage"
 import CategoriesPage from "@/pages/CategoriesPage"
 import CategoryDetailPage from "@/pages/CategoryDetailPage"
@@ -48,7 +49,12 @@ export const router = createBrowserRouter([
       {
         element: <ProtectedRoute />,
         children: [
-          { path: "/onboarding", element: <OnboardingPage /> },
+          // Plan 02-03: /onboarding split into /onboarding/interests + /onboarding/tools.
+          // Bare /onboarding redirects to step 1 so legacy links (and the post-signup
+          // navigate target from Plan 02-02) keep working.
+          { path: "/onboarding", element: <Navigate to="/onboarding/interests" replace /> },
+          { path: "/onboarding/interests", element: <OnboardingInterestsPage /> },
+          { path: "/onboarding/tools", element: <OnboardingToolsPage /> },
           { path: "/home", element: <HomePage /> },
           { path: "/favorites", element: <FavoritesPage /> },
           { path: "/profile", element: <ProfilePage /> },

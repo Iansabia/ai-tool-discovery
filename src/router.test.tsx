@@ -3,13 +3,14 @@
 // and that param-bearing pages read from URL (URL-as-source-of-truth structural fix).
 import { describe, expect, it } from "vitest"
 import { render, screen } from "@testing-library/react"
-import { createMemoryRouter, RouterProvider } from "react-router"
+import { createMemoryRouter, Navigate, RouterProvider } from "react-router"
 import { AppShell } from "@/components/layout/AppShell"
 import { ProtectedRoute } from "@/features/auth/components/ProtectedRoute"
 import LandingPage from "@/pages/LandingPage"
 import ToolDetailPage from "@/pages/ToolDetailPage"
 import ComparePage from "@/pages/ComparePage"
-import OnboardingPage from "@/pages/OnboardingPage"
+import OnboardingInterestsPage from "@/pages/OnboardingInterestsPage"
+import OnboardingToolsPage from "@/pages/OnboardingToolsPage"
 import SignInPage from "@/pages/SignInPage"
 import NotFoundPage from "@/pages/NotFoundPage"
 import { beforeEach } from "vitest"
@@ -33,7 +34,13 @@ const routes = [
       { path: "/signin", element: <SignInPage /> },
       {
         element: <ProtectedRoute />,
-        children: [{ path: "/onboarding", element: <OnboardingPage /> }],
+        children: [
+          // Plan 02-03 router split: /onboarding redirects to /onboarding/interests;
+          // step 1 + step 2 live at the new sub-routes.
+          { path: "/onboarding", element: <Navigate to="/onboarding/interests" replace /> },
+          { path: "/onboarding/interests", element: <OnboardingInterestsPage /> },
+          { path: "/onboarding/tools", element: <OnboardingToolsPage /> },
+        ],
       },
       { path: "*", element: <NotFoundPage /> },
     ],
@@ -81,8 +88,10 @@ describe("router", () => {
     expect(screen.getByTestId("page-signin")).toBeInTheDocument()
   })
 
-  it("Phase 2 ProtectedRoute renders Outlet when an authenticated session is present", () => {
-    // Seed a valid 30-day session so /onboarding renders rather than redirects.
+  it("Phase 2 ProtectedRoute renders Outlet when an authenticated session is present (and /onboarding redirects to /onboarding/interests)", () => {
+    // Seed a valid 30-day session so /onboarding renders rather than redirects to /signin.
+    // Plan 02-03 changed /onboarding to a Navigate redirect → /onboarding/interests, so the
+    // assertion is the step-1 page testid, not the old /onboarding placeholder testid.
     useAuthStore.setState({
       session: {
         userId: "u1",
@@ -93,6 +102,22 @@ describe("router", () => {
     })
     const router = createMemoryRouter(routes, { initialEntries: ["/onboarding"] })
     render(<RouterProvider router={router} />)
-    expect(screen.getByTestId("page-onboarding")).toBeInTheDocument()
+    expect(screen.getByTestId("page-onboarding-interests")).toBeInTheDocument()
+  })
+
+  it("Phase 2 /onboarding/tools renders directly when authenticated", () => {
+    useAuthStore.setState({
+      session: {
+        userId: "u1",
+        issuedAt: Date.now(),
+        expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000,
+        token: "tok",
+      },
+    })
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/onboarding/tools"],
+    })
+    render(<RouterProvider router={router} />)
+    expect(screen.getByTestId("page-onboarding-tools")).toBeInTheDocument()
   })
 })
