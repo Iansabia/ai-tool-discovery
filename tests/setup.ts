@@ -23,6 +23,24 @@ if (typeof window !== "undefined" && !window.matchMedia) {
   })
 }
 
+// jsdom does not implement PointerEvent helpers used by radix Select / radix
+// primitives that rely on pointer capture. Provide minimal polyfills so radix
+// components mount + interact in tests without crashing.
+if (typeof window !== "undefined") {
+  if (!Element.prototype.hasPointerCapture) {
+    Element.prototype.hasPointerCapture = () => false
+  }
+  if (!Element.prototype.setPointerCapture) {
+    Element.prototype.setPointerCapture = () => {}
+  }
+  if (!Element.prototype.releasePointerCapture) {
+    Element.prototype.releasePointerCapture = () => {}
+  }
+  if (!Element.prototype.scrollIntoView) {
+    Element.prototype.scrollIntoView = () => {}
+  }
+}
+
 // Reset DOM between tests
 afterEach(() => {
   cleanup()
