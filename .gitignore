@@ -12,3 +12,4 @@ coverage
 
 # Local-only usability deliverables (kept out of public repo)
 .usability-report/
+.vercel
