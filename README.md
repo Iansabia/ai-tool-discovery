@@ -2,7 +2,7 @@
 
 > A directory + comparison + community-rankings web app that helps students find AI tools beyond the obvious few. **DS 280 (UI/UX) final project · Boston University · April 2026 · Ian Sabia.**
 
-**Live demo:** [ai-tool-discovery-2dt3pvm10-ians-projects-27cc5c0c.vercel.app](https://ai-tool-discovery-2dt3pvm10-ians-projects-27cc5c0c.vercel.app)
+**Live demo:** [ai-tool-discovery.vercel.app](https://ai-tool-discovery.vercel.app)
 
 Built in **React + TypeScript + Vite + Tailwind v4 + shadcn/ui** on top of a Figma high-fidelity prototype that was usability-tested with three BU students. The React rebuild fixes the issues those tests surfaced and adds the things a static prototype couldn't fake.
 
