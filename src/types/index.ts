@@ -76,6 +76,14 @@ export interface Tool {
    */
   priceLabel: string
   features: readonly string[]
+  /**
+   * Use-case search keywords — short phrases users would search for that
+   * the tool legitimately solves (e.g. "research paper", "lecture notes",
+   * "ad copy"). Gives the search index a way to surface multi-purpose tools
+   * (Claude, ChatGPT, Perplexity) for narrow queries that wouldn't otherwise
+   * match the description text.
+   */
+  searchKeywords: readonly string[]
   url: string
   /** seed value 1.0–5.0; live aggregation merges with reviewStore in Phase 3 */
   rating: number

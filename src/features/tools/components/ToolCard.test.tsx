@@ -33,6 +33,7 @@ const SAMPLE_TOOL: Tool = {
   category: "writing",
   categories: ["writing"],
   priceLabel: "Freemium",
+  searchKeywords: [],
   pricing: "Freemium",
   features: ["chat", "code"],
   url: "https://claude.ai",
