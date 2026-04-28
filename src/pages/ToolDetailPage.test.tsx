@@ -63,10 +63,9 @@ describe("ToolDetailPage", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: "Claude" }),
     ).toBeInTheDocument()
+    // Tagline copy refreshed in Phase 4 accuracy pass.
     expect(
-      screen.getByText(
-        "Anthropic's AI assistant focused on safety and long context.",
-      ),
+      screen.getByText(/Anthropic's assistant/i),
     ).toBeInTheDocument()
     expect(screen.getByText("Freemium")).toBeInTheDocument()
   })
