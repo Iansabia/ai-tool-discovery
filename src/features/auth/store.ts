@@ -75,6 +75,12 @@ interface UsersState {
     id: string,
     patch: Partial<Pick<User, "displayName" | "interests" | "selectedTools">>,
   ): User | undefined
+  /**
+   * Idempotently insert a stub "guest" user record so guest sessions can persist
+   * onboarding selections via the same updateUser path real users use. Returns
+   * the existing record if already present.
+   */
+  ensureGuest(): User
 }
 
 export const useUsersStore = create<UsersState>((set, get) => ({
@@ -122,6 +128,25 @@ export const useUsersStore = create<UsersState>((set, get) => ({
     set({ users: next })
     safeSet(USERS_KEY, next, STORE_VERSION)
     return updated
+  },
+
+  ensureGuest() {
+    const existing = get().users.find((u) => u.id === GUEST_USER_ID)
+    if (existing) return existing
+    const guest: User = {
+      id: GUEST_USER_ID,
+      email: "guest@local",
+      username: "guest",
+      displayName: "Guest",
+      passwordHash: { saltHex: "", hashHex: "" },
+      interests: [],
+      selectedTools: [],
+      createdAt: new Date().toISOString(),
+    }
+    const next = [...get().users, guest]
+    set({ users: next })
+    safeSet(USERS_KEY, next, STORE_VERSION)
+    return guest
   },
 }))
 
@@ -301,7 +326,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   completeOnboarding(interests, selectedTools) {
     const userId = get().currentUserId()
-    if (!userId || userId === GUEST_USER_ID) return
+    if (!userId) return
+    if (userId === GUEST_USER_ID) {
+      // Phase 4 fix: guests now also persist onboarding picks via a stub guest
+      // user record so HomePage's findById("guest") returns the up-to-date list.
+      useUsersStore.getState().ensureGuest()
+    }
     useUsersStore.getState().updateUser(userId, { interests, selectedTools })
   },
 }))

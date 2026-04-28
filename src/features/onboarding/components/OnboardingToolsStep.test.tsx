@@ -114,8 +114,9 @@ describe("OnboardingToolsStep", () => {
     expect(updated.selectedTools).toContain("chatgpt")
   })
 
-  it("Finish is a no-op (no user-record write) when the session is guest", async () => {
-    // Seed a guest session — completeOnboarding must NOT update any user record.
+  it("Phase 4 fix: guest sessions persist onboarding picks via stub guest user record", async () => {
+    // Seed a guest session — completeOnboarding now creates a guest user record
+    // so /home can render the recommendations after onboarding.
     useAuthStore.setState({
       session: {
         userId: "guest",
@@ -129,7 +130,9 @@ describe("OnboardingToolsStep", () => {
     const user = userEvent.setup()
     await user.click(screen.getByRole("button", { name: /^finish$/i }))
     expect(await screen.findByText("HOME")).toBeTruthy()
-    // No real user record was created — the registry is empty.
-    expect(useUsersStore.getState().users.length).toBe(0)
+    // Guest user record was created with the picked interest.
+    const guest = useUsersStore.getState().findById("guest")
+    expect(guest).toBeTruthy()
+    expect(guest?.interests).toEqual(["writing"])
   })
 })

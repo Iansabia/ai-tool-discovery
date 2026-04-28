@@ -19,7 +19,10 @@ export function useAuth() {
   const userId = session?.userId ?? null
 
   let currentUser: User | null = null
-  if (session && !isGuest) {
+  if (session) {
+    // Phase 4 fix: guests also have a user record (stub) once they complete
+    // onboarding, so the lookup is unconditional. Guest record may be undefined
+    // until ensureGuest() runs — fall back to null for the pre-onboarding case.
     currentUser = useUsersStore.getState().findById(session.userId) ?? null
   }
 
