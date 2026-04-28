@@ -8,7 +8,11 @@
 // Midjourney v7, Runway Gen-4, Pika 2.x, Suno v4, etc.). Slugs unchanged so logos
 // continue to resolve.
 import type { Tool } from "@/types"
-import { __validateLogosPresent, __validateSlugsUnique } from "./_validate"
+import {
+  __validateCategoriesShape,
+  __validateLogosPresent,
+  __validateSlugsUnique,
+} from "./_validate"
 
 // Logo imports — each `?url` import resolves to a static asset string at build time.
 // File presence is asserted by __validateLogosPresent at module load.
@@ -72,6 +76,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "ChatGPT is OpenAI's chat product, built on GPT-4o and GPT-5 models. It handles long-form writing, code generation, image and voice input/output, web search, and the largest custom-GPT and plugin ecosystem of any AI assistant. Free tier covers most students; Plus ($20/mo) raises message caps and unlocks priority access to newer models.",
     category: "writing",
+    categories: ["writing", "coding", "research", "productivity"],
     pricing: "Freemium",
     features: [
       "GPT-5 + GPT-4o models",
@@ -89,14 +94,15 @@ export const TOOLS: ReadonlyArray<Tool> = [
     name: "Claude",
     tagline: "Anthropic's assistant — careful reasoning, long context, agentic coding.",
     description:
-      "Claude is Anthropic's AI assistant family, with Sonnet 4.x balancing speed and quality and Opus 4 leading on complex reasoning and coding tasks. Known for honest, thoughtful answers, 200K-token standard context (1M on Sonnet 4 with the long-context flag), and Artifacts for rendering interactive output. Free tier with daily limits; Pro at $20/month adds higher caps and Projects.",
+      "Claude is Anthropic's AI assistant family — Sonnet 4.x balances speed and quality, Opus 4 leads on complex reasoning, and Haiku handles fast cheap tasks. Known for honest, thoughtful answers and 200K-token standard context (1M on Sonnet 4 with the long-context flag). The Claude Code CLI and IDE extensions make it the go-to assistant for serious coding work, and Artifacts render interactive output inline. Free tier with daily limits; Pro at $20/month adds higher caps and Projects.",
     category: "writing",
+    categories: ["writing", "coding", "research", "productivity"],
     pricing: "Freemium",
     features: [
-      "Sonnet 4.x + Opus 4",
+      "Sonnet 4.x + Opus 4 + Haiku",
       "Up to 1M token context window",
+      "Claude Code (CLI + IDE agent)",
       "Artifacts (interactive output)",
-      "Computer Use and Code Execution",
       "Projects with shared knowledge",
     ],
     url: "https://claude.ai",
@@ -110,6 +116,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Jasper is a paid copywriting platform for marketing teams that learn and reproduce a specific brand voice. It ships with templates for blogs, ad creative, social posts, and SEO-optimized articles, plus a workflow editor for multi-step content production. Pricing starts at $49/seat/month for Creator; team plans run higher.",
     category: "writing",
+    categories: ["writing", "marketing"],
     pricing: "Paid",
     features: [
       "Brand voice memory",
@@ -129,6 +136,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Copy.ai generates short and long-form marketing copy from short briefs — blog posts, email sequences, product descriptions, and social posts. The Free plan covers light personal use; the Pro plan ($49/month) unlocks unlimited generations and the workflow builder for repeatable content automations.",
     category: "writing",
+    categories: ["writing", "marketing"],
     pricing: "Freemium",
     features: [
       "90+ copy templates",
@@ -148,6 +156,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Grammarly is the most widely used real-time writing assistant — grammar, spelling, punctuation, and tone suggestions across browsers, Word, Docs, email, and chat. Now bundled with generative AI features that draft, rewrite, and shorten text. Free tier covers basics; Premium ($12/month) adds tone rewrite and clarity-focused suggestions.",
     category: "writing",
+    categories: ["writing", "productivity"],
     pricing: "Freemium",
     features: [
       "Real-time grammar + spelling",
@@ -169,6 +178,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Cursor is a fork of VS Code rebuilt around AI: inline edits, multi-file refactors via Composer, and an Agent mode that runs commands and edits the codebase autonomously. It indexes your repo for context-aware chat. Free Hobby tier includes limited fast requests; Pro at $20/month unlocks unlimited slow requests and 500+ fast requests on top models.",
     category: "coding",
+    categories: ["coding"],
     pricing: "Freemium",
     features: [
       "Composer multi-file edits",
@@ -188,6 +198,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "GitHub Copilot ships inline code suggestions, chat, and PR review for VS Code, JetBrains, Visual Studio, Neovim, and Xcode. The free tier (added Dec 2024) gives 2,000 completions and 50 chats per month; Pro ($10/month) is unlimited and adds model choice (Claude, Gemini, GPT-5). Copilot Workspace and Coding Agent automate full PRs.",
     category: "coding",
+    categories: ["coding"],
     pricing: "Freemium",
     features: [
       "Inline completions in 8+ IDEs",
@@ -207,6 +218,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Codeium is the free-forever alternative to Copilot — unlimited autocomplete, chat, and search across 70+ languages and 40+ editors with no message caps for individuals. The team behind it also ships Windsurf, an AI-first IDE. Strong individual free tier; enterprise plans add self-hosting and SOC 2 Type II.",
     category: "coding",
+    categories: ["coding"],
     pricing: "Freemium",
     features: [
       "Unlimited free autocomplete",
@@ -226,6 +238,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Tabnine is a code completion and chat tool built around enterprise data isolation — air-gapped self-hosting, private deployments, and audit logs. Models are tuned to never train on your code. Basic free tier; Pro at $12/seat/month adds higher-quality completions, and Enterprise unlocks self-hosted models and SSO.",
     category: "coding",
+    categories: ["coding"],
     pricing: "Freemium",
     features: [
       "Self-hosted / on-prem deployment",
@@ -245,6 +258,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Replit pairs a browser-based IDE and one-click hosting with Replit Agent — an autonomous coding agent that builds, deploys, and iterates on full apps from a description. Excellent for rapid prototyping and learning. Free Starter plan; Core at $25/month unlocks full Agent access and increased compute.",
     category: "coding",
+    categories: ["coding", "productivity"],
     pricing: "Freemium",
     features: [
       "Replit Agent (autonomous full-app build)",
@@ -266,6 +280,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Perplexity is a search-first AI that returns concise, cited answers and follow-up questions based on real-time web search. Pro (free for students at supported universities, otherwise $20/month) adds access to top-tier models (GPT-5, Claude Opus 4, Sonar Huge), file uploads, and Pro Search agentic mode.",
     category: "research",
+    categories: ["research", "writing"],
     pricing: "Freemium",
     features: [
       "Inline citations on every answer",
@@ -285,6 +300,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Elicit searches 125M+ academic papers, extracts findings into a structured table, and summarizes across studies — built for systematic reviews and literature scans. Free tier covers core search; Plus at $12/month adds higher extraction limits and PDF chat.",
     category: "research",
+    categories: ["research"],
     pricing: "Freemium",
     features: [
       "125M+ paper index",
@@ -304,6 +320,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Ask a yes/no research question and Consensus surfaces what peer-reviewed papers conclude — with effect-direction tags (yes / mixed / possibly / no) and a Consensus Meter. Indexes 200M+ papers across PubMed and Semantic Scholar. Free tier limited to 20 searches/month; Premium at $9/month is unlimited.",
     category: "research",
+    categories: ["research"],
     pricing: "Freemium",
     features: [
       "Consensus Meter on results",
@@ -323,6 +340,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Semantic Scholar (from the Allen Institute) is a fully free, open research index over 200M+ papers with TLDR summaries, citation graphs, and influence-aware ranking. Powers a lot of downstream research tools and offers a free public API.",
     category: "research",
+    categories: ["research"],
     pricing: "Free",
     features: [
       "200M+ paper index",
@@ -342,6 +360,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Scite's Smart Citations classify each citation as supporting, contrasting, or just mentioning — letting you assess paper credibility at a glance. Browser extension surfaces this on PubMed, Wikipedia, and journal sites. Personal plan $20/month; institutional licenses available.",
     category: "research",
+    categories: ["research"],
     pricing: "Paid",
     features: [
       "Smart Citations (support/contrast/mention)",
@@ -363,6 +382,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Midjourney's v7 model leads the field on aesthetic quality and stylistic range — the go-to for concept art, illustration, and editorial. Now accessed primarily via the web app (with Discord legacy), with Style Reference, Character Reference, and Vary modes for iterating on a look. No free tier; Basic plan starts at $10/month.",
     category: "image",
+    categories: ["image", "design"],
     pricing: "Paid",
     features: [
       "Midjourney v7 model",
@@ -382,6 +402,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "DALL-E 3 generates detailed images from natural-language prompts and is built into ChatGPT, where it inherits the conversation context for iterative editing. The 4o image model (released 2025) handles in-context image editing inside ChatGPT chats. Bundled with ChatGPT Plus ($20/month) or via API.",
     category: "image",
+    categories: ["image"],
     pricing: "Paid",
     features: [
       "DALL-E 3 + GPT-4o image",
@@ -401,6 +422,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Stable Diffusion is the open-source backbone of half the AI art ecosystem — SDXL, SD 3.5 Large, and community fine-tunes you can run locally on a consumer GPU. Free for self-hosting; Stability's hosted API is metered. Unmatched ecosystem: ComfyUI, AUTOMATIC1111, dozens of LoRA marketplaces.",
     category: "image",
+    categories: ["image"],
     pricing: "Free",
     features: [
       "SDXL + SD 3.5 open weights",
@@ -420,6 +442,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Leonardo specializes in production-ready game assets, character concepts, and illustration with a Realtime Canvas for live editing and Custom Models you can train on your own art. Acquired by Canva in 2024. Free plan with daily token quota; paid plans start at $12/month.",
     category: "image",
+    categories: ["image", "design"],
     pricing: "Freemium",
     features: [
       "Realtime Canvas (live edit)",
@@ -439,6 +462,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Ideogram (v3 model) excels at images containing legible text — logos, posters, memes, infographics — where most other generators garble letters. Magic Prompt expands short prompts into detailed scenes. Free tier available; Plus at $8/month adds private generations and faster queues.",
     category: "image",
+    categories: ["image", "design"],
     pricing: "Freemium",
     features: [
       "Ideogram v3 model",
@@ -460,6 +484,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "ElevenLabs is the leading consumer-grade voice AI — realistic text-to-speech, instant voice cloning from short samples, and multilingual dubbing across 70+ languages. Studio editor for long-form projects; Conversational AI agents; ElevenReader app. Free 10k characters/month; Starter at $5/month for personal use.",
     category: "audio",
+    categories: ["audio"],
     pricing: "Freemium",
     features: [
       "Instant voice cloning",
@@ -479,6 +504,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Suno's v4 model produces 4-minute songs with realistic vocals, instrumentation, and song structure from a text prompt. Custom Lyrics mode lets you write and steer; Cover and Persona keep your style consistent. Free Basic plan with 50 credits/day; Pro at $10/month unlocks commercial use.",
     category: "audio",
+    categories: ["audio"],
     pricing: "Freemium",
     features: [
       "Suno v4 model",
@@ -498,6 +524,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Udio competes with Suno on full-song generation and is favored for cleaner vocals, finer style adherence, and the ability to extend or remix existing audio. Free tier 10 songs/month; Standard at $10/month for 1,200 credits and commercial rights.",
     category: "audio",
+    categories: ["audio"],
     pricing: "Freemium",
     features: [
       "Strong vocal clarity",
@@ -517,6 +544,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Whisper transcribes and translates audio across 99 languages with state-of-the-art accuracy. Open-source weights run locally; OpenAI's hosted API charges $0.006/minute. The backbone of countless transcription products including Otter and Descript.",
     category: "audio",
+    categories: ["audio", "productivity"],
     pricing: "Free",
     features: [
       "99 language support",
@@ -536,6 +564,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Descript transcribes your recording, then lets you edit the audio or video by deleting words from the transcript. Overdub clones your voice for fixes; Studio Sound cleans bad recordings; Eye Contact corrects gaze. The all-in-one tool for podcasters and YouTubers. Free tier 1 hour/month; Hobbyist at $16/month for 10 hours.",
     category: "audio",
+    categories: ["audio", "video", "productivity"],
     pricing: "Freemium",
     features: [
       "Transcript-based editing",
@@ -557,6 +586,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Runway's Gen-4 produces cinematic AI video from text or image prompts and is widely used in TV, film, and indie productions. Tools include Act-One (transfer performance), Frames (image gen), and Motion Brush. Free tier 125 credits; Standard at $15/month for 625 credits and Gen-4 access.",
     category: "video",
+    categories: ["video"],
     pricing: "Freemium",
     features: [
       "Gen-4 (text- and image-to-video)",
@@ -576,6 +606,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Pika 2.x focuses on short, expressive clips with effect libraries (Pikaeffects), lip-sync, and Pikaframes for keyframe-driven animation. Excellent for social-media-ready video without a learning curve. Free tier 250 credits; Standard at $10/month for 700 credits.",
     category: "video",
+    categories: ["video"],
     pricing: "Freemium",
     features: [
       "Pika 2.x model",
@@ -595,6 +626,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Type a script, pick from 230+ AI avatars and Synthesia produces studio-quality videos in 140+ languages. The standard for L&D and corporate communications — used by 60% of the Fortune 100. Custom avatars (your own face) available on Enterprise. Starter plan $29/month for 10 minutes of video.",
     category: "video",
+    categories: ["video", "marketing"],
     pricing: "Paid",
     features: [
       "230+ stock AI avatars",
@@ -614,6 +646,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "HeyGen creates avatar videos from a script and offers instant video translation that lip-syncs the existing speaker into 175+ languages — its breakout feature. Avatar IV creates expressive avatars from a single photo. Free tier 1 minute/month; Creator at $24/month unlocks 15 minutes and HD.",
     category: "video",
+    categories: ["video", "marketing"],
     pricing: "Freemium",
     features: [
       "Instant video translation + lip-sync",
@@ -633,6 +666,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Drop a long-form video (podcast, lecture, webinar) and Opus Clip auto-produces TikTok / Reels / Shorts with captions, dynamic framing, and a virality score on each clip. Free starter tier; Pro at $19/month for 7,200 minutes per year and brand templates.",
     category: "video",
+    categories: ["video", "marketing"],
     pricing: "Freemium",
     features: [
       "Auto-shorts from long video",
@@ -654,6 +688,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Notion AI summarizes, drafts, translates, and answers questions across all your Notion content with workspace context. AI Connectors pull in Slack, Google Drive, and GitHub data. Bundled into the Notion Business plan ($24/seat/month) or as a $10/seat/month add-on to Plus.",
     category: "productivity",
+    categories: ["productivity", "writing"],
     pricing: "Paid",
     features: [
       "Q&A across whole workspace",
@@ -673,6 +708,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Motion combines tasks, calendar, and meeting scheduling — automatically dropping work into open slots and rebalancing when conflicts arise. Project Manager handles team workflows. No free tier; Individual at $19/month, Team at $12/seat/month.",
     category: "productivity",
+    categories: ["productivity"],
     pricing: "Paid",
     features: [
       "Auto-schedule tasks into calendar",
@@ -692,6 +728,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Reclaim sits on top of Google Calendar and protects time for habits and high-priority tasks, rescheduling automatically when conflicts arise. Smart 1:1s find the best time recurring. Free tier with core features; Pro at $10/seat/month adds task integrations and Habit Pro.",
     category: "productivity",
+    categories: ["productivity"],
     pricing: "Freemium",
     features: [
       "Smart 1:1s (auto-reschedule)",
@@ -711,6 +748,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Mem auto-tags, links, and surfaces notes you forgot you wrote — search by meaning rather than keywords. Mem Chat lets you ask questions across your entire knowledge base. Free tier; Mem X at $10/month adds full AI features and unlimited Mem Chat.",
     category: "productivity",
+    categories: ["productivity", "writing"],
     pricing: "Freemium",
     features: [
       "Self-organizing notes",
@@ -730,6 +768,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Taskade combines tasks, mind-maps, and customizable AI agents that automate workflows across teams. AI Agent Builder lets non-technical users design specialized agents (research, coding, writing). Free for personal use; Pro at $8/month, Team at $16/seat/month.",
     category: "productivity",
+    categories: ["productivity", "writing"],
     pricing: "Freemium",
     features: [
       "Custom AI agents",
@@ -751,6 +790,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Figma AI adds Make Designs (generate from a prompt), Visual Search (find similar components in your file), automatic layer rename, and First Draft prototype generation directly inside Figma. Bundled with paid Figma plans; free preview while in beta. The default for design teams already in Figma.",
     category: "design",
+    categories: ["design"],
     pricing: "Freemium",
     features: [
       "Make Designs (prompt → frame)",
@@ -770,6 +810,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Framer AI turns a description into a full responsive website — layout, copy, images, and interactions — that you can edit visually and publish in one click with hosting included. Best in class for marketing sites and portfolios. Free tier with .framer.website domain; Mini at $5/month for custom domain.",
     category: "design",
+    categories: ["design"],
     pricing: "Freemium",
     features: [
       "Prompt → full responsive site",
@@ -789,6 +830,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Upload a hand-drawn sketch or a screenshot and Uizard converts it to an editable Figma-style mockup with detected components and a generated theme. Free Starter; Pro at $19/month adds higher project limits and AI Theme Generator.",
     category: "design",
+    categories: ["design"],
     pricing: "Freemium",
     features: [
       "Sketch-to-UI conversion",
@@ -808,6 +850,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Galileo produces high-fidelity, Figma-ready UI screens from natural-language briefs in seconds. Acquired by Google in 2024; the team's tech now powers Stitch (Google's design tool) but Galileo remains available for direct use. Free tier with limited generations; paid plans for production work.",
     category: "design",
+    categories: ["design"],
     pricing: "Freemium",
     features: [
       "Text-to-UI generation",
@@ -827,6 +870,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Recraft creates vectors, icons, illustrations, and brand-consistent images with a fine-tuned design-focused model (Recraft V3). Native SVG output is rare among image generators. Free tier 50 credits/day; Basic at $12/month for 1,000 monthly credits.",
     category: "design",
+    categories: ["design", "image"],
     pricing: "Freemium",
     features: [
       "Native vector / SVG output",
@@ -848,6 +892,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Upload a spreadsheet or connect a database and Julius runs analyses, generates charts, and writes Python in the background — all explained in plain English. Excellent for non-coders doing real exploratory analysis. Free tier 15 messages/month; Standard at $20/month for 250 messages.",
     category: "data",
+    categories: ["data", "productivity"],
     pricing: "Freemium",
     features: [
       "Chat with CSVs and databases",
@@ -867,6 +912,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Rows is a modern spreadsheet with AI formulas (=ASK, =CLASSIFY), 50+ integrations to HubSpot / Salesforce / Stripe / GA4, and shareable interactive dashboards. Generous free tier including AI Analyst; Plus at $8/seat/month adds higher API limits.",
     category: "data",
+    categories: ["data", "productivity"],
     pricing: "Freemium",
     features: [
       "AI formulas (=ASK, =CLASSIFY)",
@@ -886,6 +932,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Numerous adds AI formulas to your existing spreadsheets — categorize, extract, and write at scale across thousands of rows. Drag-down to fill thousands of rows in one go. Free 50 runs/month; Plus at $19/month for 500 runs and team sharing.",
     category: "data",
+    categories: ["data", "productivity"],
     pricing: "Freemium",
     features: [
       "AI formulas in Sheets / Excel",
@@ -905,6 +952,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Akkio lets non-technical users train predictive models on their data — churn, lead scoring, forecasting, ad targeting — in minutes. Strong CRM integrations (HubSpot, Salesforce). Pricing starts at $49/month Basic; Professional at $999/month for full predictive suite.",
     category: "data",
+    categories: ["data", "marketing"],
     pricing: "Paid",
     features: [
       "No-code ML model training",
@@ -924,6 +972,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Connect a database or CSV and Obviously AI auto-builds prediction models with explanations a non-technical user can act on. API deployment and Snowflake / BigQuery connectors. Pricing starts at $99/month Pilot; production plans negotiated.",
     category: "data",
+    categories: ["data", "marketing"],
     pricing: "Paid",
     features: [
       "AutoML with explanations",
@@ -945,6 +994,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "The enterprise tier of Jasper for marketing departments — campaign briefs, persistent brand voice memory, knowledge base, multi-channel campaign tools, and SSO/audit-log security. Pricing custom (typically $69+/seat/month). For marketing teams already standardized on Jasper.",
     category: "marketing",
+    categories: ["marketing"],
     pricing: "Paid",
     features: [
       "Campaign briefs and outputs",
@@ -964,6 +1014,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "HubSpot AI ships Breeze (the platform-wide copilot), Breeze Agents (autonomous customer agents), content remixing, and predictive lead/deal scoring across HubSpot CRM. Bundled with HubSpot plans; free tier on the CRM includes basic Breeze features.",
     category: "marketing",
+    categories: ["marketing"],
     pricing: "Freemium",
     features: [
       "Breeze copilot across CRM",
@@ -983,6 +1034,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Surfer audits and writes content optimized for search — keyword density, structure, internal linking, NLP entity coverage — backed by SERP data. Surfer AI generates full optimized articles in one click. Essential plan $89/month; Scale and Enterprise above.",
     category: "marketing",
+    categories: ["marketing", "writing"],
     pricing: "Paid",
     features: [
       "SERP analyzer",
@@ -1002,6 +1054,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     description:
       "Copy.ai's enterprise tier focuses on GTM workflows — outbound sequences, deal research, account-based marketing, and lifecycle automation. Workflows orchestrate prompts and integrations end-to-end. Pricing is custom; team plans typically start at $49/seat/month for the workflow tier.",
     category: "marketing",
+    categories: ["marketing"],
     pricing: "Paid",
     features: [
       "GTM workflow automation",
@@ -1020,7 +1073,8 @@ export const TOOLS: ReadonlyArray<Tool> = [
     tagline: "Affordable AI copywriter for solopreneurs.",
     description:
       "Rytr offers 40+ writing templates at one of the lowest price points in the AI copywriting category — popular with solopreneurs and small marketing teams who want to ship copy on a small budget. Free 10k characters/month; Saver at $7.50/month for 100k.",
-    category: "marketing",
+    category: "writing",
+    categories: ["writing", "marketing"],
     pricing: "Freemium",
     features: [
       "40+ copy templates",
@@ -1039,3 +1093,4 @@ export const TOOLS: ReadonlyArray<Tool> = [
 // FOUND-07 structural prevention of duplicate-slug bugs.
 __validateSlugsUnique(TOOLS)
 __validateLogosPresent(TOOLS)
+__validateCategoriesShape(TOOLS)

@@ -19,7 +19,7 @@ export default function CategoryDetailPage() {
     return <NotFoundPage />
   }
 
-  const tools = TOOLS.filter((t) => t.category === category.slug)
+  const tools = TOOLS.filter((t) => t.categories.includes(category.slug))
 
   return (
     <section

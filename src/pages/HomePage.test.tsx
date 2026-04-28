@@ -92,21 +92,20 @@ describe("HomePage", () => {
     expect(cta).toHaveAttribute("href", "/onboarding/interests")
   })
 
-  it("H2: interests=['coding'] renders ONLY coding tools (no writing/research)", () => {
+  it("H2: interests=['coding'] includes coding tools AND multi-category tools that list coding (Phase 4 multi-cat)", () => {
     seedRealUser(["coding"])
     renderHome()
-    // Coding tools present
+    // Primary coding tools present
     expect(screen.getByText("Cursor")).toBeInTheDocument()
     expect(screen.getByText("GitHub Copilot")).toBeInTheDocument()
     expect(screen.getByText("Codeium")).toBeInTheDocument()
     expect(screen.getByText("Tabnine")).toBeInTheDocument()
     expect(screen.getByText("Replit")).toBeInTheDocument()
-    // Writing tools absent
-    expect(screen.queryByText("ChatGPT")).not.toBeInTheDocument()
-    expect(screen.queryByText("Claude")).not.toBeInTheDocument()
+    // Multi-category tools that include "coding": ChatGPT and Claude DO match.
+    // Single-category writing tools (Grammarly) are absent.
     expect(screen.queryByText("Grammarly")).not.toBeInTheDocument()
-    // Research tools absent
-    expect(screen.queryByText("Perplexity")).not.toBeInTheDocument()
+    // Pure-research tools absent
+    expect(screen.queryByText("Elicit")).not.toBeInTheDocument()
   })
 
   it("H3: interests=['coding','writing'] renders BOTH categories, no others", () => {

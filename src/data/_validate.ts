@@ -46,3 +46,33 @@ export function __validateLogosPresent(tools: ReadonlyArray<Tool>): void {
     }
   }
 }
+
+/**
+ * Throw if any tool's `categories` array is empty or doesn't start with the
+ * primary `category` field. This is the structural invariant that lets
+ * CategoryDetailPage filter by `categories.includes(slug)` while ToolCard /
+ * HomePage continue to use the primary `category` for the dominant badge.
+ */
+export function __validateCategoriesShape(tools: ReadonlyArray<Tool>): void {
+  for (const t of tools) {
+    if (!Array.isArray(t.categories) || t.categories.length === 0) {
+      throw new Error(
+        `[seed] tool "${t.slug}" (${t.name}) must have at least one entry in categories.`,
+      )
+    }
+    if (t.categories[0] !== t.category) {
+      throw new Error(
+        `[seed] tool "${t.slug}" (${t.name}) — first entry of categories ("${t.categories[0]}") must equal primary category ("${t.category}").`,
+      )
+    }
+    const seen = new Set<string>()
+    for (const c of t.categories) {
+      if (seen.has(c)) {
+        throw new Error(
+          `[seed] tool "${t.slug}" — categories has duplicate "${c}".`,
+        )
+      }
+      seen.add(c)
+    }
+  }
+}

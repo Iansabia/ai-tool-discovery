@@ -67,12 +67,13 @@ describe("CategoryDetailPage", () => {
     expect(screen.getByText("Grammarly")).toBeInTheDocument()
   })
 
-  it("CD3: /categories/coding renders ZERO writing tools (filter is correct, not first-N)", () => {
+  it("CD3: /categories/coding excludes pure writing tools (Phase 4 multi-cat: ChatGPT + Claude appear because their categories include 'coding')", () => {
     renderAt("/categories/coding")
-    // Coding category should NOT include writing tools.
-    expect(screen.queryByText("ChatGPT")).not.toBeInTheDocument()
-    expect(screen.queryByText("Claude")).not.toBeInTheDocument()
+    // Single-category writing tools should NOT appear in coding.
     expect(screen.queryByText("Grammarly")).not.toBeInTheDocument()
+    // Multi-category tools (ChatGPT, Claude) are correctly listed in coding.
+    expect(screen.queryAllByText(/ChatGPT/i).length).toBeGreaterThan(0)
+    expect(screen.queryAllByText(/Claude/i).length).toBeGreaterThan(0)
   })
 
   it("CD4: /categories/nonexistent renders the NotFound state", () => {

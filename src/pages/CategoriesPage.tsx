@@ -23,7 +23,9 @@ export default function CategoriesPage() {
       </header>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {CATEGORIES.map((category) => {
-          const count = TOOLS.filter((t) => t.category === category.slug).length
+          const count = TOOLS.filter((t) =>
+            t.categories.includes(category.slug),
+          ).length
           return (
             <Link
               key={category.slug}

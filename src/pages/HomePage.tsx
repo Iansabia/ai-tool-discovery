@@ -22,7 +22,7 @@ export default function HomePage() {
   const categoryNameBySlug = new Map(CATEGORIES.map((c) => [c.slug, c.name]))
 
   const recommendations = TOOLS.filter((t) =>
-    interests.includes(t.category),
+    t.categories.some((c) => interests.includes(c)),
   ).slice(0, RECOMMENDATION_LIMIT)
 
   return (
@@ -90,15 +90,20 @@ export default function HomePage() {
         </Card>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {recommendations.map((tool) => (
+          {recommendations.map((tool) => {
+            // Pick the first interest the user has that this tool also belongs to.
+            const matchedCategory =
+              tool.categories.find((c) => interests.includes(c)) ?? tool.category
+            return (
             <ToolCard
               key={tool.slug}
               tool={tool}
               recommendedBecause={
-                categoryNameBySlug.get(tool.category) ?? tool.category
+                categoryNameBySlug.get(matchedCategory) ?? matchedCategory
               }
             />
-          ))}
+            )
+          })}
         </div>
       )}
     </section>

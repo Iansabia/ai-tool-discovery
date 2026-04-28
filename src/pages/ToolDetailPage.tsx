@@ -91,8 +91,10 @@ export default function ToolDetailPage() {
 
   if (!slug || !tool) return <NotFoundPage />
 
-  const categoryName =
-    CATEGORIES.find((c) => c.slug === tool.category)?.name ?? tool.category
+  const categoryNames = tool.categories.map((slug) => ({
+    slug,
+    name: CATEGORIES.find((c) => c.slug === slug)?.name ?? slug,
+  }))
 
   const onToggleFavorite = () => {
     const next = !isFav
@@ -134,18 +136,17 @@ export default function ToolDetailPage() {
                 <Badge variant="secondary" className="font-medium">
                   {tool.pricing}
                 </Badge>
-                <Link to={`/categories/${tool.category}`}>
-                  <Badge
-                    variant="outline"
-                    className="cursor-pointer gap-1 hover:bg-muted"
-                  >
-                    <CategoryIcon
-                      slug={tool.category}
-                      className="h-3 w-3"
-                    />
-                    {categoryName}
-                  </Badge>
-                </Link>
+                {categoryNames.map((c) => (
+                  <Link key={c.slug} to={`/categories/${c.slug}`}>
+                    <Badge
+                      variant="outline"
+                      className="cursor-pointer gap-1 hover:bg-muted"
+                    >
+                      <CategoryIcon slug={c.slug} className="h-3 w-3" />
+                      {c.name}
+                    </Badge>
+                  </Link>
+                ))}
                 <StarRating rating={tool.rating} />
                 {netVotes !== 0 && (
                   <Badge variant="outline" className="ml-auto">

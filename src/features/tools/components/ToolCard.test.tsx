@@ -31,6 +31,7 @@ const SAMPLE_TOOL: Tool = {
   tagline: "Anthropic's AI assistant",
   description: "An AI assistant by Anthropic.",
   category: "writing",
+  categories: ["writing"],
   pricing: "Freemium",
   features: ["chat", "code"],
   url: "https://claude.ai",

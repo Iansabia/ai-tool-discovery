@@ -55,7 +55,18 @@ export interface Tool {
   name: string
   tagline: string
   description: string
+  /**
+   * Primary category — drives the dominant badge on cards and the "Recommended
+   * because you picked X" line on /home. Must always be the first entry of
+   * `categories`.
+   */
   category: CategorySlug
+  /**
+   * All categories the tool belongs to. Tools like Claude (writing + coding +
+   * research) appear in every listed category's detail page. Always non-empty
+   * and starts with `category`.
+   */
+  categories: readonly CategorySlug[]
   pricing: PricingTier
   features: readonly string[]
   url: string
