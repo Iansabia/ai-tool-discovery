@@ -6,3 +6,9 @@ coverage
 .env
 .env.local
 .vite
+
+# Playwright MCP runtime cache (auto-generated, not source)
+.playwright-mcp/
+
+# Local-only usability deliverables (kept out of public repo)
+.usability-report/
