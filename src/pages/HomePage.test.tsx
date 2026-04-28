@@ -81,14 +81,15 @@ function renderHome() {
 }
 
 describe("HomePage", () => {
-  it("H1: empty interests renders empty state + 'Browse Categories' CTA to /categories", () => {
+  it("H1: empty interests renders empty state + Pick interests CTA", () => {
     seedRealUser([])
     renderHome()
     expect(
       screen.getByText(/You haven't picked any interests yet/i),
     ).toBeInTheDocument()
-    const cta = screen.getByRole("link", { name: /Browse Categories/i })
-    expect(cta).toHaveAttribute("href", "/categories")
+    // Phase 4 polish: empty state CTA points to /onboarding/interests
+    const cta = screen.getByRole("link", { name: /pick interests/i })
+    expect(cta).toHaveAttribute("href", "/onboarding/interests")
   })
 
   it("H2: interests=['coding'] renders ONLY coding tools (no writing/research)", () => {
@@ -121,15 +122,13 @@ describe("HomePage", () => {
     expect(screen.queryByText("Midjourney")).not.toBeInTheDocument()
   })
 
-  it("H4: every rendered card shows 'Recommended because you picked Coding' (display name, not slug)", () => {
+  it("H4: every rendered card shows 'Because you picked Coding' (display name, not slug)", () => {
     seedRealUser(["coding"])
     renderHome()
-    // The "Coding" capitalized display name appears once per coding tool (5 of them).
-    const matches = screen.getAllByText(
-      /Recommended because you picked/i,
-    )
+    // Phase 4 polish: shortened to "Because you picked X" with Sparkles icon.
+    const matches = screen.getAllByText(/Because you picked/i)
     expect(matches.length).toBeGreaterThanOrEqual(5)
-    // Match the literal display name, not the lowercase slug.
+    // The display name "Coding" appears in the card body and also in category badges.
     const displayNameMatches = screen.getAllByText("Coding")
     expect(displayNameMatches.length).toBeGreaterThanOrEqual(5)
   })

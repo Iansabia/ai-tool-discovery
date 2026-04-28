@@ -6,6 +6,7 @@
 
 import { useState } from "react"
 import { Link } from "react-router"
+import { UserCircle2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -39,10 +40,14 @@ export default function ProfilePage() {
   return (
     <section className="container mx-auto px-4 py-8 max-w-3xl" data-testid="page-profile">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold">Profile</h1>
+        <p className="text-sm uppercase tracking-widest text-muted-foreground inline-flex items-center gap-1.5">
+          <UserCircle2 className="h-3.5 w-3.5 text-primary" />
+          Account
+        </p>
+        <h1 className="mt-2 text-4xl font-bold tracking-tight">Profile</h1>
       </header>
 
-      <Card className="mb-6">
+      <Card className="glass-card border mb-6">
         <CardContent className="p-6">
           <div className="flex items-start justify-between mb-4">
             <h2 className="text-xl font-semibold">Identity</h2>
@@ -76,7 +81,7 @@ export default function ProfilePage() {
         </CardContent>
       </Card>
 
-      <Card className="mb-6">
+      <Card className="glass-card border mb-6">
         <CardContent className="p-6">
           <h2 className="text-xl font-semibold mb-4">Preferences</h2>
           <div className="mb-4">
@@ -116,7 +121,7 @@ export default function ProfilePage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="glass-card border">
         <CardContent className="p-6 space-y-6">
           <h2 className="text-xl font-semibold">My Activity</h2>
 

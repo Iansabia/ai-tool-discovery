@@ -1,20 +1,9 @@
 // src/features/tools/components/ToolCard.tsx
-// Phase 3 / Plan 03-01 — canonical tool card component.
-//
-// Single rendering primitive every list in Phase 3 uses (search, categories,
-// favorites, rankings, home). Renders logo + name + tagline + pricing badge +
-// category chip + favorite heart. Click-through to /tools/{slug}.
-//
-// Auth coupling: uses useAuth() (NOT useAuthStore directly) for userId.
-// Favorite write: wraps useFavoritesStore.toggle in withToast for consistent
-// "Added to favorites" / "Removed from favorites" wording.
-//
-// When signed out (userId === null), the heart is disabled — we never persist
-// favorites under a null userId.
+// Phase 3 / Plan 03-01 + Phase 4 polish — glass tool card with category icon.
 
 import * as React from "react"
 import { Link } from "react-router"
-import { Heart } from "lucide-react"
+import { Heart, Star, Sparkles } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -22,66 +11,86 @@ import { cn } from "@/lib/utils"
 import { useAuth } from "@/features/auth/hooks/useAuth"
 import { useFavoritesStore } from "@/features/tools/store"
 import { withToast } from "@/lib/withToast"
+import { CategoryIcon } from "@/lib/category-icon"
+import { CATEGORIES } from "@/data/categories"
 import type { Tool } from "@/types"
 
 export interface ToolCardProps {
   tool: Tool
-  /**
-   * Optional context line (e.g. "Recommended because you picked Writing").
-   * Rendered between the tagline row and the badges row when present.
-   * Used by /home recommendations; absent on /search, /categories, /favorites.
-   */
   recommendedBecause?: string
 }
 
 export function ToolCard({ tool, recommendedBecause }: ToolCardProps) {
   const { userId } = useAuth()
+  const effectiveUserId = userId ?? "guest"
   const isFav = useFavoritesStore((s) =>
-    userId ? s.isFavorite(userId, tool.slug) : false,
+    s.isFavorite(effectiveUserId, tool.slug),
   )
+  const categoryName =
+    CATEGORIES.find((c) => c.slug === tool.category)?.name ?? tool.category
 
   const onToggleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // Prevent navigation: even though the button sits outside the <Link>, we
-    // belt-and-suspenders against future layouts that nest it inside.
     e.preventDefault()
     e.stopPropagation()
-    if (!userId) return // signed-out — no-op (button is also disabled)
     const next = !isFav
     withToast(
-      () => useFavoritesStore.getState().toggle(userId, tool.slug),
+      () => useFavoritesStore.getState().toggle(effectiveUserId, tool.slug),
       { success: next ? "Added to favorites" : "Removed from favorites" },
     )()
   }
 
   return (
-    <Card className="relative">
+    <Card className="relative group glass-card border h-full">
       <Link
         to={`/tools/${tool.slug}`}
-        className="block rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="block rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring h-full"
       >
-        <CardContent className="flex flex-col gap-2 p-4">
-          <div className="flex items-center gap-3">
-            <img
-              src={tool.logo}
-              alt={tool.name}
-              className="h-10 w-10 rounded"
-            />
+        <CardContent className="flex flex-col gap-3 p-5 h-full">
+          <div className="flex items-start gap-3">
+            <div className="relative shrink-0">
+              <img
+                src={tool.logo}
+                alt=""
+                className="h-12 w-12 rounded-xl ring-1 ring-inset ring-border bg-white"
+              />
+            </div>
             <div className="min-w-0 flex-1">
-              <div className="truncate font-semibold">{tool.name}</div>
-              <div className="truncate text-sm text-muted-foreground">
+              <div className="truncate font-semibold leading-tight">
+                {tool.name}
+              </div>
+              <div className="line-clamp-2 text-sm text-muted-foreground mt-1">
                 {tool.tagline}
               </div>
             </div>
           </div>
+
           {recommendedBecause && (
-            <div className="text-xs text-muted-foreground">
-              Recommended because you picked{" "}
-              <span className="font-medium">{recommendedBecause}</span>
+            <div className="inline-flex items-center gap-1.5 text-xs text-primary">
+              <Sparkles className="h-3 w-3" />
+              <span className="text-muted-foreground">
+                Because you picked{" "}
+                <span className="font-medium text-foreground">
+                  {recommendedBecause}
+                </span>
+              </span>
             </div>
           )}
-          <div className="flex items-center gap-2">
-            <Badge variant="secondary">{tool.pricing}</Badge>
-            <Badge variant="outline">{tool.category}</Badge>
+
+          <div className="mt-auto flex items-center gap-2 flex-wrap">
+            <Badge variant="secondary" className="font-medium">
+              {tool.pricing}
+            </Badge>
+            <Badge variant="outline" className="gap-1">
+              <CategoryIcon
+                slug={tool.category}
+                className="h-3 w-3"
+              />
+              {categoryName}
+            </Badge>
+            <span className="ml-auto inline-flex items-center gap-0.5 text-xs text-muted-foreground">
+              <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+              {tool.rating.toFixed(1)}
+            </span>
           </div>
         </CardContent>
       </Link>
@@ -96,10 +105,14 @@ export function ToolCard({ tool, recommendedBecause }: ToolCardProps) {
         }
         aria-pressed={isFav}
         onClick={onToggleFavorite}
-        disabled={!userId}
-        className="absolute top-2 right-2"
+        className="absolute top-3 right-3 h-8 w-8 backdrop-blur-sm bg-background/60 hover:bg-background/90"
       >
-        <Heart className={cn("h-5 w-5", isFav && "fill-current")} />
+        <Heart
+          className={cn(
+            "h-4 w-4 transition-colors",
+            isFav && "fill-rose-500 text-rose-500",
+          )}
+        />
       </Button>
     </Card>
   )

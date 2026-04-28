@@ -94,18 +94,19 @@ describe("ToolCard", () => {
     expect(screen.getByText("Freemium")).toBeInTheDocument()
   })
 
-  it("TC2: renders a logo image with src=tool.logo and alt=tool.name", () => {
+  it("TC2: renders a logo image with src=tool.logo (alt is decorative empty)", () => {
     setGuestSession()
     renderCard()
-    const img = screen.getByAltText("Claude") as HTMLImageElement
+    const img = document.querySelector("img[src='/logo-stub.svg']") as HTMLImageElement
+    expect(img).toBeTruthy()
     expect(img.tagName).toBe("IMG")
-    expect(img.getAttribute("src")).toBe("/logo-stub.svg")
   })
 
-  it("TC3: renders the category as a small chip/badge", () => {
+  it("TC3: renders the category display name (Writing) as a chip/badge", () => {
     setGuestSession()
     renderCard()
-    expect(screen.getByText("writing")).toBeInTheDocument()
+    // After Phase 4 polish: shows display name "Writing" not slug "writing"
+    expect(screen.getByText("Writing")).toBeInTheDocument()
   })
 
   it("TC4: card title sits inside a <Link> to /tools/{slug}", () => {
@@ -174,16 +175,17 @@ describe("ToolCard", () => {
     expect(toast.success).toHaveBeenCalledWith("Added to favorites")
   })
 
-  it("TC10: when userId is null (signed out), heart click is a no-op", async () => {
+  it("TC10: when userId is null (signed out), heart click writes under 'guest' userId", async () => {
+    // Phase 4 polish: instead of disabling, signed-out clicks scope to "guest"
+    // (consistent with the rest of the app's guest-mode behavior).
     setSignedOut()
     const user = userEvent.setup()
     renderCard()
     const heart = screen.getByRole("button", { name: /favorite/i })
-    expect(heart).toBeDisabled() // disabled when signed out
+    expect(heart).not.toBeDisabled()
     await user.click(heart)
-    expect(toast.success).not.toHaveBeenCalled()
-    // No favorite written under any userId
-    expect(useFavoritesStore.getState().data).toEqual({})
+    expect(toast.success).toHaveBeenCalledWith("Added to favorites")
+    expect(useFavoritesStore.getState().isFavorite("guest", "claude")).toBe(true)
   })
 
   it("TC10b: real-user session — heart writes under real userId, not 'guest'", async () => {
