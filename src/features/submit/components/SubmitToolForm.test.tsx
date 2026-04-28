@@ -26,46 +26,45 @@ function setup() {
 }
 
 describe("SubmitToolForm", () => {
-  it("ST1: name is required (validation error)", async () => {
+  // Phase 4 demo polish: form ships with example default values so the user
+  // can submit immediately during a recording. Validation tests below clear
+  // the prefilled fields before asserting empty-field errors.
+
+  it("ST1: name is required (validation error after clearing the prefilled name)", async () => {
     setup()
     const user = userEvent.setup()
+    await user.clear(screen.getByLabelText(/tool name/i))
     await user.click(screen.getByRole("button", { name: /submit for review/i }))
     expect(await screen.findByText(/tool name is required/i)).toBeTruthy()
   })
 
-  it("ST2: URL must be valid", async () => {
+  it("ST2: URL must be valid (after replacing the prefilled URL with garbage)", async () => {
     setup()
     const user = userEvent.setup()
-    await user.type(screen.getByLabelText(/tool name/i), "Test Tool")
+    await user.clear(screen.getByLabelText(/^url$/i))
     await user.type(screen.getByLabelText(/^url$/i), "not-a-url")
     await user.click(screen.getByRole("button", { name: /submit for review/i }))
     expect(await screen.findByText(/must be a valid url/i)).toBeTruthy()
   })
 
-  it("ST3: description is required", async () => {
+  it("ST3: description is required (after clearing the prefilled description)", async () => {
     setup()
     const user = userEvent.setup()
-    await user.type(screen.getByLabelText(/tool name/i), "Test Tool")
-    await user.type(screen.getByLabelText(/^url$/i), "https://example.com")
+    await user.clear(screen.getByLabelText(/description/i))
     await user.click(screen.getByRole("button", { name: /submit for review/i }))
     expect(await screen.findByText(/description is required/i)).toBeTruthy()
   })
 
-  it("ST4: successful submit persists to store + toasts + navigates to /submit/success", async () => {
+  it("ST4: prefilled defaults submit cleanly — persists, toasts, navigates", async () => {
     setup()
     const user = userEvent.setup()
-    await user.type(screen.getByLabelText(/tool name/i), "Awesome Tool")
-    await user.type(screen.getByLabelText(/^url$/i), "https://awesome.example.com")
-    // Pick a category from the Select
-    await user.click(screen.getByRole("combobox"))
-    await user.click(await screen.findByRole("option", { name: /writing/i }))
-    await user.type(screen.getByLabelText(/description/i), "A fantastic AI tool for writing.")
+    // No typing needed — the form ships with valid example values for demo.
     await user.click(screen.getByRole("button", { name: /submit for review/i }))
     expect(await screen.findByText("Tool submitted for review")).toBeTruthy()
     expect(await screen.findByTestId("success-page")).toBeTruthy()
     const list = useSubmissionStore.getState().listByUser("guest")
     expect(list).toHaveLength(1)
-    expect(list[0]!.name).toBe("Awesome Tool")
+    expect(list[0]!.name).toBe("Notion Calendar")
     expect(list[0]!.status).toBe("pending")
   })
 })

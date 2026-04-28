@@ -44,14 +44,18 @@ export function SubmitToolForm() {
   const { userId } = useAuth()
   const effectiveUserId = userId ?? "guest"
 
+  // Demo-friendly default values so the user can submit immediately during the
+  // recording without typing. Reset on success so a second submission starts
+  // from blank.
   const form = useForm<SubmitInput>({
     resolver: zodResolver(submitSchema),
     defaultValues: {
-      name: "",
-      url: "",
-      category: "",
-      description: "",
-      tags: "",
+      name: "Notion Calendar",
+      url: "https://notion.so/product/calendar",
+      category: "productivity",
+      description:
+        "AI-aware calendar from Notion that connects to Google Calendar, surfaces meeting context from your workspace, and schedules around your tasks.",
+      tags: "calendar, scheduling, notion, productivity",
     },
   })
 

@@ -1,0 +1,88 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "AI Tools" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+          - generic [ref=e11]: AI Tools
+        - navigation "Primary" [ref=e12]:
+          - link "Categories" [ref=e13] [cursor=pointer]:
+            - /url: /categories
+            - img [ref=e14]
+            - text: Categories
+          - link "Rankings" [ref=e19] [cursor=pointer]:
+            - /url: /rankings
+            - img [ref=e20]
+            - text: Rankings
+          - link "Submit" [ref=e26] [cursor=pointer]:
+            - /url: /submit
+            - img [ref=e27]
+            - text: Submit
+        - searchbox "Search tools" [ref=e30]
+        - generic [ref=e31]:
+          - link "Sign in" [ref=e32] [cursor=pointer]:
+            - /url: /signin
+          - link "Sign up" [ref=e33] [cursor=pointer]:
+            - /url: /signup
+          - 'button "Theme: system (click to cycle)" [ref=e34]':
+            - img
+    - main [ref=e35]:
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - generic [ref=e39]:
+            - img
+            - text: Built by students, for students
+          - heading "Discover the best AI tools for any task" [level=1] [ref=e40]
+          - paragraph [ref=e41]: Search, compare, and review thousands of AI tools — powered by the community.
+          - generic [ref=e42]:
+            - link "Get started — free" [ref=e43] [cursor=pointer]:
+              - /url: /signup
+              - img
+              - text: Get started — free
+            - link "Browse tools" [ref=e44] [cursor=pointer]:
+              - /url: /categories
+              - text: Browse tools
+              - img
+            - link "Skip to demo" [ref=e45] [cursor=pointer]:
+              - /url: /signin
+        - generic [ref=e46]:
+          - paragraph [ref=e47]: Trusted by students at
+          - generic [ref=e48]:
+            - generic [ref=e49]: Boston University
+            - generic [ref=e50]: MIT
+            - generic [ref=e51]: Northeastern
+            - generic [ref=e52]: Harvard
+            - generic [ref=e53]: Tufts
+            - generic [ref=e54]: Wellesley
+        - generic [ref=e55]:
+          - generic [ref=e57]:
+            - img [ref=e59]
+            - generic [ref=e62]: Discover
+            - paragraph [ref=e63]: 50+ AI tools across 10 categories. Find the right one fast.
+          - generic [ref=e65]:
+            - img [ref=e67]
+            - generic [ref=e69]: Compare
+            - paragraph [ref=e70]: Side-by-side, refreshable URLs, every difference highlighted.
+          - generic [ref=e72]:
+            - img [ref=e74]
+            - generic [ref=e79]: Community
+            - paragraph [ref=e80]: Real reviews, transparent rankings, no paid placements.
+    - contentinfo [ref=e81]:
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - img [ref=e86]
+          - generic [ref=e89]: AI Tools
+          - generic [ref=e90]: UI/UX Final · Boston University
+        - navigation [ref=e91]:
+          - link "Categories" [ref=e92] [cursor=pointer]:
+            - /url: /categories
+          - link "Rankings" [ref=e93] [cursor=pointer]:
+            - /url: /rankings
+          - link "Submit a tool" [ref=e94] [cursor=pointer]:
+            - /url: /submit
+          - link "Source" [ref=e95] [cursor=pointer]:
+            - /url: https://github.com
+            - img [ref=e96]
+            - text: Source
+  - region "Notifications alt+T"
