@@ -3,7 +3,15 @@
 // Phase 4 / polish — sticky liquid-glass + icon-led brand.
 import { Link, NavLink, useNavigate } from "react-router"
 import { toast } from "sonner"
-import { Sparkles, LayoutGrid, Trophy, SearchIcon, LogOut, UserCircle2 } from "lucide-react"
+import {
+  Sparkles,
+  LayoutGrid,
+  Trophy,
+  LogOut,
+  UserCircle2,
+  Heart,
+  Plus,
+} from "lucide-react"
 import { ThemeToggle } from "@/components/theme/ThemeToggle"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/features/auth/hooks/useAuth"
@@ -50,9 +58,15 @@ export function Header() {
             <Trophy className="h-4 w-4" aria-hidden="true" />
             Rankings
           </NavLink>
-          <NavLink to="/search" className={navLinkClass}>
-            <SearchIcon className="h-4 w-4" aria-hidden="true" />
-            Search
+          {isAuthenticated && (
+            <NavLink to="/favorites" className={navLinkClass}>
+              <Heart className="h-4 w-4" aria-hidden="true" />
+              Favorites
+            </NavLink>
+          )}
+          <NavLink to="/submit" className={navLinkClass}>
+            <Plus className="h-4 w-4" aria-hidden="true" />
+            Submit
           </NavLink>
         </nav>
 

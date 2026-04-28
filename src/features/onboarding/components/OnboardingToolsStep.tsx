@@ -88,7 +88,7 @@ export function OnboardingToolsStep() {
           <Button variant="ghost" onClick={onSkip}>
             Skip
           </Button>
-          <Button onClick={onFinish}>Finish</Button>
+          <Button onClick={onFinish}>Get started</Button>
         </div>
       </div>
     </div>

@@ -65,7 +65,7 @@ describe("OnboardingToolsStep", () => {
   it("Finish is enabled even with 0 tools selected (tools are optional, 0 to 50)", async () => {
     await setupAuth()
     setup("/onboarding/tools")
-    expect(screen.getByRole("button", { name: /^finish$/i })).not.toBeDisabled()
+    expect(screen.getByRole("button", { name: /^get started$/i })).not.toBeDisabled()
   })
 
   it("Finish writes interests + selectedTools to user record via authStore.completeOnboarding and routes to /home (ONBO-05)", async () => {
@@ -77,7 +77,7 @@ describe("OnboardingToolsStep", () => {
     setup("/onboarding/tools")
     const user = userEvent.setup()
     await user.click(screen.getByRole("button", { name: /^claude$/i }))
-    await user.click(screen.getByRole("button", { name: /^finish$/i }))
+    await user.click(screen.getByRole("button", { name: /^get started$/i }))
     expect(await screen.findByText("HOME")).toBeTruthy()
     const updated = useUsersStore.getState().findById(u.id)!
     expect(updated.interests).toEqual(expect.arrayContaining(["writing", "coding"]))
@@ -128,7 +128,7 @@ describe("OnboardingToolsStep", () => {
     useOnboardingStore.getState().toggleInterest("writing")
     setup("/onboarding/tools")
     const user = userEvent.setup()
-    await user.click(screen.getByRole("button", { name: /^finish$/i }))
+    await user.click(screen.getByRole("button", { name: /^get started$/i }))
     expect(await screen.findByText("HOME")).toBeTruthy()
     // Guest user record was created with the picked interest.
     const guest = useUsersStore.getState().findById("guest")
