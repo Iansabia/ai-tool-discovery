@@ -1,7 +1,7 @@
 // src/components/layout/Footer.tsx
 // Phase 1 / Plan 01-04 + Phase 4 polish — glass footer with brand mark.
 import { Link } from "react-router"
-import { Sparkles, Code2, Heart } from "lucide-react"
+import { Sparkles, Code2 } from "lucide-react"
 
 export function Footer() {
   return (
@@ -38,9 +38,6 @@ export function Footer() {
             </a>
           </nav>
         </div>
-        <p className="mt-6 text-xs text-muted-foreground inline-flex items-center gap-1">
-          Made with <Heart className="h-3 w-3 fill-rose-500 text-rose-500" /> for the Class of 2026
-        </p>
       </div>
     </footer>
   )
