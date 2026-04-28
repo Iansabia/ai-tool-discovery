@@ -78,6 +78,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "writing",
     categories: ["writing", "coding", "research", "productivity"],
     pricing: "Freemium",
+    priceLabel: "Free + $20/mo",
     features: [
       "GPT-5 + GPT-4o models",
       "Voice and image input",
@@ -98,6 +99,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "writing",
     categories: ["writing", "coding", "research", "productivity"],
     pricing: "Freemium",
+    priceLabel: "Free + $20/mo",
     features: [
       "Sonnet 4.x + Opus 4 + Haiku",
       "Up to 1M token context window",
@@ -118,6 +120,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "writing",
     categories: ["writing", "marketing"],
     pricing: "Paid",
+    priceLabel: "$49/seat/mo+",
     features: [
       "Brand voice memory",
       "60+ marketing templates",
@@ -138,6 +141,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "writing",
     categories: ["writing", "marketing"],
     pricing: "Freemium",
+    priceLabel: "Free + $49/mo",
     features: [
       "90+ copy templates",
       "Workflow automations",
@@ -158,6 +162,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "writing",
     categories: ["writing", "productivity"],
     pricing: "Freemium",
+    priceLabel: "Free + $12/mo",
     features: [
       "Real-time grammar + spelling",
       "Tone detector",
@@ -180,6 +185,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "coding",
     categories: ["coding"],
     pricing: "Freemium",
+    priceLabel: "Free + $20/mo",
     features: [
       "Composer multi-file edits",
       "Agent mode (autonomous tasks)",
@@ -200,6 +206,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "coding",
     categories: ["coding"],
     pricing: "Freemium",
+    priceLabel: "Free + $10/mo",
     features: [
       "Inline completions in 8+ IDEs",
       "Chat with codebase awareness",
@@ -220,6 +227,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "coding",
     categories: ["coding"],
     pricing: "Freemium",
+    priceLabel: "Free + $15/seat/mo",
     features: [
       "Unlimited free autocomplete",
       "70+ languages",
@@ -240,6 +248,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "coding",
     categories: ["coding"],
     pricing: "Freemium",
+    priceLabel: "Free + $12/seat/mo",
     features: [
       "Self-hosted / on-prem deployment",
       "Zero data retention guarantees",
@@ -260,6 +269,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "coding",
     categories: ["coding", "productivity"],
     pricing: "Freemium",
+    priceLabel: "Free + $25/mo",
     features: [
       "Replit Agent (autonomous full-app build)",
       "Cloud IDE with collaborative coding",
@@ -282,6 +292,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "research",
     categories: ["research", "writing"],
     pricing: "Freemium",
+    priceLabel: "Free + $20/mo",
     features: [
       "Inline citations on every answer",
       "Follow-up question suggestions",
@@ -302,6 +313,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "research",
     categories: ["research"],
     pricing: "Freemium",
+    priceLabel: "Free + $12/mo",
     features: [
       "125M+ paper index",
       "Auto-extract into tables",
@@ -322,6 +334,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "research",
     categories: ["research"],
     pricing: "Freemium",
+    priceLabel: "Free + $9/mo",
     features: [
       "Consensus Meter on results",
       "Yes/No effect-direction tags",
@@ -342,6 +355,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "research",
     categories: ["research"],
     pricing: "Free",
+    priceLabel: "Free",
     features: [
       "200M+ paper index",
       "TLDR auto-summaries",
@@ -362,6 +376,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "research",
     categories: ["research"],
     pricing: "Paid",
+    priceLabel: "$20/mo",
     features: [
       "Smart Citations (support/contrast/mention)",
       "Citation context excerpts",
@@ -384,6 +399,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "image",
     categories: ["image", "design"],
     pricing: "Paid",
+    priceLabel: "$10/mo+",
     features: [
       "Midjourney v7 model",
       "Style and Character References",
@@ -404,6 +420,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "image",
     categories: ["image"],
     pricing: "Paid",
+    priceLabel: "Bundled with $20/mo ChatGPT Plus",
     features: [
       "DALL-E 3 + GPT-4o image",
       "ChatGPT-integrated editing",
@@ -424,6 +441,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "image",
     categories: ["image"],
     pricing: "Free",
+    priceLabel: "Free (open source)",
     features: [
       "SDXL + SD 3.5 open weights",
       "Run locally on your GPU",
@@ -444,6 +462,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "image",
     categories: ["image", "design"],
     pricing: "Freemium",
+    priceLabel: "Free + $12/mo",
     features: [
       "Realtime Canvas (live edit)",
       "Game-asset model variants",
@@ -464,6 +483,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "image",
     categories: ["image", "design"],
     pricing: "Freemium",
+    priceLabel: "Free + $8/mo",
     features: [
       "Ideogram v3 model",
       "Reliable in-image text rendering",
@@ -486,6 +506,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "audio",
     categories: ["audio"],
     pricing: "Freemium",
+    priceLabel: "Free + $5/mo",
     features: [
       "Instant voice cloning",
       "70+ languages",
@@ -506,6 +527,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "audio",
     categories: ["audio"],
     pricing: "Freemium",
+    priceLabel: "Free + $10/mo",
     features: [
       "Suno v4 model",
       "Full songs with AI vocals",
@@ -526,6 +548,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "audio",
     categories: ["audio"],
     pricing: "Freemium",
+    priceLabel: "Free + $10/mo",
     features: [
       "Strong vocal clarity",
       "Style anchoring on references",
@@ -546,6 +569,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "audio",
     categories: ["audio", "productivity"],
     pricing: "Free",
+    priceLabel: "Free (open source) · $0.006/min API",
     features: [
       "99 language support",
       "Open-source weights (MIT)",
@@ -566,6 +590,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "audio",
     categories: ["audio", "video", "productivity"],
     pricing: "Freemium",
+    priceLabel: "Free + $16/mo",
     features: [
       "Transcript-based editing",
       "Overdub voice cloning",
@@ -588,6 +613,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "video",
     categories: ["video"],
     pricing: "Freemium",
+    priceLabel: "Free + $15/mo",
     features: [
       "Gen-4 (text- and image-to-video)",
       "Act-One performance transfer",
@@ -608,6 +634,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "video",
     categories: ["video"],
     pricing: "Freemium",
+    priceLabel: "Free + $10/mo",
     features: [
       "Pika 2.x model",
       "Pikaeffects (built-in effects)",
@@ -628,6 +655,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "video",
     categories: ["video", "marketing"],
     pricing: "Paid",
+    priceLabel: "$29/mo+",
     features: [
       "230+ stock AI avatars",
       "140+ languages and accents",
@@ -648,6 +676,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "video",
     categories: ["video", "marketing"],
     pricing: "Freemium",
+    priceLabel: "Free + $24/mo",
     features: [
       "Instant video translation + lip-sync",
       "Avatar IV (photo to talking head)",
@@ -668,6 +697,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "video",
     categories: ["video", "marketing"],
     pricing: "Freemium",
+    priceLabel: "Free + $19/mo",
     features: [
       "Auto-shorts from long video",
       "AI captions with brand styling",
@@ -690,6 +720,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "productivity",
     categories: ["productivity", "writing"],
     pricing: "Paid",
+    priceLabel: "$10/seat/mo add-on (or bundled in Business)",
     features: [
       "Q&A across whole workspace",
       "Summarize and rewrite in-line",
@@ -710,6 +741,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "productivity",
     categories: ["productivity"],
     pricing: "Paid",
+    priceLabel: "$19/mo+",
     features: [
       "Auto-schedule tasks into calendar",
       "Project planning with AI deadlines",
@@ -730,6 +762,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "productivity",
     categories: ["productivity"],
     pricing: "Freemium",
+    priceLabel: "Free + $10/seat/mo",
     features: [
       "Smart 1:1s (auto-reschedule)",
       "Habit blocks (Reclaim time)",
@@ -750,6 +783,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "productivity",
     categories: ["productivity", "writing"],
     pricing: "Freemium",
+    priceLabel: "Free + $10/mo",
     features: [
       "Self-organizing notes",
       "Mem Chat across all notes",
@@ -770,6 +804,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "productivity",
     categories: ["productivity", "writing"],
     pricing: "Freemium",
+    priceLabel: "Free + $8/mo",
     features: [
       "Custom AI agents",
       "Mind maps + outlines + kanban",
@@ -792,6 +827,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "design",
     categories: ["design"],
     pricing: "Freemium",
+    priceLabel: "Bundled with paid Figma plans",
     features: [
       "Make Designs (prompt → frame)",
       "Visual Search across files",
@@ -812,6 +848,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "design",
     categories: ["design"],
     pricing: "Freemium",
+    priceLabel: "Free + $5/mo",
     features: [
       "Prompt → full responsive site",
       "Visual editor (no-code)",
@@ -832,6 +869,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "design",
     categories: ["design"],
     pricing: "Freemium",
+    priceLabel: "Free + $19/mo",
     features: [
       "Sketch-to-UI conversion",
       "Screenshot-to-UI",
@@ -852,6 +890,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "design",
     categories: ["design"],
     pricing: "Freemium",
+    priceLabel: "Free + paid plans",
     features: [
       "Text-to-UI generation",
       "Figma export with components",
@@ -872,6 +911,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "design",
     categories: ["design", "image"],
     pricing: "Freemium",
+    priceLabel: "Free + $12/mo",
     features: [
       "Native vector / SVG output",
       "Brand styles (consistent look)",
@@ -894,6 +934,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "data",
     categories: ["data", "productivity"],
     pricing: "Freemium",
+    priceLabel: "Free + $20/mo",
     features: [
       "Chat with CSVs and databases",
       "Auto-generate charts and tables",
@@ -914,6 +955,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "data",
     categories: ["data", "productivity"],
     pricing: "Freemium",
+    priceLabel: "Free + $8/seat/mo",
     features: [
       "AI formulas (=ASK, =CLASSIFY)",
       "50+ data integrations",
@@ -934,6 +976,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "data",
     categories: ["data", "productivity"],
     pricing: "Freemium",
+    priceLabel: "Free + $19/mo",
     features: [
       "AI formulas in Sheets / Excel",
       "Bulk categorization and extraction",
@@ -954,6 +997,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "data",
     categories: ["data", "marketing"],
     pricing: "Paid",
+    priceLabel: "$49/mo+",
     features: [
       "No-code ML model training",
       "Predictive forecasting",
@@ -974,6 +1018,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "data",
     categories: ["data", "marketing"],
     pricing: "Paid",
+    priceLabel: "$99/mo+",
     features: [
       "AutoML with explanations",
       "Plain-language predictions",
@@ -996,6 +1041,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "marketing",
     categories: ["marketing"],
     pricing: "Paid",
+    priceLabel: "$69/seat/mo+",
     features: [
       "Campaign briefs and outputs",
       "Brand voice memory (multi-brand)",
@@ -1016,6 +1062,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "marketing",
     categories: ["marketing"],
     pricing: "Freemium",
+    priceLabel: "Free CRM + bundled into HubSpot plans",
     features: [
       "Breeze copilot across CRM",
       "Breeze Agents (autonomous)",
@@ -1036,6 +1083,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "marketing",
     categories: ["marketing", "writing"],
     pricing: "Paid",
+    priceLabel: "$89/mo+",
     features: [
       "SERP analyzer",
       "Surfer AI article generator",
@@ -1056,6 +1104,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "marketing",
     categories: ["marketing"],
     pricing: "Paid",
+    priceLabel: "$49/seat/mo+",
     features: [
       "GTM workflow automation",
       "Account research and intent",
@@ -1076,6 +1125,7 @@ export const TOOLS: ReadonlyArray<Tool> = [
     category: "writing",
     categories: ["writing", "marketing"],
     pricing: "Freemium",
+    priceLabel: "Free + $7.50/mo",
     features: [
       "40+ copy templates",
       "30+ languages",

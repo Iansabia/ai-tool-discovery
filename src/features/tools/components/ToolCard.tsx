@@ -77,8 +77,8 @@ export function ToolCard({ tool, recommendedBecause }: ToolCardProps) {
           )}
 
           <div className="mt-auto flex items-center gap-2 flex-wrap">
-            <Badge variant="secondary" className="font-medium">
-              {tool.pricing}
+            <Badge variant="secondary" className="font-medium" title={tool.priceLabel}>
+              {tool.priceLabel}
             </Badge>
             <Badge variant="outline" className="gap-1">
               <CategoryIcon

@@ -10,6 +10,7 @@ const baseTool = (slug: string, name: string, overrides: Partial<Tool> = {}): To
   description: "y",
   category: "writing",
   categories: ["writing"],
+  priceLabel: "Free",
   pricing: "Free",
   features: [],
   url: "https://example.com",

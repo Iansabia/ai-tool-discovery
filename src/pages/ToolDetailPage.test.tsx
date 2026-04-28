@@ -67,7 +67,8 @@ describe("ToolDetailPage", () => {
     expect(
       screen.getByText(/Anthropic's assistant/i),
     ).toBeInTheDocument()
-    expect(screen.getByText("Freemium")).toBeInTheDocument()
+    // Phase 4 polish: badge now shows the concrete priceLabel ("Free + $20/mo") not just the tier.
+    expect(screen.getByText(/Free \+ \$20\/mo/)).toBeInTheDocument()
   })
 
   it("TD2: /tools/cursor renders Cursor's content and does NOT mention Claude", () => {
@@ -84,7 +85,8 @@ describe("ToolDetailPage", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: "Midjourney" }),
     ).toBeInTheDocument()
-    expect(screen.getByText("Paid")).toBeInTheDocument()
+    // Phase 4 polish: badge shows priceLabel ("$10/mo+") not the tier.
+    expect(screen.getByText(/\$10\/mo\+/)).toBeInTheDocument()
   })
 
   it("TD4: /tools/nonexistent-slug renders the NotFound state, not a fallback tool", () => {

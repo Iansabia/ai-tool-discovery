@@ -166,7 +166,8 @@ interface AuthState {
   }): Promise<SignUpResult>
   signIn(email: string, password: string): Promise<SignInResult>
   signOut(): void
-  continueAsGuest(): void
+  continueAsGuest(): Promise<void>
+
   /** Slide-refresh the current session if it has < 25 days remaining; clear if expired. */
   touchSession(): void
   isAuthenticated(): boolean
@@ -290,7 +291,18 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     safeRemove(SESSION_KEY)
   },
 
-  continueAsGuest() {
+  async continueAsGuest() {
+    // Phase 4 polish: every "Continue as Guest" click resets guest state so a
+    // shared computer doesn't leak the previous guest's favorites / votes /
+    // reviews / submissions / onboarding selections to the next visitor.
+    await clearGuestData()
+    // Also drop the stub guest user record so interests/selectedTools start empty.
+    const usersBefore = useUsersStore.getState().users
+    if (usersBefore.some((u) => u.id === GUEST_USER_ID)) {
+      const usersNext = usersBefore.filter((u) => u.id !== GUEST_USER_ID)
+      useUsersStore.setState({ users: usersNext })
+      safeSet(USERS_KEY, usersNext, STORE_VERSION)
+    }
     const session = newSession(GUEST_USER_ID)
     set({ session })
     safeSet(SESSION_KEY, session, STORE_VERSION)

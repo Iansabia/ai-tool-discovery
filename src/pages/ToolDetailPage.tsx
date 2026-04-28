@@ -10,7 +10,6 @@ import {
   Columns2,
   Star,
   CheckCircle2,
-  ArrowLeft,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -109,13 +108,6 @@ export default function ToolDetailPage() {
       className="container mx-auto px-4 py-12"
       data-testid="page-tool-detail"
     >
-      <Button asChild variant="ghost" size="sm" className="mb-4 -ml-2">
-        <Link to="/categories">
-          <ArrowLeft className="h-4 w-4" />
-          All categories
-        </Link>
-      </Button>
-
       {/* Hero card */}
       <Card className="glass-card border mb-8">
         <CardContent className="p-6 sm:p-8">
@@ -134,7 +126,7 @@ export default function ToolDetailPage() {
               </p>
               <div className="flex items-center gap-2 mt-4 flex-wrap">
                 <Badge variant="secondary" className="font-medium">
-                  {tool.pricing}
+                  {tool.priceLabel}
                 </Badge>
                 {categoryNames.map((c) => (
                   <Link key={c.slug} to={`/categories/${c.slug}`}>

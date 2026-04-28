@@ -172,7 +172,7 @@ describe("useAuthStore", () => {
 
   it("A5: continueAsGuest sets a guest session with userId='guest' and 30-day expiry", async () => {
     const { useAuthStore } = await import("./store")
-    useAuthStore.getState().continueAsGuest()
+    await useAuthStore.getState().continueAsGuest()
     const s = useAuthStore.getState().session
     expect(s?.userId).toBe(GUEST_USER_ID)
     expect(s).not.toBeNull()
@@ -189,13 +189,13 @@ describe("useAuthStore", () => {
     expect(r.ok).toBe(true)
     const realUserId = useAuthStore.getState().session?.userId
     expect(realUserId).not.toBe(GUEST_USER_ID)
-    useAuthStore.getState().continueAsGuest()
+    await useAuthStore.getState().continueAsGuest()
     expect(useAuthStore.getState().session?.userId).toBe(GUEST_USER_ID)
   })
 
   it("A7a: touchSession does NOT change expiry when remaining > 25 days (just-issued session)", async () => {
     const { useAuthStore } = await import("./store")
-    useAuthStore.getState().continueAsGuest() // fresh 30d session
+    await useAuthStore.getState().continueAsGuest() // fresh 30d session
     const before = useAuthStore.getState().session?.expiresAt
     useAuthStore.getState().touchSession()
     const after = useAuthStore.getState().session?.expiresAt
@@ -329,7 +329,7 @@ describe("useAuthStore", () => {
 
   it("A13b: completeOnboarding is a no-op for guest sessions (does not throw)", async () => {
     const { useAuthStore } = await import("./store")
-    useAuthStore.getState().continueAsGuest()
+    await useAuthStore.getState().continueAsGuest()
     expect(() =>
       useAuthStore.getState().completeOnboarding(["writing"], ["claude"]),
     ).not.toThrow()

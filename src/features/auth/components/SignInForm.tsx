@@ -52,9 +52,9 @@ export function SignInForm() {
     }
   }
 
-  function onGuest() {
-    continueAsGuest()
-    toast.success("Continuing as guest")
+  async function onGuest() {
+    await continueAsGuest()
+    toast.success("Continuing as guest (fresh session)")
     navigate(safeReturnTo, { replace: true })
   }
 

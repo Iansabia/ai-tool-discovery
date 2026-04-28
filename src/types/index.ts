@@ -67,7 +67,14 @@ export interface Tool {
    * and starts with `category`.
    */
   categories: readonly CategorySlug[]
+  /** Coarse pricing tier for filters/badges (Free / Freemium / Paid). */
   pricing: PricingTier
+  /**
+   * Human-readable concrete price label for the dominant plan, e.g. "Free",
+   * "$20/mo", "Free + $20/mo", "$49/seat/mo", "$10/mo+". This is what the UI
+   * actually shows on cards/detail pages — the enum just buckets it.
+   */
+  priceLabel: string
   features: readonly string[]
   url: string
   /** seed value 1.0–5.0; live aggregation merges with reviewStore in Phase 3 */

@@ -2,7 +2,7 @@
 // Phase 3 / Plan 03-02 + Phase 4 polish — category detail with icon hero.
 
 import { Link, useParams } from "react-router"
-import { ArrowLeft, LayoutGrid } from "lucide-react"
+import { LayoutGrid } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ToolCard } from "@/features/tools/components/ToolCard"
@@ -26,13 +26,6 @@ export default function CategoryDetailPage() {
       className="container mx-auto px-4 py-12"
       data-testid="page-category-detail"
     >
-      <Button asChild variant="ghost" size="sm" className="mb-4 -ml-2">
-        <Link to="/categories">
-          <ArrowLeft className="h-4 w-4" />
-          All categories
-        </Link>
-      </Button>
-
       <header className="mb-8 flex items-start gap-4">
         <div className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-primary/20 to-accent/15 ring-1 ring-inset ring-border">
           <CategoryIcon
